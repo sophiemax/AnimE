@@ -10,6 +10,7 @@
 #include <QGraphicsScene>
 #include <QColorDialog>
 #include <QGridLayout>
+#include <QScrollArea>
 #include "pixelscene.h"
 #include "pixel.h"
 #include "tool.h"
@@ -71,6 +72,8 @@ private slots:
 
     void transparencybuttonToggled(bool toggled);
 
+    void on_removeButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     ImportSettings *settings;
@@ -90,9 +93,12 @@ private:
     QGridLayout *layergrid;
     QString newname;
     QPushButton *activelayerButton;
+    QScrollArea *scroll;
     QWidget *container;
     QList<QPushButton*> layerbuttons;
     QList<QPushButton*> transparencybuttons;
+
+    void createLayerDisplay();
 
 };
 

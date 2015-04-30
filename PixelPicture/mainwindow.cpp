@@ -29,6 +29,8 @@ MainWindow::MainWindow(QWidget *parent) :
     renamelayer = new RenameLayer(this);
 
     animation = new AnimationTool(scene);
+
+    createLayerDisplay();
 }
 
 MainWindow::~MainWindow()
@@ -55,11 +57,9 @@ void MainWindow::createLayerDisplay()
     container->setFixedHeight(23*1);
     ui->gridLayout->addWidget(scroll, 0, 0);
 
-    //scroll->setGeometry(500,250,150,180);
     layergrid->setSpacing(0);
     layergrid->setVerticalSpacing(0);
     layergrid->setContentsMargins (0, 0, 0, 0);
-    //layergrid->setVerticalSpacing(2);
 
     QPushButton *transparency = new QPushButton("Tr");
     transparency->setFixedWidth(23);
@@ -256,23 +256,51 @@ void MainWindow::on_addlayerButton_clicked()
 
 void MainWindow::layoutbuttonClicked()
 {
-    int i = 0;
-    while(layerbuttons[i] != sender())
-        i++;
-    activelayerButton = layerbuttons[i];
-    scene->activeCanvas->activeLayer = scene->activeCanvas->layers[i];
+    int index = 0;
+    while(layerbuttons[index] != sender())
+        index++;
+    activelayerButton = layerbuttons[index];
+    scene->activeCanvas->activeLayer = scene->activeCanvas->layers[index];
     scene->updateScene();
 }
 
 void MainWindow::transparencybuttonToggled(bool toggled)
 {
-    int i = 0;
-    while(transparencybuttons[i] != sender())
-        i++;
-    transparencybuttons[i]->setChecked(toggled);
-    scene->activeCanvas->layers[i]->transparent = !toggled;
-    QTextStream(stdout) << i << endl;
-    QTextStream(stdout) << !toggled << endl;
+    int index = 0;
+    while(transparencybuttons[index] != sender())
+        index++;
+    transparencybuttons[index]->setChecked(toggled);
+    scene->activeCanvas->layers[index]->transparent = !toggled;
     scene->updateCombined();
     scene->updateScene();
+}
+
+void MainWindow::on_removeButton_clicked()
+{
+    if(layerbuttons.size() == 1)
+    {
+        scene->clearLayer();
+        layerbuttons[0]->setText("New Layer");
+        transparencybuttons[0]->setChecked(true);
+        scene->activeCanvas->activeLayer->transparent = false;
+    }
+    else
+    {
+        int index = layerbuttons.indexOf(activelayerButton);
+        if(index != 0)
+            scene->activeCanvas->activeLayer = scene->activeCanvas->layers[index-1];
+        else
+            scene->activeCanvas->activeLayer = scene->activeCanvas->layers[1];
+        scene->activeCanvas->layers.removeAt(index);
+        layerbuttons.removeAt(index);
+        transparencybuttons.removeAt(index);
+        for(int j = layerbuttons.size()-1; j >index-1; j--)
+        {
+            layergrid->addWidget(transparencybuttons[j],j,0);
+            layergrid->addWidget(layerbuttons[j],j,1);
+        }
+        scene->updateCombined();
+        scene->updateScene();
+        container->setFixedHeight(layerbuttons.size()*23);
+    }
 }
