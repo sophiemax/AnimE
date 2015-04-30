@@ -173,17 +173,27 @@ Pixel *PixelScene::containsPoint(float x, float y)
     return NULL;
 }
 
+//Megtalálja, és visszatér a legközelebbi pixellel.
 Pixel *PixelScene::nearestPixel(float x, float y)
 {
-    float min = (gapWidth + gapHeight), distx, disty, distance;
+    //A maximális távolság a pixelek között. A keresőalgoritmus finomítja.
+    float min = (gapWidth + gapHeight);
+    //Egyes pixelekkel számoláskor használt adatok:
+    float distx, disty, distance;
+    //A legközelebbi pixel
     Pixel *nearest;
+
+    //A scene összes pixele közül megkeressük azt amelyik legközelebb van.
     foreach(Pixel *p, pixels)
     {
         distx = p->rect.center().x()-x;
         disty = p->rect.center().y()-y;
         distance = sqrtf(distx*distx + disty*disty);
         if(distance < min)
+        {
+            min = distance;
             nearest = p;
+        }
     }
     return nearest;
 }

@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     imageconvertertool.cpp \
     videoconvertertool.cpp \
     videosurface.cpp \
-    renamelayer.cpp
+    renamelayer.cpp \
+    linetool.cpp
 
 HEADERS  += mainwindow.h \
     pixel.h \
@@ -48,7 +49,8 @@ HEADERS  += mainwindow.h \
     imageconvertertool.h \
     videoconvertertool.h \
     videosurface.h \
-    renamelayer.h
+    renamelayer.h \
+    linetool.h
 
 FORMS    += mainwindow.ui \
     importsettings.ui \
