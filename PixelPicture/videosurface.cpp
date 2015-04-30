@@ -22,6 +22,8 @@ QList<QVideoFrame::PixelFormat> VideoSurface::supportedPixelFormats(QAbstractVid
 
 bool VideoSurface::present(const QVideoFrame &frame)
 {
+    QMediaPlayer *player = new QMediaPlayer(sender());
+    QTextStream(stdout) << player->position() << endl;
     QVideoFrame currentframe = frame;
     if(currentframe.map(QAbstractVideoBuffer::ReadOnly))
     {
