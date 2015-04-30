@@ -12,6 +12,7 @@ public:
     ~Canvas();
 
     void addLayer(int i);
+    void switchLayers(int i, int j);
 
     QList<Layer*> layers;
     Layer* combinedLayer;

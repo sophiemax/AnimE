@@ -310,3 +310,55 @@ void MainWindow::on_removeButton_clicked()
         container->setFixedHeight(layerbuttons.size()*23);
     }
 }
+
+void MainWindow::on_moveupButton_clicked()
+{
+    int index = layerbuttons.indexOf(activelayerButton);
+    if(index != 0)
+    {
+        QPushButton* temp = layerbuttons[index-1];
+        layerbuttons[index-1] = layerbuttons[index];
+        layerbuttons[index] = temp;
+
+        temp = transparencybuttons[index-1];
+        transparencybuttons[index-1] = transparencybuttons[index];
+        transparencybuttons[index] = temp;
+
+        layergrid->addWidget(layerbuttons[index-1],index-1,1);
+        layergrid->addWidget(layerbuttons[index],index,1);
+
+        layergrid->addWidget(transparencybuttons[index-1],index-1,0);
+        layergrid->addWidget(transparencybuttons[index],index,0);
+
+        scene->activeCanvas->switchLayers(index-1,index);
+
+        scene->updateCombined();
+        scene->updateScene();
+    }
+}
+
+void MainWindow::on_movedownButton_clicked()
+{
+    int index = layerbuttons.indexOf(activelayerButton);
+    if(index != layerbuttons.size()-1)
+    {
+        QPushButton* temp = layerbuttons[index+1];
+        layerbuttons[index+1] = layerbuttons[index];
+        layerbuttons[index] = temp;
+
+        temp = transparencybuttons[index+1];
+        transparencybuttons[index+1] = transparencybuttons[index];
+        transparencybuttons[index] = temp;
+
+        layergrid->addWidget(layerbuttons[index+1],index+1,1);
+        layergrid->addWidget(layerbuttons[index],index,1);
+
+        layergrid->addWidget(transparencybuttons[index+1],index+1,0);
+        layergrid->addWidget(transparencybuttons[index],index,0);
+
+        scene->activeCanvas->switchLayers(index+1,index);
+
+        scene->updateCombined();
+        scene->updateScene();
+    }
+}

@@ -17,7 +17,14 @@ Canvas::~Canvas()
 
 void Canvas::addLayer(int i)
 {
-    Layer* l = new Layer(pixelNumber);
+    Layer *l = new Layer(pixelNumber);
     activeLayer = l;
     layers.insert(i,l);
+}
+
+void Canvas::switchLayers(int i, int j)
+{
+    Layer *l = layers[i];
+    layers[i] = layers[j];
+    layers[j] = l;
 }

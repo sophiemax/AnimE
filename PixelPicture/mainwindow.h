@@ -16,6 +16,7 @@
 #include "tool.h"
 #include "ellipsetool.h"
 #include "pentool.h"
+#include "linetool.h"
 #include "erasertool.h"
 #include "importsettings.h"
 #include "animationtool.h"
@@ -74,6 +75,12 @@ private slots:
 
     void on_removeButton_clicked();
 
+    void on_lineButton_clicked();
+
+    void on_moveupButton_clicked();
+
+    void on_movedownButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     ImportSettings *settings;
@@ -86,6 +93,7 @@ private:
     int beginX = 0, beginY = 20;
 
     PenTool *pen;
+    LineTool *line;
     EllipseTool *ellipse;
     EraserTool *eraser;
     AnimationTool* animation;
