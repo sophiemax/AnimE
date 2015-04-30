@@ -294,10 +294,18 @@ void MainWindow::on_removeButton_clicked()
     {
         int index = layerbuttons.indexOf(activelayerButton);
         if(index != 0)
+        {
             scene->activeCanvas->activeLayer = scene->activeCanvas->layers[index-1];
+            activelayerButton = layerbuttons[index-1];
+        }
         else
+        {
             scene->activeCanvas->activeLayer = scene->activeCanvas->layers[1];
+            activelayerButton = layerbuttons[1];
+        }
         scene->activeCanvas->layers.removeAt(index);
+        layergrid->removeWidget(layerbuttons[index]);
+        layergrid->removeWidget(transparencybuttons[index]);
         layerbuttons.removeAt(index);
         transparencybuttons.removeAt(index);
         for(int j = layerbuttons.size()-1; j >index-1; j--)
@@ -305,6 +313,7 @@ void MainWindow::on_removeButton_clicked()
             layergrid->addWidget(transparencybuttons[j],j,0);
             layergrid->addWidget(layerbuttons[j],j,1);
         }
+
         scene->updateCombined();
         scene->updateScene();
         container->setFixedHeight(layerbuttons.size()*23);
