@@ -31,6 +31,18 @@ void LineTool::mouseReleaseEvent(QGraphicsSceneMouseEvent *event, PixelScene *sc
 
 void LineTool::drawPixelLine(PixelScene *scene)
 {
+    //Getting nearest Pixels:
+    Pixel *begin = scene->nearestPixel(startPoint.x(), startPoint.y());
+    Pixel *end = scene->nearestPixel(endPoint.x(), endPoint.y());
+
+    float startX = begin->rect.center().x();
+    float startY = begin->rect.center().y();
+    float endX = end->rect.center().x();
+    float endY = end->rect.center().y();
+
+    float m = (endX-startX)/(endY-startY);
+
+
 
 }
 

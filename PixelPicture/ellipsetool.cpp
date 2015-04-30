@@ -35,62 +35,46 @@ void EllipseTool::drawPixelEllipse(PixelScene *scene)
 {
     if(startPoint!=endPoint)
     {
+        //A felhasználó által adott alapokat pixelekre kerekítjük:
+        // Adatok:
         float centerX = (endPoint.x()+startPoint.x())/2.0;
         float centerY = (endPoint.y()+startPoint.y())/2.0;
         float a = fabs(endPoint.x()-startPoint.x())/2.0;
         float b = fabs(endPoint.y()-startPoint.y())/2.0;
 
-        float precision = M_PI * 2.0 / 180;
+        //legközelebbi pixel keresése:
+        Pixel *bottom = scene->nearestPixel(centerX, centerY + b);
+        Pixel *top = scene->nearestPixel(centerX, centerY - b);
+        Pixel *left = scene->nearestPixel(centerX - a, centerY);
+        Pixel *right = scene->nearestPixel(centerX + a, centerY);
 
-        Pixel *bottom = scene->containsPoint(centerX, centerY + b);
-        Pixel *top    = scene->containsPoint(centerX, centerY - b);
-        Pixel *left   = scene->containsPoint(centerX - a, centerY);
-        Pixel *right  = scene->containsPoint(centerX + a, centerY);
+        //miután megvannak a pixelek, újra ki kell számítani az ellipszis adatait.
+        float ellipseLeftBound = left->rect.center().x();
+        float ellipseRightBound = right->rect.center().x();
+        float ellipseTopBound = top->rect.center().y();
+        float ellipseBottomBound =  bottom->rect.center().y();
 
-        float bbottom = b, btop = b, aleft = a, aright = a;
+        //Konkrét paraméterek, a koordinátákból számolva:
+        float ellipseCenterX = (ellipseLeftBound + ellipseRightBound)/2.0;
+        float ellipseCenterY = (ellipseTopBound + ellipseBottomBound)/2.0;
+        float ellipseA = fabs(ellipseLeftBound - ellipseRightBound)/2.0;
+        float ellipseB = fabs(ellipseTopBound - ellipseBottomBound)/2.0;
 
-        if(bottom == NULL)
-        {
-            bottom = scene->nearestPixel(centerX, centerY + b);
-            bbottom = bottom->rect.center().y() - centerY;
-        }
+        //A precision megadja, hogy milyen sűrű legyen az iteráció kirajzoláskor.
+        float precision = M_PI * 2.0 / 360;
 
-        if(top == NULL)
-        {
-            top = scene->nearestPixel(centerX, centerY - b);
-            btop = centerY - top->rect.center().y();
-        }
 
-        if(left == NULL)
-        {
-            left = scene->nearestPixel(centerX - a, centerY);
-            aleft = centerX - left->rect.center().x();
-        }
+        QTextStream(stdout) << "Creating Eclipse with radiuses: "<< ellipseA << " , "<< ellipseB << endl;
 
-        if(right == NULL)
-        {
-            right = scene->nearestPixel(centerX + a, centerY);
-            aright = right->rect.center().x() - centerX;
-        }
-
-        QTextStream(stdout) << a << endl;
-        QTextStream(stdout) << aright << endl;
-
+        //a precisionban megadott Radiánonként körberajzoljuk az ellipszist.
         for(float i = 0; i<M_PI*2; i+=precision)
         {
             float x,y;
-            if(i<M_PI/2 || i>3*M_PI/2)
-                x = centerX + aleft * cosf(i);
-            else
-                x = centerX + aright * cosf(i);
+            x = ellipseCenterX + ellipseA * cosf(i);
 
-            if(i<M_PI)
-                y = centerY + btop * sinf(i);
-            else
-                y = centerY + bbottom * sinf(i);
+            y = ellipseCenterY + ellipseB * sinf(i);
 
             Pixel *p = scene->containsPoint(x,y);
-
             if(p!=NULL)
             {
                 int index = p->index;
