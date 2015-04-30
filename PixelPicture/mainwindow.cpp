@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowIcon(*icon);
 
     pen = new PenTool(this);
+    line = new LineTool(this);
     ellipse = new EllipseTool(this);
     eraser = new EraserTool(this);
 
@@ -105,6 +106,11 @@ void MainWindow::on_ellipseButton_clicked()
 void MainWindow::on_penButton_clicked()
 {
     scene -> activeTool = pen;
+}
+
+void MainWindow::on_lineButton_clicked()
+{
+    scene->activeTool = line;
 }
 
 void MainWindow::on_secondaryColorButton_clicked()
