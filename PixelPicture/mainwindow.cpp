@@ -29,8 +29,21 @@ MainWindow::MainWindow(QWidget *parent) :
     renamelayer = new RenameLayer(this);
 
     animation = new AnimationTool(scene);
+}
 
-    QScrollArea *scroll = new QScrollArea();
+MainWindow::~MainWindow()
+{
+    delete ui;
+    delete pen;
+    delete ellipse;
+    delete eraser;
+    scene->destruct();
+    delete scene;
+}
+
+void MainWindow::createLayerDisplay()
+{
+    scroll = new QScrollArea();
     container = new QWidget(scroll);
     layergrid = new QGridLayout(container);
 
@@ -67,17 +80,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(layer0, &QPushButton::clicked, this, &MainWindow::layoutbuttonClicked);
     connect(transparency,&QPushButton::toggled,this,&MainWindow::transparencybuttonToggled);
 }
-
-MainWindow::~MainWindow()
-{
-    delete ui;
-    delete pen;
-    delete ellipse;
-    delete eraser;
-    scene->destruct();
-    delete scene;
-}
-
 
 //ezeket inkább majd toolbuttonnel
 
