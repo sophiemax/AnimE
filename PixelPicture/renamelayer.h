@@ -17,6 +17,8 @@ public:
 
     QString name;
 
+    void setLineEdit(QString s);
+
 private slots:
     void on_lineEdit_editingFinished();
 

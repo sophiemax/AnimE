@@ -6,11 +6,17 @@ RenameLayer::RenameLayer(QWidget *parent) :
     ui(new Ui::RenameLayer)
 {
     ui->setupUi(this);
+    ui->lineEdit->setFocus();
 }
 
 RenameLayer::~RenameLayer()
 {
     delete ui;
+}
+
+void RenameLayer::setLineEdit(QString s)
+{
+    ui->lineEdit->setText(s);
 }
 
 void RenameLayer::on_lineEdit_editingFinished()

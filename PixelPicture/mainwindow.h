@@ -107,6 +107,7 @@ private:
     QList<QPushButton*> transparencybuttons;
 
     void createLayerDisplay();
+    void clearLayerDisplay();
 
 };
 

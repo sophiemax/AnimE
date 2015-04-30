@@ -32,12 +32,19 @@ MainWindow::MainWindow(QWidget *parent) :
     animation = new AnimationTool(scene);
 
     createLayerDisplay();
+
+    connect(renamelayer, &RenameLayer::accepted, this, &MainWindow::changeName);
+    connect(renamelayer, &RenameLayer::rejected, this, &MainWindow::leaveName);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete settings;
+    delete renamelayer;
+    delete scroll;
     delete pen;
+    delete line;
     delete ellipse;
     delete eraser;
     scene->destruct();
@@ -69,17 +76,41 @@ void MainWindow::createLayerDisplay()
     transparencybuttons.append(transparency);
 
     QPushButton *layer0 = new QPushButton("Layer0");
-
     activelayerButton = layer0;
     layerbuttons.append(layer0);
 
     layergrid->addWidget(layer0,0,1,1,1);
     layergrid->addWidget(transparency,0,0,1,1);
 
-    connect(renamelayer, &RenameLayer::accepted, this, &MainWindow::changeName);
-    connect(renamelayer, &RenameLayer::rejected, this, &MainWindow::leaveName);
     connect(layer0, &QPushButton::clicked, this, &MainWindow::layoutbuttonClicked);
     connect(transparency,&QPushButton::toggled,this,&MainWindow::transparencybuttonToggled);
+}
+
+void MainWindow::clearLayerDisplay()
+{
+    while (!layerbuttons.isEmpty())
+        delete layerbuttons.takeFirst();
+    while (!transparencybuttons.isEmpty())
+        delete transparencybuttons.takeFirst();
+
+    QPushButton *transparency = new QPushButton("Tr");
+    transparency->setFixedWidth(23);
+    transparency->setCheckable(true);
+    transparency->setChecked(true);
+    transparencybuttons.append(transparency);
+
+    QPushButton *layer0 = new QPushButton("Layer0");
+    activelayerButton = layer0;
+    layerbuttons.append(layer0);
+
+    layergrid->addWidget(layer0,0,1,1,1);
+    layergrid->addWidget(transparency,0,0,1,1);
+
+    container->setFixedHeight(23);
+
+    connect(layer0, &QPushButton::clicked, this, &MainWindow::layoutbuttonClicked);
+    connect(transparency,&QPushButton::toggled,this,&MainWindow::transparencybuttonToggled);
+
 }
 
 //ezeket inkább majd toolbuttonnel
@@ -162,6 +193,7 @@ void MainWindow::on_newFrameButton_clicked()
 {
     scene->addFrame();
     scene->timesum += 1000.0;
+    clearLayerDisplay();
 }
 
 void MainWindow::on_playButton_clicked()
@@ -219,6 +251,7 @@ void MainWindow::on_importvideoButton_clicked()
 void MainWindow::on_renameButton_clicked()
 {
     renamelayer->show();
+    renamelayer->setLineEdit(activelayerButton->text());
 }
 
 void MainWindow::changeName()
@@ -293,6 +326,8 @@ void MainWindow::on_removeButton_clicked()
     else
     {
         int index = layerbuttons.indexOf(activelayerButton);
+        disconnect(layerbuttons[index], &QPushButton::clicked, this, &MainWindow::layoutbuttonClicked);
+        disconnect(transparencybuttons[index], &QPushButton::toggled, this, &MainWindow::transparencybuttonToggled);
         if(index != 0)
         {
             scene->activeCanvas->activeLayer = scene->activeCanvas->layers[index-1];
