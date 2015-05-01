@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     pen = new PenTool(this);
     line = new LineTool(this);
+    rectangle = new RectangleTool(this);
     ellipse = new EllipseTool(this);
     eraser = new EraserTool(this);
 
@@ -45,6 +46,7 @@ MainWindow::~MainWindow()
     delete scroll;
     delete pen;
     delete line;
+    delete rectangle;
     delete ellipse;
     delete eraser;
     scene->destruct();
@@ -162,11 +164,6 @@ void MainWindow::on_windowToggle_toggled(bool checked)
     scene->windowToggled = checked;
 }
 
-void MainWindow::on_ellipseButton_clicked()
-{
-    scene -> activeTool = ellipse;
-}
-
 void MainWindow::on_penButton_clicked()
 {
     scene -> activeTool = pen;
@@ -175,6 +172,17 @@ void MainWindow::on_penButton_clicked()
 void MainWindow::on_lineButton_clicked()
 {
     scene->activeTool = line;
+}
+
+
+void MainWindow::on_rectangleButton_clicked()
+{
+    scene->activeTool = rectangle;
+}
+
+void MainWindow::on_ellipseButton_clicked()
+{
+    scene -> activeTool = ellipse;
 }
 
 void MainWindow::on_secondaryColorButton_clicked()

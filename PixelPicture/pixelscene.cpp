@@ -180,7 +180,7 @@ Pixel *PixelScene::containsPoint(float x, float y)
 Pixel *PixelScene::nearestPixel(float x, float y)
 {
     //A maximális távolság a pixelek között. A keresőalgoritmus finomítja.
-    float min = (gapWidth + gapHeight);
+    float min = FLT_MAX;
     //Egyes pixelekkel számoláskor használt adatok:
     float distx, disty, distance;
     //A legközelebbi pixel
