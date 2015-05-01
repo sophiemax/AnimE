@@ -70,6 +70,16 @@ void PixelScene::destruct()
         delete windows.takeFirst();
 }
 
+int PixelScene::pixelsinaRow()
+{
+    return windowXNumber*windowWidth;
+}
+
+int PixelScene::pixelsinaColumn()
+{
+    return windowYNumber*windowHeight;
+}
+
 void PixelScene::mousePressEvent(QGraphicsSceneMouseEvent *e)
 {
     activeTool->mousePressEvent(e,this);

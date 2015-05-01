@@ -39,12 +39,12 @@ void RectangleTool::drawPixelRectangle(PixelScene *scene)
         float a = fabs(start->rect.center().x() - end->rect.center().x());
         float b = fabs(start->rect.center().y() - end->rect.center().y());
 
-        int orderX = a > 0 ? 1 : -1;
-        int orderY = b > 0 ? 1 : -1;
+        int directionX = a > 0 ? 1 : -1;
+        int directionY = b > 0 ? 1 : -1;
 
         for(int i = 0; i < a; i+=scene->pixelSize)
         {
-            float x = start->rect.center().x() + i * orderX;
+            float x = start->rect.center().x() + i * directionX;
             float y1 = start->rect.center().y();
             float y2 = end->rect.center().y();
 
@@ -79,7 +79,7 @@ void RectangleTool::drawPixelRectangle(PixelScene *scene)
 
         for(int i = 0; i < b; i+=scene->pixelSize)
         {
-            float y = start->rect.center().y() + i * orderY;
+            float y = start->rect.center().y() + i * directionY;
             float x1 = start->rect.center().x();
             float x2 = end->rect.center().x();
 
