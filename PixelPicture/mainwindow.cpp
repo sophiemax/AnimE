@@ -77,6 +77,7 @@ void MainWindow::createLayerDisplay()
 
     QPushButton *layer0 = new QPushButton("Layer0");
     activelayerButton = layer0;
+    scene->activeCanvas->activeLayer->name = "Layer0";
     layerbuttons.append(layer0);
 
     layergrid->addWidget(layer0,0,1,1,1);
@@ -92,6 +93,11 @@ void MainWindow::clearLayerDisplay()
         delete layerbuttons.takeFirst();
     while (!transparencybuttons.isEmpty())
         delete transparencybuttons.takeFirst();
+}
+
+void MainWindow::newLayerDisplay()
+{
+    clearLayerDisplay();
 
     QPushButton *transparency = new QPushButton("Tr");
     transparency->setFixedWidth(23);
@@ -101,6 +107,7 @@ void MainWindow::clearLayerDisplay()
 
     QPushButton *layer0 = new QPushButton("Layer0");
     activelayerButton = layer0;
+    scene->activeCanvas->activeLayer = scene->activeCanvas->layers[0];
     layerbuttons.append(layer0);
 
     layergrid->addWidget(layer0,0,1,1,1);
@@ -111,6 +118,32 @@ void MainWindow::clearLayerDisplay()
     connect(layer0, &QPushButton::clicked, this, &MainWindow::layoutbuttonClicked);
     connect(transparency,&QPushButton::toggled,this,&MainWindow::transparencybuttonToggled);
 
+}
+
+void MainWindow::updateLayerDisplay()
+{
+    clearLayerDisplay();
+    for(int i = 0; i < scene->activeCanvas->layers.size(); i++)
+    {
+        QTextStream(stdout) << i << endl;
+        QPushButton *transparency = new QPushButton("Tr");
+        transparency->setFixedWidth(23);
+        transparency->setCheckable(true);
+        transparency->setChecked(!scene->activeCanvas->layers[i]->transparent);
+        transparencybuttons.append(transparency);
+
+        QPushButton *layer = new QPushButton(scene->activeCanvas->layers[i]->name);
+        layerbuttons.append(layer);
+
+        layergrid->addWidget(layer,i,1,1,1);
+        layergrid->addWidget(transparency,i,0,1,1);
+
+        connect(layer, &QPushButton::clicked, this, &MainWindow::layoutbuttonClicked);
+        connect(transparency,&QPushButton::toggled,this,&MainWindow::transparencybuttonToggled);
+    }
+    activelayerButton = layerbuttons[0];
+    scene->activeCanvas->activeLayer = scene->activeCanvas->layers[0];
+    container->setFixedHeight(scene->activeCanvas->layers.size() * 23);
 }
 
 //ezeket inkább majd toolbuttonnel
@@ -193,7 +226,7 @@ void MainWindow::on_newFrameButton_clicked()
 {
     scene->addFrame();
     scene->timesum += 1000.0;
-    clearLayerDisplay();
+    newLayerDisplay();
 }
 
 void MainWindow::on_playButton_clicked()
@@ -212,8 +245,14 @@ void MainWindow::on_animationSlider_sliderMoved(int position)
         i++;
         sum += scene->frames[i]->timespan;
     }
-    scene->activeCanvas = scene->frames[i]->canvas;
-    scene->updateScene();
+    if(scene->activeCanvas != scene->frames[i]->canvas)
+    {
+        QTextStream(stdout) << i << endl;
+        scene->activeCanvas = scene->frames[i]->canvas;
+        QTextStream(stdout) << scene->activeCanvas->layers.size() << endl;
+        scene->updateScene();
+        updateLayerDisplay();
+    }
 
     ui->animationLabel->setGeometry(labelpos,ui->animationLabel->y(),ui->animationLabel->width(),ui->animationLabel->height());
     int minute = timepos / 60000.0;
@@ -236,6 +275,8 @@ void MainWindow::on_animationSlider_sliderMoved(int position)
             s.prepend("0");
     QString label(m + ":" + s + ":" + ms);
     ui->animationLabel->setText(label);
+
+
 }
 
 void MainWindow::on_importvideoButton_clicked()
@@ -256,21 +297,33 @@ void MainWindow::on_renameButton_clicked()
 
 void MainWindow::changeName()
 {
-    activelayerButton->setText(renamelayer->name);
+    if(renamelayer->name != "")
+    {
+        activelayerButton->setText(renamelayer->name);
+        scene->activeCanvas->activeLayer->name = renamelayer->name;
+    }
 }
 
 void MainWindow::leaveName()
 {
-
+    QTextStream(stdout) <<"itt"<<endl;
+    QTextStream(stdout) << scene->activeCanvas->activeLayer->name << endl;
+    activelayerButton->setText(scene->activeCanvas->activeLayer->name);
 }
 
 void MainWindow::on_addlayerButton_clicked()
 {
-    int i = layerbuttons.indexOf(activelayerButton);
+    int index = layerbuttons.indexOf(activelayerButton);
 
-    scene->activeCanvas->addLayer(i);
+    scene->activeCanvas->addLayer(index);
+    scene->activeCanvas->activeLayer = scene->activeCanvas->layers[index];
+    scene->activeCanvas->activeLayer->name = "Layer" + QString::number(layerbuttons.size());
     scene->updateScene();
-    QPushButton *lbutton = new QPushButton("New Layer");
+
+    QTextStream(stdout) <<"ott"<<endl;
+    QTextStream(stdout) <<scene->activeCanvas->activeLayer->name<<endl;
+
+    QPushButton *lbutton = new QPushButton("Layer" + QString::number(layerbuttons.size()));
     QPushButton *tbutton = new QPushButton("Tr");
 
     activelayerButton = lbutton;
@@ -282,15 +335,17 @@ void MainWindow::on_addlayerButton_clicked()
     connect(tbutton, &QPushButton::toggled, this, &MainWindow::transparencybuttonToggled);
 
     renamelayer->show();
-    layerbuttons.insert(i,lbutton);
-    transparencybuttons.insert(i,tbutton);
+
+    layerbuttons.insert(index,lbutton);
+    transparencybuttons.insert(index,tbutton);
     container->setFixedHeight(23*layerbuttons.size());
-    for(int j = layerbuttons.size()-1; j >i-1; j--)
+    for(int j = layerbuttons.size()-1; j >index-1; j--)
     {
         layergrid->addWidget(transparencybuttons[j],j,0);
         layergrid->addWidget(layerbuttons[j],j,1);
     }
-
+    QTextStream(stdout) <<"utt"<<endl;
+    QTextStream(stdout) <<scene->activeCanvas->activeLayer->name<<endl;
 }
 
 void MainWindow::layoutbuttonClicked()
@@ -319,7 +374,7 @@ void MainWindow::on_removeButton_clicked()
     if(layerbuttons.size() == 1)
     {
         scene->clearLayer();
-        layerbuttons[0]->setText("New Layer");
+        layerbuttons[0]->setText("Layer0");
         transparencybuttons[0]->setChecked(true);
         scene->activeCanvas->activeLayer->transparent = false;
     }

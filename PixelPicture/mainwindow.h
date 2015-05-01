@@ -108,6 +108,8 @@ private:
 
     void createLayerDisplay();
     void clearLayerDisplay();
+    void newLayerDisplay();
+    void updateLayerDisplay();
 
 };
 

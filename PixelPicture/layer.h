@@ -14,6 +14,7 @@ public:
     bool transparent = false;
     QList<LayerPixel*> pixels;
     int pixelNumber;
+    QString name;
 };
 
 #endif // LAYER_H

@@ -12,7 +12,7 @@ public:
     ~Frame();
 
     Canvas *canvas;
-    float timespan;
+    float timespan = 1000.0;
 };
 
 #endif // FRAME_H
