@@ -7,7 +7,7 @@
 class VideoSurface : public QAbstractVideoSurface
 {
 public:
-    VideoSurface(PixelScene *s);
+    VideoSurface(PixelScene *s, QMediaPlayer *p);
     ~VideoSurface();
 
     QList<QVideoFrame::PixelFormat> supportedPixelFormats(
@@ -17,6 +17,9 @@ public:
 
 private:
     PixelScene *scene;
+    QMediaPlayer *player;
+
+    float videosum = 0.0;
 };
 
 #endif // VIDEOSURFACE_H

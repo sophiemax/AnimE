@@ -3,9 +3,10 @@
 #include "frame.h"
 #include "canvas.h"
 
-VideoSurface::VideoSurface(PixelScene *s)
+VideoSurface::VideoSurface(PixelScene *s, QMediaPlayer *p)
 {
     scene = s;
+    player = p;
 }
 
 VideoSurface::~VideoSurface()
@@ -22,8 +23,6 @@ QList<QVideoFrame::PixelFormat> VideoSurface::supportedPixelFormats(QAbstractVid
 
 bool VideoSurface::present(const QVideoFrame &frame)
 {
-    QMediaPlayer *player = new QMediaPlayer(sender());
-    QTextStream(stdout) << player->position() << endl;
     QVideoFrame currentframe = frame;
     if(currentframe.map(QAbstractVideoBuffer::ReadOnly))
     {
@@ -38,7 +37,8 @@ bool VideoSurface::present(const QVideoFrame &frame)
         Canvas *c = new Canvas(scene->pixels.size());
         Frame* f = new Frame(c);
 
-        f->timespan = scene->interval;
+        f->timespan = player->position() - videosum;
+        videosum += f->timespan;
         scene->timesum += f->timespan;
 
         scene->activeCanvas = c;

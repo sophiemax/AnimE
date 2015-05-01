@@ -51,6 +51,9 @@ PixelScene::PixelScene(QObject *parent) :
 
 PixelScene::~PixelScene()
 {
+    delete imageconverter;
+    delete videoconverter;
+
     while (!pixels.isEmpty())
         delete pixels.takeFirst();
     while (!windows.isEmpty())
