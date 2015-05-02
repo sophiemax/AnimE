@@ -19,6 +19,7 @@
 #include "linetool.h"
 #include "rectangletool.h"
 #include "erasertool.h"
+#include "filltool.h"
 #include "importsettings.h"
 #include "animationtool.h"
 #include "renamelayer.h"
@@ -84,6 +85,8 @@ private slots:
 
     void on_animationSlider_valueChanged(int position);
 
+    void on_fillButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     ImportSettings *settings;
@@ -100,6 +103,7 @@ private:
     RectangleTool *rectangle;
     EllipseTool *ellipse;
     EraserTool *eraser;
+    FillTool *fill;
     AnimationTool* animation;
 
     QGridLayout *layergrid;

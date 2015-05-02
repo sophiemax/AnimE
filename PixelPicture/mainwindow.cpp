@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     rectangle = new RectangleTool(this);
     ellipse = new EllipseTool(this);
     eraser = new EraserTool(this);
+    fill = new FillTool(this);
 
     scene = new PixelScene(this);
     scene->activeTool = pen;
@@ -49,6 +50,7 @@ MainWindow::~MainWindow()
     delete rectangle;
     delete ellipse;
     delete eraser;
+    delete fill;
     scene->destruct();
     delete scene;
 }
@@ -197,6 +199,12 @@ void MainWindow::on_secondaryColorButton_clicked()
 void MainWindow::on_eraserButton_clicked()
 {
     scene->activeTool = eraser;
+}
+
+
+void MainWindow::on_fillButton_clicked()
+{
+    scene->activeTool = fill;
 }
 
 void MainWindow::on_clearLayerButton_clicked()
