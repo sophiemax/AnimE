@@ -1,9 +1,5 @@
 #include "mainwindow.h"
 #include <QApplication>
-/*#ifdef QT_STATIC
-#include <QtCore/QtPlugin>
-Q_IMPORT_PLUGIN(DSServicePlugin)
-#endif*/
 
 int main(int argc, char *argv[])
 {

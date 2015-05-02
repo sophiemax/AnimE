@@ -17,23 +17,6 @@ void AnimationTool::play()
 {
     i = 0;
     updateScene();
-
-    /*
-    QElapsedTimer timer;
-    timer.start();
-    int sum = 0;
-    for(int i = 0; i<scene->frames.size();i++)
-    {
-        sum += scene->frames[i]->timespan;
-        scene->activeCanvas = scene->frames[i]->canvas;
-        scene->updateScene();
-        while(timer.elapsed()<sum)
-        {
-
-        }
-        //QTimer::singleShot(scene->frames[i]->timespan,SLOT(updateScene()));
-    }
-    */
 }
 
 void AnimationTool::updateScene()

@@ -63,9 +63,6 @@ void EllipseTool::drawPixelEllipse(PixelScene *scene)
         //A precision megadja, hogy milyen sűrű legyen az iteráció kirajzoláskor.
         float precision = M_PI * 2.0 / 360;
 
-
-        QTextStream(stdout) << "Creating Eclipse with radiuses: "<< ellipseA << " , "<< ellipseB << endl;
-
         //a precisionban megadott Radiánonként körberajzoljuk az ellipszist.
         for(float i = 0; i<M_PI*2; i+=precision)
         {

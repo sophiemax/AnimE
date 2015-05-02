@@ -32,7 +32,8 @@ SOURCES += main.cpp\
     renamelayer.cpp \
     linetool.cpp \
     rectangletool.cpp \
-    filltool.cpp
+    filltool.cpp \
+    animation.cpp
 
 HEADERS  += mainwindow.h \
     pixel.h \
@@ -54,7 +55,8 @@ HEADERS  += mainwindow.h \
     renamelayer.h \
     linetool.h \
     rectangletool.h \
-    filltool.h
+    filltool.h \
+    animation.h
 
 FORMS    += mainwindow.ui \
     importsettings.ui \

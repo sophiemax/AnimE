@@ -56,21 +56,22 @@ void LineTool::drawPixelLine(PixelScene *scene)
     float direction = (deltaX ==0) ? (deltaY/fabs(deltaY)) :(deltaX/fabs(deltaX));
     float distance = 0.0;
 
-    QTextStream(stdout)<<"Starting a new line, m="<<m << " dX = " << deltaX << " dY = " << deltaY <<endl;
-
     //Amíg nem értünk el a végéig, precisionnal arrébb is beszínezzük a pixelt.
-    while(fabs(distance) <= length){
+    while(fabs(distance) <= length)
+    {
         float x, y;
         //Ki kell szűrni a függőleges vonalat, mert nem tudunk 0-val osztani.
-        if(deltaX == 0.0){
+        if(deltaX == 0.0)
+        {
             x  = startX;
             y = startY + distance;
-        }else{
+        }
+        else
+        {
             //Egyéb esetben a meredekség valós értéket ad, számolhatunk vele.
             x = startX + direction * sqrtf( distance*distance/(1 + m*m) );
             y = startY + (x - startX)*m;
         }
-        QTextStream(stdout)<< "   Trying to draw lel: d= " <<distance << "   x,y = " << x <<" , "<<y<<endl;
 
         //Kirajzolás.
         Pixel *p = scene->containsPoint(x,y);
@@ -94,8 +95,4 @@ void LineTool::drawPixelLine(PixelScene *scene)
         //A következő iterációra növeljük a megtett távolságot.
         distance += direction*precision;
     }
-
-
-
 }
-

@@ -129,7 +129,6 @@ void MainWindow::updateLayerDisplay()
     clearLayerDisplay();
     for(int i = 0; i < scene->activeCanvas->layers.size(); i++)
     {
-        QTextStream(stdout) << i << endl;
         QPushButton *transparency = new QPushButton("Tr");
         transparency->setFixedWidth(23);
         transparency->setCheckable(true);
@@ -277,8 +276,6 @@ void MainWindow::changeName()
 
 void MainWindow::leaveName()
 {
-    QTextStream(stdout) <<"itt"<<endl;
-    QTextStream(stdout) << scene->activeCanvas->activeLayer->name << endl;
     activelayerButton->setText(scene->activeCanvas->activeLayer->name);
 }
 
@@ -290,9 +287,6 @@ void MainWindow::on_addlayerButton_clicked()
     scene->activeCanvas->activeLayer = scene->activeCanvas->layers[index];
     scene->activeCanvas->activeLayer->name = "Layer" + QString::number(layerbuttons.size());
     scene->updateScene();
-
-    QTextStream(stdout) <<"ott"<<endl;
-    QTextStream(stdout) <<scene->activeCanvas->activeLayer->name<<endl;
 
     QPushButton *lbutton = new QPushButton("Layer" + QString::number(layerbuttons.size()));
     QPushButton *tbutton = new QPushButton("Tr");
@@ -315,8 +309,6 @@ void MainWindow::on_addlayerButton_clicked()
         layergrid->addWidget(transparencybuttons[j],j,0);
         layergrid->addWidget(layerbuttons[j],j,1);
     }
-    QTextStream(stdout) <<"utt"<<endl;
-    QTextStream(stdout) <<scene->activeCanvas->activeLayer->name<<endl;
 }
 
 void MainWindow::layoutbuttonClicked()
@@ -446,9 +438,7 @@ void MainWindow::on_animationSlider_valueChanged(int position)
     }
     if(scene->activeCanvas != scene->frames[i]->canvas)
     {
-        QTextStream(stdout) << i << endl;
         scene->activeCanvas = scene->frames[i]->canvas;
-        QTextStream(stdout) << scene->activeCanvas->layers.size() << endl;
         scene->updateScene();
         updateLayerDisplay();
     }

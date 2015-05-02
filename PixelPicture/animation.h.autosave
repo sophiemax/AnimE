@@ -1,0 +1,16 @@
+#ifndef ANIMATION_H
+#define ANIMATION_H
+
+#include "frame.h"
+
+class Animation
+{
+public:
+    Animation();
+    ~Animation();
+    
+    QList<Frame*> frames;
+    float timesum = 0;
+};
+
+#endif // ANIMATION_H
