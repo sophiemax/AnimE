@@ -11,6 +11,8 @@ public:
     Canvas(int p);
     ~Canvas();
 
+    void updateCombinedLayer(int index);
+
     void addLayer(int i);
     void switchLayers(int i, int j);
 

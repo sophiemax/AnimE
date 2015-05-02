@@ -1,8 +1,8 @@
 #include "frame.h"
 
-Frame::Frame(Canvas *c)
+Frame::Frame()
 {
-    canvas = c;
+    canvas = new Canvas();
 }
 
 Frame::~Frame()

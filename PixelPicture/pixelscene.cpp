@@ -41,8 +41,7 @@ PixelScene::PixelScene(QObject *parent) :
     activeCanvas = c;
     canvases.append(c);
 
-    Frame* f = new Frame(c);
-    frames.append(f);
+
 
     imageconverter = new ImageConverterTool(this, pixelSize, windowWidth * windowXNumber, windowHeight * windowYNumber);
     videoconverter = new VideoConverterTool(this);
@@ -111,40 +110,12 @@ void PixelScene::updatePixel(int p)
     pixels[p]->update();
 }
 
-void PixelScene::updateCombinedLayer(int p)
-{
-    if(!activeCanvas->activeLayer->pixels[p]->clear && !activeCanvas->activeLayer->transparent)
-    {
-        activeCanvas->combinedLayer->pixels[p]->clear = false;
-        activeCanvas->combinedLayer->pixels[p]->color = activeCanvas->activeLayer->pixels[p]->color;
-    }
-    else
-    {
-        int i = 0;
-        while(i<activeCanvas->layers.size() && (activeCanvas->layers[i]->pixels[p]->clear || activeCanvas->layers[i]->transparent))
-            i++;
-        if(i==activeCanvas->layers.size())
-        {
-            activeCanvas->combinedLayer->pixels[p]->clear = true;
-        }
-        else
-        {
-            activeCanvas->combinedLayer->pixels[p]->clear = false;
-            activeCanvas->combinedLayer->pixels[p]->color = activeCanvas->layers[i]->pixels[p]->color;
-        }
-    }
-}
+
 
 void PixelScene::updateScene()
 {
     foreach(Pixel *p, pixels)
         updatePixel(p->index);
-}
-
-void PixelScene::updateCombined()
-{
-    foreach(Pixel *p, pixels)
-        updateCombinedLayer(p->index);
 }
 
 void PixelScene::importImage(QImage image)
@@ -227,16 +198,4 @@ void PixelScene::clearAll()
     foreach(Layer* l, activeCanvas->layers)
         delete l;
     activeCanvas->activeLayer = new Layer(pixels.size());
-}
-
-void PixelScene::addFrame()
-{
-    Canvas* c = new Canvas(pixels.size());
-    activeCanvas = c;
-    canvases.append(c);
-
-    Frame* f = new Frame(c);
-    frames.append(f);
-
-    updateScene();
 }

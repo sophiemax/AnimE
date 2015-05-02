@@ -28,3 +28,33 @@ void Canvas::switchLayers(int i, int j)
     layers[i] = layers[j];
     layers[j] = l;
 }
+
+void Canvas::updateCombined()
+{
+    for(int index = 0; index < pixelNumber; index++)
+        updateCombinedLayer(p->index);
+}
+
+void Canvas::updateCombinedLayer(int index)
+{
+    if(!activeLayer->pixels[index]->clear && !activeLayer->transparent)
+    {
+        combinedLayer->pixels[index]->clear = false;
+        combinedLayer->pixels[index]->color = activeLayer->pixels[p]->color;
+    }
+    else
+    {
+        int i = 0;
+        while(i<layers.size() && (layers[i]->pixels[index]->clear || layers[i]->transparent))
+            i++;
+        if(i==layers.size())
+        {
+            combinedLayer->pixels[index]->clear = true;
+        }
+        else
+        {
+            combinedLayer->pixels[index]->clear = false;
+            combinedLayer->pixels[index]->color = layers[i]->pixels[index]->color;
+        }
+    }
+}

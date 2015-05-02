@@ -8,7 +8,7 @@
 class Frame
 {
 public:
-    Frame(Canvas* c);
+    Frame();
     ~Frame();
 
     Canvas *canvas;

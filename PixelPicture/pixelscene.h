@@ -45,9 +45,7 @@ public:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *e);
 
     void updatePixel(int p);
-    void updateCombinedLayer(int p);
     void updateScene();
-    void updateCombined();
 
     void importImage(QImage image);
     void importVideo(QString s);
@@ -64,7 +62,6 @@ public:
     int width, height, onlypixelswidth, onlypixelsheight;
 
     QList<Pixel*> pixels;
-    QList<Frame*> frames;
 
     int pixelSize = 5;
     int fps = 40;

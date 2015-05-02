@@ -12,6 +12,7 @@
 #include <QGridLayout>
 #include <QScrollArea>
 #include "pixelscene.h"
+#include "animation.h"
 #include "pixel.h"
 #include "tool.h"
 #include "ellipsetool.h"
@@ -93,6 +94,8 @@ private:
     RenameLayer *renamelayer;
 
     PixelScene *scene;
+    QList<Animation*> animations;
+    Animation *activeAnimation;
 
     int pixelSize = 5, gapWidth = 5, gapHeight = 15;
     int windowWidth = 2, windowHeight = 2, windowXNumber = 16, windowYNumber = 13;
