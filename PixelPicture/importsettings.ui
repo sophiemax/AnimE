@@ -123,6 +123,19 @@
     </property>
    </widget>
   </widget>
+  <widget class="QRadioButton" name="blackisclear">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>100</y>
+     <width>121</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Black = clear</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

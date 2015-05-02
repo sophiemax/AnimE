@@ -42,7 +42,8 @@ public:
     ImportSettingsResolution importsettingsresolution = ImageConverterTool::ImportSettingsResolution::onlypixels;
     ImportSettingsColor importsettingscolor = ImageConverterTool::ImportSettingsColor::center;
 
-    //bool onlypixels = true, wholeimage = false, topleft = false, center = true, corners = false, average = false;
+    bool blackisclear = false;
+
 private:
     PixelScene *scene;
     int size, x, y;

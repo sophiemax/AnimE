@@ -34,6 +34,8 @@ private slots:
 
     void on_average_clicked();
 
+    void on_blackisclear_toggled(bool checked);
+
 private:
     Ui::ImportSettings *ui;
 };

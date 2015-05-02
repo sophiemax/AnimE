@@ -6,11 +6,6 @@ ImportSettings::ImportSettings(QWidget *parent) :
     ui(new Ui::ImportSettings)
 {
     ui->setupUi(this);
-
-    /*QButtonGroup *group = new QButtonGroup(this);
-    group->addButton(ui->onlypixels);
-    group->addButton(ui->wholeimage);
-    group->setExclusive(true);*/
 }
 
 ImportSettings::~ImportSettings()
@@ -48,4 +43,9 @@ void ImportSettings::on_corners_clicked()
 void ImportSettings::on_average_clicked()
 {
     converter->importsettingscolor = ImageConverterTool::ImportSettingsColor::average;
+}
+
+void ImportSettings::on_blackisclear_toggled(bool checked)
+{
+    converter->blackisclear = checked;
 }
