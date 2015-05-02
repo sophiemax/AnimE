@@ -242,51 +242,6 @@ void MainWindow::on_playButton_clicked()
     animation->play();
 }
 
-void MainWindow::on_animationSlider_sliderMoved(int position)
-{
-    float labelpos = ui->animationSlider->x() + position / 100.0 * ui->animationSlider->width();
-    float timepos = position /100.0 * scene->timesum;
-    int i = 0;
-    float sum = scene->frames[i]->timespan;
-    while(sum < timepos)
-    {
-        i++;
-        sum += scene->frames[i]->timespan;
-    }
-    if(scene->activeCanvas != scene->frames[i]->canvas)
-    {
-        QTextStream(stdout) << i << endl;
-        scene->activeCanvas = scene->frames[i]->canvas;
-        QTextStream(stdout) << scene->activeCanvas->layers.size() << endl;
-        scene->updateScene();
-        updateLayerDisplay();
-    }
-
-    ui->animationLabel->setGeometry(labelpos,ui->animationLabel->y(),ui->animationLabel->width(),ui->animationLabel->height());
-    int minute = timepos / 60000.0;
-    int sec = timepos / 1000.0;
-    int millisec = timepos-sec*1000;
-    QString m(QString::number(minute));
-    QString s(QString::number(sec));
-    QString ms(QString::number(millisec));
-
-    if(minute < 10)
-        m.prepend("0");
-
-    if(sec < 10)
-        s.prepend("0");
-
-    if(millisec < 10)
-        s.prepend("00");
-    else
-        if(millisec < 100)
-            s.prepend("0");
-    QString label(m + ":" + s + ":" + ms);
-    ui->animationLabel->setText(label);
-
-
-}
-
 void MainWindow::on_importvideoButton_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Image"), QString(),
@@ -468,4 +423,47 @@ void MainWindow::on_movedownButton_clicked()
         scene->updateCombined();
         scene->updateScene();
     }
+}
+
+void MainWindow::on_animationSlider_valueChanged(int position)
+{
+    float labelpos = ui->animationSlider->x() + position / 100.0 * ui->animationSlider->width();
+    float timepos = position /100.0 * scene->timesum;
+    int i = 0;
+    float sum = scene->frames[i]->timespan;
+    while(sum < timepos)
+    {
+        i++;
+        sum += scene->frames[i]->timespan;
+    }
+    if(scene->activeCanvas != scene->frames[i]->canvas)
+    {
+        QTextStream(stdout) << i << endl;
+        scene->activeCanvas = scene->frames[i]->canvas;
+        QTextStream(stdout) << scene->activeCanvas->layers.size() << endl;
+        scene->updateScene();
+        updateLayerDisplay();
+    }
+
+    ui->animationLabel->setGeometry(labelpos,ui->animationLabel->y(),ui->animationLabel->width(),ui->animationLabel->height());
+    int minute = timepos / 60000.0;
+    int sec = timepos / 1000.0;
+    int millisec = timepos-sec*1000;
+    QString m(QString::number(minute));
+    QString s(QString::number(sec));
+    QString ms(QString::number(millisec));
+
+    if(minute < 10)
+        m.prepend("0");
+
+    if(sec < 10)
+        s.prepend("0");
+
+    if(millisec < 10)
+        s.prepend("00");
+    else
+        if(millisec < 100)
+            s.prepend("0");
+    QString label(m + ":" + s + ":" + ms);
+    ui->animationLabel->setText(label);
 }

@@ -58,8 +58,6 @@ private slots:
 
     void on_playButton_clicked();
 
-    void on_animationSlider_sliderMoved(int position);
-
     void on_importvideoButton_clicked();
 
     void on_renameButton_clicked();
@@ -83,6 +81,8 @@ private slots:
     void on_movedownButton_clicked();
 
     void on_rectangleButton_clicked();
+
+    void on_animationSlider_valueChanged(int position);
 
 private:
     Ui::MainWindow *ui;
