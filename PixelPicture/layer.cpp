@@ -191,10 +191,14 @@ void Layer::moveDown()
 
 void Layer::moveLeft()
 {
+    QTextStream(stdout) << startindex << endl;
+    QTextStream(stdout) << numberofcolumns << endl;
+
     //Ha az kijelző első oszlopában kezdődik a layer is, és a layer első oszlopának minden pixele clear,
     //akkor valójában nem csúsztatjuk a layert, hanem balra másoljuk a pixeladatokat.
     if(isinFirstColumn(startindex) && isFirstColumnClear())
     {
+        QTextStream(stdout) << "Az első oszlop üres volt!" << endl;
         for(int j = 0; j < numberofrows; j++)
         {
             for(int i = 1; i < numberofcolumns; i++)
@@ -215,6 +219,8 @@ void Layer::moveLeft()
         //ha nem, a legutolsó oszlopot töröljük, mivel mindent balramásoltunk, abban már nincsen valid adat
         if(numberofcolumns > originalnumberofcolumns)
         {
+            QTextStream(stdout) << "A layer nagyobb, mint a kijelző." << endl;
+            QTextStream(stdout) << "Az utolsó oszlopot töröljük, mert nincs benne valid adat" << endl;
             for(int j = numberofrows-1; j >= 0; j--)
             {
                 int index = calculateCurrentIndex(j,numberofcolumns-1);
@@ -225,9 +231,11 @@ void Layer::moveLeft()
     }
     else
     {
+        QTextStream(stdout) << "Az első oszlop NEM volt üres!" << endl;
         //ha a kijelző utolsó oszlopánál vége van a layernek, hozzá kell adnunk a layerhez egy oszlopot a végére
         if(isinLastColumn(startindex + originalnumberofcolumns - 1))
         {
+            QTextStream(stdout) << "Oszlopot adunk hozzá a layer végéhez!" << endl;
             numberofcolumns += 1;
             for(int j = 0; j < numberofrows; j++)
             {
@@ -237,14 +245,17 @@ void Layer::moveLeft()
                 pixels.insert(index, lp);
             }
         }
-        //a kijelző kezdetét jelző startindex eggyel jobbra csúszott.
         startindex += 1;
+        //a kijelző kezdetét jelző startindex eggyel jobbra csúszott.
     }
+
+    QTextStream(stdout) << startindex << endl;
+    QTextStream(stdout) << numberofcolumns << endl;
 }
 
 void Layer::moveRight()
 {
-    //Ha az kijelző utolsó oszlopában végzőődik a layer is, és a layer utolsó oszlopának minden pixele clear,
+    //Ha az kijelző utolsó oszlopában végződik a layer is, és a layer utolsó oszlopának minden pixele clear,
     //akkor valójában nem csúsztatjuk a layert, hanem jobbra másoljuk a pixeladatokat.
     if(isinLastColumn(startindex + originalnumberofcolumns - 1) && isLastColumnClear())
     {
@@ -291,8 +302,9 @@ void Layer::moveRight()
                 pixels.insert(index, lp);
             }
         }
+        else
+            startindex -=1;
         //a kijelző kezdetét jelző startindex eggyel balra csúszott.
-        startindex -= 1;
     }
 }
 
@@ -310,9 +322,12 @@ bool Layer::isFirstColumnClear()
 bool Layer::isLastColumnClear()
 {
     bool clear = true;
-    for(int i = numberofcolumns; i < numberofcolumns * numberofrows; i += numberofcolumns)
-        if(pixels[i]->clear == false)
+    for(int j = 0; j < numberofrows; j++)
+    {
+        int index = calculateCurrentIndex(j,numberofcolumns-1);
+        if(pixels[index]->clear == false)
             clear = false;
+    }
     return clear;
 }
 
@@ -371,12 +386,13 @@ bool Layer::isinLastRow(int index)
 //kiszámolja az eredeti kijelzőindexből az aktuális layerindexet (a képernyő indexének megfelelő pixel indexét)
 int Layer::calculateCurrentIndex(int originalIndex)
 {
-    int originalrowofindex = originalIndex / originalnumberofcolumns;
-    int originalcolumnofindex = originalIndex - originalrowofindex * originalnumberofcolumns;
-    int startcolumnindex = startindex - (startindex / numberofcolumns) * numberofcolumns;;
+    int originalrowofindex = originalIndex / originalnumberofcolumns; // 25
+    int originalcolumnofindex = originalIndex - originalrowofindex * originalnumberofcolumns; // 31
+    int startcolumnindex = startindex - (startindex / numberofcolumns) * numberofcolumns; // 1
 
-    int index = startindex + originalrowofindex*numberofcolumns + startcolumnindex + originalcolumnofindex;
-
+    int index = startindex + originalrowofindex*numberofcolumns/* + startcolumnindex*/ + originalcolumnofindex; // 1+25*33 + 2 + 31
+    QTextStream(stdout) << originalIndex<< endl;
+    QTextStream(stdout) << index<< endl;
     return index;
 }
 

@@ -87,7 +87,9 @@ void Canvas::moveLayerDown()
 void Canvas::moveLayerLeft()
 {
     activeLayer->moveLeft();
+    QTextStream(stdout) << "még jó" << endl;
     updateCombined();
+    QTextStream(stdout) << "itt is" << endl;
 }
 
 void Canvas::moveLayerRight()
