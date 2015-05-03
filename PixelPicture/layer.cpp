@@ -161,7 +161,7 @@ void Layer::moveDown()
     //Ha az kijelző alsó soránál végződik a layer is, és a layer alsó sorának minden pixele clear,
     //akkor valójában nem csúsztatjuk a layert, hanem lefele másoljuk a pixeladatokat.
     QTextStream(stdout) << numberofrows << endl;
-    if(isinLastRow(startindex + originalnumberofrows*numberofcolumns) && isLastRowClear())
+    if(isinLastRow(startindex + originalnumberofrows*numberofcolumns-1) && isLastRowClear())
     {
         QTextStream(stdout) << "Az utolsó sor üres volt!" << endl;
         for(int i = 0; i < numberofcolumns; i++)
