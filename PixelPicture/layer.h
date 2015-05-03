@@ -8,23 +8,43 @@
 class Layer
 {
 public:
-    Layer(int p);
+    Layer(int r, int c);
     ~Layer();
 
     QString getName();
     void setName(QString s);
 
-    void setColorofPixel(int index, QColor color);
-    QColor getColorofPixel(int index);
+    void setColorofPixel(int i, QColor color);
+    QColor getColorofPixel(int i);
     void setTransparency(bool t);
     bool getTransparency();
-    bool isPixelClear(int index);
-    void clearPixel(int index);
+    bool isPixelClear(int i);
+    void clearPixel(int i);
     void clear();
+
+    void setStartIndex(int index);
+    int getStartIndex();
+
+    void moveUp();
+    void moveDown();
+    void moveLeft();
+    void moveRight();
+
+    bool isFirstColumnClear();
+    bool isLastColumnClear();
+    bool isFirstRowClear();
+    bool isLastRowClear();
+
+    int calculateCurrentIndex(int originalIndex);
 
 private:
     bool transparent = false;
     QList<LayerPixel*> pixels;
+
+    int pixelsinarow, pixelsinacolumn;
+    int originalpixelsinarow, originalpixelsinacolumn;
+    int startindex;
+
     QString name;
 };
 

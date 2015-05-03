@@ -8,7 +8,7 @@
 class Frame
 {
 public:
-    Frame(int p);
+    Frame(int r, int c);
     ~Frame();
 
     void setLayerName(QString s);

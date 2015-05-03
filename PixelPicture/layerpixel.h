@@ -12,7 +12,7 @@ public:
 
     bool clear = true;
     QColor color;
-    int place;
+    int index;
     QRect rect;
 };
 

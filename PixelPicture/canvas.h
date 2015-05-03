@@ -8,7 +8,7 @@
 class Canvas
 {
 public:
-    Canvas(int p);
+    Canvas(int r, int c);
     ~Canvas();
 
     void setLayerName(QString s);
@@ -40,7 +40,7 @@ private:
     Layer* combinedLayer;
     Layer* activeLayer;
 
-    int numberofPixels;
+    int pixelsinarow, pixelsinacolumn;
 };
 
 #endif // CANVAS_H

@@ -79,9 +79,9 @@ private slots:
 
     void on_lineButton_clicked();
 
-    void on_moveupButton_clicked();
+    void on_movelayerupButton_clicked();
 
-    void on_movedownButton_clicked();
+    void on_movelayerdownButton_clicked();
 
     void on_rectangleButton_clicked();
 
@@ -90,6 +90,8 @@ private slots:
     void on_fillButton_clicked();
 
     void animationSliderUpdate(int time);
+
+    void on_copyFrameButton_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -7,7 +7,7 @@ Controller::Controller(PixelScene *s)
     primaryColor = Qt::white;
     secondaryColor = Qt::black;
 
-    activeAnimation = new Animation(numberofPixels());
+    activeAnimation = new Animation(pixelsinaRow(), pixelsinaColumn());
     animations.append(activeAnimation);
 
     imageconverter = new ImageConverterTool(this,getPixelSize(), pixelsinaRow(), pixelsinaColumn());
@@ -164,6 +164,11 @@ void Controller::addFrame(int timespan)
 {
     activeAnimation->addFrame(timespan);
     updateScene();
+}
+
+void Controller::copyFrame()
+{
+    activeAnimation->copyFrame();
 }
 
 void Controller::setColorofPixel(int index)

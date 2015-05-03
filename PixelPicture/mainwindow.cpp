@@ -388,7 +388,7 @@ void MainWindow::on_removeButton_clicked()
     }
 }
 
-void MainWindow::on_moveupButton_clicked()
+void MainWindow::on_movelayerupButton_clicked()
 {
     int index = layerbuttons.indexOf(activelayerButton);
     if(index != 0)
@@ -411,7 +411,7 @@ void MainWindow::on_moveupButton_clicked()
     }
 }
 
-void MainWindow::on_movedownButton_clicked()
+void MainWindow::on_movelayerdownButton_clicked()
 {
     int index = layerbuttons.indexOf(activelayerButton);
     if(index != layerbuttons.size()-1)
@@ -473,4 +473,9 @@ void MainWindow::on_animationSlider_valueChanged(int position)
             s.prepend("0");
     QString label(m + ":" + s + ":" + ms);
     ui->animationLabel->setText(label);
+}
+
+void MainWindow::on_copyFrameButton_clicked()
+{
+    controller->copyFrame();
 }

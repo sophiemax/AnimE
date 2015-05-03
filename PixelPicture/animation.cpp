@@ -1,9 +1,10 @@
 #include "animation.h"
 
-Animation::Animation(int p)
+Animation::Animation(int r, int c)
 {
-    Frame* f = new Frame(p);
-    numberofPixels = p;
+    Frame* f = new Frame(r,c);
+    pixelsinarow = r;
+    pixelsinacolumn = c;
     frames.append(f);
     timesum += f->getTimespan();
     activeFrame = f;
@@ -125,6 +126,24 @@ void Animation::addFrame(int t)
     activeFrame = f;
 
     timesum += t;
+}
+
+void Animation::copyFrame()
+{
+    /*int index = frames.indexOf(activeFrame);
+    int numberofLayerPixels = activeFrame->numberofLayerPixels();
+    int numberofLayers = activeFrame->numberofLayers();
+    Frame *f = new Frame(numberofLayerPixels);
+
+    for(int i = 0; i < numberofLayers; i++)
+    {
+        //f->addLayer(number)
+    }
+
+    frames.insert(index + 1, f);
+    activeFrame = f;
+
+    timesum += f->getTimespan();*/
 }
 
 void Animation::setColorofPixel(int index, QColor color)

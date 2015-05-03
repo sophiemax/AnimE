@@ -286,7 +286,7 @@
      <string>Rename</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="moveupButton">
+   <widget class="QPushButton" name="movelayerupButton">
     <property name="geometry">
      <rect>
       <x>510</x>
@@ -299,7 +299,7 @@
      <string>Move up</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="movedownButton">
+   <widget class="QPushButton" name="movelayerdownButton">
     <property name="geometry">
      <rect>
       <x>590</x>
@@ -349,6 +349,19 @@
     </property>
     <property name="text">
      <string>Fill</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="copyFrameButton">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>70</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Copy Frame</string>
     </property>
    </widget>
   </widget>

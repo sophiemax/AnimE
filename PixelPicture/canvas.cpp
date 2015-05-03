@@ -1,12 +1,13 @@
 #include "canvas.h"
 
-Canvas::Canvas(int p)
+Canvas::Canvas(int r, int c)
 {
-    numberofPixels = p;
-    Layer* l = new Layer(p);
+    pixelsinarow = r;
+    pixelsinacolumn = c;
+    Layer* l = new Layer(r,c);
     activeLayer = l;
     l->setName("Layer0");
-    combinedLayer = new Layer(p);
+    combinedLayer = new Layer(r,c);
     layers.append(l);
 }
 

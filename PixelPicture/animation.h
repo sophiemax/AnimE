@@ -6,7 +6,7 @@
 class Animation
 {
 public:
-    Animation(int p);
+    Animation(int r, int c);
     ~Animation();
 
     void setLayerName(QString s);
@@ -32,6 +32,8 @@ public:
     void switchLayers(int i, int j);
     void addFrame();
     void addFrame(int t);
+    void copyFrame();
+
     void setColorofPixel(int index, QColor color);
     QColor getColorofPixel(int index);
     bool isPixelClear(int index);
@@ -40,7 +42,7 @@ public:
 
 private:
     float timesum = 0;
-    int numberofPixels;
+    int pixelsinarow, pixelsinacolumn;
 
     QList<Frame*> frames;
     Frame *activeFrame;

@@ -48,6 +48,7 @@ public:
     void switchLayers(int i, int j);
     void addFrame();
     void addFrame(int timespan);
+    void copyFrame();
 
     void setColorofPixel(int index);
     void setColorofPixel(int index, QColor color);
