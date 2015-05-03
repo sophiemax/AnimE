@@ -171,6 +171,30 @@ void Controller::copyFrame()
     activeAnimation->copyFrame();
 }
 
+void Controller::moveLayerDown()
+{
+    activeAnimation->moveLayerDown();
+    updateScene();
+}
+
+void Controller::moveLayerLeft()
+{
+    activeAnimation->moveLayerLeft();
+    updateScene();
+}
+
+void Controller::moveLayerRight()
+{
+    activeAnimation->moveLayerRight();
+    updateScene();
+}
+
+void Controller::moveLayerUp()
+{
+    activeAnimation->moveLayerUp();
+    updateScene();
+}
+
 void Controller::setColorofPixel(int index)
 {
     if(scene->getWindowToggled())

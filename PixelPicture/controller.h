@@ -50,6 +50,11 @@ public:
     void addFrame(int timespan);
     void copyFrame();
 
+    void moveLayerUp();
+    void moveLayerDown();
+    void moveLayerLeft();
+    void moveLayerRight();
+
     void setColorofPixel(int index);
     void setColorofPixel(int index, QColor color);
     QColor getColorofPixel(int index);

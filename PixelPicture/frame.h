@@ -31,6 +31,11 @@ public:
     void clearPixel(int index);
     void clearLayer();
 
+    void moveLayerUp();
+    void moveLayerDown();
+    void moveLayerLeft();
+    void moveLayerRight();
+
     bool getTransparency(int index);
 
     float getTimespan();

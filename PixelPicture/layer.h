@@ -35,14 +35,20 @@ public:
     bool isFirstRowClear();
     bool isLastRowClear();
 
+    bool isinFirstColumn(int index);
+    bool isinLastColumn(int index);
+    bool isinFirstRow(int index);
+    bool isinLastRow(int index);
+
     int calculateCurrentIndex(int originalIndex);
+    int calculateCurrentIndex(int row, int column);
 
 private:
     bool transparent = false;
     QList<LayerPixel*> pixels;
 
-    int pixelsinarow, pixelsinacolumn;
-    int originalpixelsinarow, originalpixelsinacolumn;
+    int numberofcolumns, numberofrows;
+    int originalnumberofcolumns, originalnumberofrows;
     int startindex;
 
     QString name;

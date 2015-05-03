@@ -72,6 +72,30 @@ void Canvas::clearLayer()
     updateCombined();
 }
 
+void Canvas::moveLayerUp()
+{
+    activeLayer->moveUp();
+    updateCombined();
+}
+
+void Canvas::moveLayerDown()
+{
+    activeLayer->moveDown();
+    updateCombined();
+}
+
+void Canvas::moveLayerLeft()
+{
+    activeLayer->moveLeft();
+    updateCombined();
+}
+
+void Canvas::moveLayerRight()
+{
+    activeLayer->moveRight();
+    updateCombined();
+}
+
 void Canvas::addLayer()
 {
     int index = layers.indexOf(activeLayer);
@@ -105,7 +129,7 @@ void Canvas::removeActiveLayer()
 
 void Canvas::addLayer(int index)
 {
-    Layer *l = new Layer(numberofPixels);
+    Layer *l = new Layer(pixelsinarow, pixelsinacolumn);
     activeLayer = l;
     layers.insert(index,l);
 }
@@ -121,7 +145,7 @@ void Canvas::switchLayers(int i, int j)
 
 void Canvas::updateCombined()
 {
-    for(int index = 0; index < numberofPixels; index++)
+    for(int index = 0; index < pixelsinarow * pixelsinacolumn; index++)
         updateCombinedLayer(index);
 }
 

@@ -1,8 +1,8 @@
 #include "frame.h"
 
-Frame::Frame(int p)
+Frame::Frame(int r, int c)
 {
-    canvas = new Canvas(p);
+    canvas = new Canvas(r,c);
 }
 
 Frame::~Frame()
@@ -78,6 +78,26 @@ void Frame::clearPixel(int index)
 void Frame::clearLayer()
 {
     canvas->clearLayer();
+}
+
+void Frame::moveLayerUp()
+{
+    canvas->moveLayerUp();
+}
+
+void Frame::moveLayerDown()
+{
+    canvas->moveLayerDown();
+}
+
+void Frame::moveLayerLeft()
+{
+    canvas->moveLayerLeft();
+}
+
+void Frame::moveLayerRight()
+{
+    canvas->moveLayerRight();
 }
 
 bool Frame::getTransparency(int index)

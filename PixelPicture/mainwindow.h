@@ -93,6 +93,14 @@ private slots:
 
     void on_copyFrameButton_clicked();
 
+    void on_moveUpButton_clicked();
+
+    void on_moveDownButton_clicked();
+
+    void on_moveLeftButton_clicked();
+
+    void on_moveRightButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     ImportSettings *settings;

@@ -24,6 +24,12 @@ public:
     bool isPixelClear(int index);
     void clearPixel(int index);
     void clearLayer();
+
+    void moveLayerUp();
+    void moveLayerDown();
+    void moveLayerLeft();
+    void moveLayerRight();
+
     void updateCombined();
     void updateCombinedLayer(int index);
 

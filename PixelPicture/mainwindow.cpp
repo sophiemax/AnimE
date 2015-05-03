@@ -479,3 +479,23 @@ void MainWindow::on_copyFrameButton_clicked()
 {
     controller->copyFrame();
 }
+
+void MainWindow::on_moveUpButton_clicked()
+{
+    controller->moveLayerUp();
+}
+
+void MainWindow::on_moveDownButton_clicked()
+{
+    controller->moveLayerDown();
+}
+
+void MainWindow::on_moveLeftButton_clicked()
+{
+    controller->moveLayerLeft();
+}
+
+void MainWindow::on_moveRightButton_clicked()
+{
+    controller->moveLayerRight();
+}

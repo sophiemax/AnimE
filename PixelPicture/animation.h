@@ -34,6 +34,11 @@ public:
     void addFrame(int t);
     void copyFrame();
 
+    void moveLayerUp();
+    void moveLayerDown();
+    void moveLayerLeft();
+    void moveLayerRight();
+
     void setColorofPixel(int index, QColor color);
     QColor getColorofPixel(int index);
     bool isPixelClear(int index);

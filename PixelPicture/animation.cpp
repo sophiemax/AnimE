@@ -107,7 +107,7 @@ void Animation::addFrame()
 {
     int index = frames.indexOf(activeFrame);
 
-    Frame* f = new Frame(numberofPixels);
+    Frame* f = new Frame(pixelsinarow,pixelsinacolumn);
 
     frames.insert(index + 1, f);
     activeFrame = f;
@@ -119,7 +119,7 @@ void Animation::addFrame(int t)
 {
     int index = frames.indexOf(activeFrame);
 
-    Frame* f = new Frame(numberofPixels);
+    Frame* f = new Frame(pixelsinarow, pixelsinacolumn);
     f->setTimespan(t);
 
     frames.insert(index + 1, f);
@@ -144,6 +144,26 @@ void Animation::copyFrame()
     activeFrame = f;
 
     timesum += f->getTimespan();*/
+}
+
+void Animation::moveLayerUp()
+{
+    activeFrame->moveLayerUp();
+}
+
+void Animation::moveLayerDown()
+{
+    activeFrame->moveLayerDown();
+}
+
+void Animation::moveLayerLeft()
+{
+    activeFrame->moveLayerLeft();
+}
+
+void Animation::moveLayerRight()
+{
+    activeFrame->moveLayerRight();
 }
 
 void Animation::setColorofPixel(int index, QColor color)
