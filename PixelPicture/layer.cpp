@@ -87,10 +87,13 @@ int Layer::getStartIndex()
 
 void Layer::moveUp()
 {
+    QTextStream(stdout) << startindex << endl;
+    QTextStream(stdout) << numberofrows << endl;
     //Ha az kijelző felső soránál kezdődik a layer is, és a layer első sorának minden pixele clear,
     //akkor valójában nem csúsztatjuk a layert, hanem felfele másoljuk a pixeladatokat.
-    if(isinFirstColumn(startindex + originalnumberofcolumns - 1) && isFirstColumnClear())
+    if(isinFirstRow(startindex) && isFirstRowClear())
     {
+        QTextStream(stdout) << "Az első sor üres volt!" << endl;
         for(int i = 0; i < numberofcolumns; i++)
         {
             for(int j = 1; j < numberofrows; j++)
@@ -109,8 +112,10 @@ void Layer::moveUp()
             }
         }
         //ha nem, a legalsó sort töröljük, mivel mindent felmásoltunk, abban már nincsen valid adat
-        if(numberofcolumns > originalnumberofcolumns)
+        if(numberofrows > originalnumberofrows)
         {
+            QTextStream(stdout) << "A layer nagyobb, mint a kijelző." << endl;
+            QTextStream(stdout) << "Az alsó sort töröljük, mert nincs benne valid adat" << endl;
             for(int i = numberofcolumns-1; i >= 0; i--)
             {
                 int index = calculateCurrentIndex(numberofrows-1,i);
@@ -121,9 +126,11 @@ void Layer::moveUp()
     }
     else
     {
+        QTextStream(stdout) << "Az első sor NEM volt üres!" << endl;
         //ha a kijelző utolsó soránál végződik a layer, hozzá kell adnunk a layerhez egy sort alulra
-        if(isinLastRow(startindex + (originalnumberofrows-1)*numberofcolumns))
+        if(isinLastRow(startindex + originalnumberofrows*numberofcolumns))
         {
+            QTextStream(stdout) << "Sort adunk hozzá a layer végéhez!" << endl;
             numberofrows += 1;
             for(int i = 0; i < numberofcolumns; i++)
             {
@@ -135,14 +142,21 @@ void Layer::moveUp()
         }
         startindex += numberofcolumns;
     }
+
+    QTextStream(stdout) << startindex << endl;
+    QTextStream(stdout) << numberofrows << endl;
 }
 
 void Layer::moveDown()
 {
+    QTextStream(stdout) << startindex << endl;
+    QTextStream(stdout) << numberofrows << endl;
     //Ha az kijelző alsó soránál végződik a layer is, és a layer alsó sorának minden pixele clear,
     //akkor valójában nem csúsztatjuk a layert, hanem lefele másoljuk a pixeladatokat.
-    if(isinLastRow(startindex + (originalnumberofrows-1)*numberofcolumns) && isLastRowClear())
+    QTextStream(stdout) << numberofrows << endl;
+    if(isinLastRow(startindex + originalnumberofrows*numberofcolumns) && isLastRowClear())
     {
+        QTextStream(stdout) << "Az utolsó sor üres volt!" << endl;
         for(int i = 0; i < numberofcolumns; i++)
         {
             for(int j = numberofrows - 2; j >= 0; j--)
@@ -160,21 +174,26 @@ void Layer::moveDown()
             }
         }
         //ha nem, a legfelső sort töröljük, mivel mindent lemásoltunk, abban már nincsen valid adat
-        if(numberofcolumns > originalnumberofcolumns)
+        if(numberofrows > originalnumberofrows)
         {
+            QTextStream(stdout) << "A layer nagyobb, mint a kijelző." << endl;
+            QTextStream(stdout) << "Az első sort töröljük, mert nincs benne valid adat" << endl;
             for(int i = numberofcolumns-1; i >= 0; i--)
             {
                 int index = calculateCurrentIndex(0,i);
                 pixels.removeAt(index);
             }
             numberofrows -= 1;
+            startindex -= numberofcolumns;
         }
     }
     else
     {
+        QTextStream(stdout) << "Az utolsó sor NEM volt üres!" << endl;
         //ha a kijelző első soránál végződik a layer, hozzá kell adnunk a layerhez egy sort felülre
-        if(isinLastRow(startindex + (originalnumberofrows-1)*numberofcolumns))
+        if(isinLastRow(startindex + originalnumberofrows*numberofcolumns))
         {
+            QTextStream(stdout) << "Sort adunk hozzá a layer elejéhez!" << endl;
             numberofrows += 1;
             for(int i = 0; i < numberofcolumns; i++)
             {
@@ -185,8 +204,12 @@ void Layer::moveDown()
                 pixels.insert(index,lp);
             }
         }
-        startindex -= numberofcolumns;
+        else
+            startindex -= numberofcolumns;
     }
+
+    QTextStream(stdout) << startindex << endl;
+    QTextStream(stdout) << numberofrows << endl;
 }
 
 void Layer::moveLeft()
@@ -395,8 +418,8 @@ bool Layer::isinLastRow(int index)
 //kiszámolja az eredeti kijelzőindexből az aktuális layerindexet (a képernyő indexének megfelelő pixel indexét)
 int Layer::calculateCurrentIndex(int originalIndex)
 {
-    int originalrowofindex = originalIndex / originalnumberofcolumns; // 25
-    int originalcolumnofindex = originalIndex - originalrowofindex * originalnumberofcolumns; // 31
+    int originalrowofindex = originalIndex / originalnumberofcolumns;
+    int originalcolumnofindex = originalIndex - originalrowofindex * originalnumberofcolumns;
 
     int index = startindex + originalrowofindex*numberofcolumns + originalcolumnofindex;
     return index;
