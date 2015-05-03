@@ -259,13 +259,14 @@ void Layer::moveRight()
     //akkor valójában nem csúsztatjuk a layert, hanem jobbra másoljuk a pixeladatokat.
     if(isinLastColumn(startindex + originalnumberofcolumns - 1) && isLastColumnClear())
     {
+
+        QTextStream(stdout) << "Az utolsó oszlop üres volt!" << endl;
         for(int j = 0; j < numberofrows; j++)
         {
             for(int i = numberofcolumns - 2; i >= 0; i--)
             {
                 int nextindex = calculateCurrentIndex(j,i+1);
                 int index = calculateCurrentIndex(j,i);
-
                 pixels[nextindex]->clear = pixels[index]->clear;
                 pixels[nextindex]->color = pixels[index]->color;
             }
@@ -279,19 +280,24 @@ void Layer::moveRight()
         //ha nem, a legelső oszlopot töröljük, mivel mindent jobbramásoltunk, abban már nincsen valid adat
         if(numberofcolumns > originalnumberofcolumns)
         {
+            QTextStream(stdout) << "A layer nagyobb, mint a kijelző." << endl;
+            QTextStream(stdout) << "Az első oszlopot töröljük, mert nincs benne valid adat" << endl;
             for(int j = numberofrows-1; j >= 0; j --)
             {
-                int index = calculateCurrentIndex(j,numberofcolumns-1);
+                int index = calculateCurrentIndex(j,0);
                 pixels.removeAt(index);
             }
             numberofcolumns -= 1;
+            startindex -= 1;
         }
     }
     else
     {
+        QTextStream(stdout) << "Az utolsó oszlop NEM volt üres!" << endl;
         //ha a kijelző első oszlopánál kezdődik a layer, hozzá kell adnunk a layerhez egy oszlopot az elejére
         if(isinFirstColumn(startindex))
         {
+            QTextStream(stdout) << "Oszlopot adunk hozzá a layer elejéhez!" << endl;
             numberofcolumns += 1;
             for(int j = 0; j < numberofrows; j++)
             {
@@ -306,6 +312,9 @@ void Layer::moveRight()
             startindex -=1;
         //a kijelző kezdetét jelző startindex eggyel balra csúszott.
     }
+
+    QTextStream(stdout) << startindex << endl;
+    QTextStream(stdout) << numberofcolumns << endl;
 }
 
 //megnézi, hogy a layer első oszlopában minden pixel clear-e
@@ -388,11 +397,8 @@ int Layer::calculateCurrentIndex(int originalIndex)
 {
     int originalrowofindex = originalIndex / originalnumberofcolumns; // 25
     int originalcolumnofindex = originalIndex - originalrowofindex * originalnumberofcolumns; // 31
-    int startcolumnindex = startindex - (startindex / numberofcolumns) * numberofcolumns; // 1
 
-    int index = startindex + originalrowofindex*numberofcolumns/* + startcolumnindex*/ + originalcolumnofindex; // 1+25*33 + 2 + 31
-    QTextStream(stdout) << originalIndex<< endl;
-    QTextStream(stdout) << index<< endl;
+    int index = startindex + originalrowofindex*numberofcolumns + originalcolumnofindex;
     return index;
 }
 
