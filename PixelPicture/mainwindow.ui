@@ -55,25 +55,25 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>31</width>
+      <width>23</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Pen</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="ellipseButton">
     <property name="geometry">
      <rect>
-      <x>160</x>
+      <x>100</x>
       <y>0</y>
-      <width>41</width>
+      <width>23</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Ellipse</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="secondaryColorButton">
@@ -92,14 +92,14 @@
    <widget class="QPushButton" name="eraserButton">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>20</x>
       <y>0</y>
-      <width>41</width>
+      <width>23</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Eraser</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="clearLayerButton">
@@ -315,40 +315,40 @@
    <widget class="QPushButton" name="lineButton">
     <property name="geometry">
      <rect>
-      <x>70</x>
+      <x>40</x>
       <y>0</y>
-      <width>31</width>
+      <width>23</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Line</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="rectangleButton">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>60</x>
       <y>0</y>
-      <width>31</width>
+      <width>23</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Rect</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="fillButton">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>80</x>
       <y>0</y>
-      <width>31</width>
+      <width>23</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Fill</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="copyFrameButton">
