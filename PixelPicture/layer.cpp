@@ -69,9 +69,16 @@ void Layer::clearPixel(int i)
 
 void Layer::clear()
 {
-    foreach(LayerPixel *lp, pixels)
+    while (!pixels.isEmpty())
+        delete pixels.takeFirst();
+    numberofcolumns = originalnumberofcolumns;
+    numberofrows = originalnumberofrows;
+    startindex = 0;
+    for(int i = 0; i < numberofcolumns * numberofrows; i++)
     {
-        lp->clear = true;
+        LayerPixel *lp = new LayerPixel();
+        lp->index = i;
+        pixels.append(lp);
     }
 }
 
@@ -258,6 +265,8 @@ void Layer::moveLeft()
         //ha a kijelző utolsó oszlopánál vége van a layernek, hozzá kell adnunk a layerhez egy oszlopot a végére
         if(isinLastColumn(startindex + originalnumberofcolumns - 1))
         {
+            int startrow = startindex/numberofcolumns;
+            startindex += startrow;
             QTextStream(stdout) << "Oszlopot adunk hozzá a layer végéhez!" << endl;
             numberofcolumns += 1;
             for(int j = 0; j < numberofrows; j++)
@@ -272,8 +281,12 @@ void Layer::moveLeft()
         //a kijelző kezdetét jelző startindex eggyel jobbra csúszott.
     }
 
+    QTextStream(stdout) << "<End>" << endl;
+    QTextStream(stdout) << startindex + originalnumberofcolumns - 1 << endl;
+    QTextStream(stdout) << isinLastColumn(startindex + originalnumberofcolumns - 1) << endl;
     QTextStream(stdout) << startindex << endl;
     QTextStream(stdout) << numberofcolumns << endl;
+    QTextStream(stdout) << "</End>" << endl;
 }
 
 void Layer::moveRight()
@@ -330,6 +343,7 @@ void Layer::moveRight()
                 int index = calculateCurrentIndex(j,0);
                 pixels.insert(index, lp);
             }
+
         }
         else
             startindex -=1;
