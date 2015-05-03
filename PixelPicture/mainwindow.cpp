@@ -346,9 +346,11 @@ void MainWindow::on_removeButton_clicked()
     controller->removeActiveLayer();
     if(layerbuttons.size() == 1)
     {
+        QTextStream(stdout) << layerbuttons[0]->text() << endl;
         layerbuttons[0]->setText("Layer0");
         transparencybuttons[0]->setChecked(true);
         controller->setLayerName("Layer0");
+        QTextStream(stdout) << "MUHAHA" << endl;
     }
     else
     {
@@ -361,6 +363,7 @@ void MainWindow::on_removeButton_clicked()
         }
         else
         {
+            QTextStream(stdout) << "ITT" << endl;
             activelayerButton = layerbuttons[1];
         }
 

@@ -84,7 +84,7 @@ void Canvas::removeActiveLayer()
     {
         layers.removeFirst();
         delete activeLayer;
-        if(layers.size() == 1)
+        if(layers.size() == 0)
         {
             addLayer(0);
         }
@@ -135,6 +135,7 @@ void Canvas::updateCombinedLayer(int index)
         int i = 0;
         while(i<layers.size() && (layers[i]->isPixelClear(index) || layers[i]->getTransparency()))
             i++;
+
         if(i==layers.size())
         {
             combinedLayer->clearPixel(index);

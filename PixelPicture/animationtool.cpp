@@ -26,8 +26,8 @@ void AnimationTool::updateScene()
     if (i < controller->numberofFrames())
     {
         controller->setActiveFrame(i);
-        timesum += controller->getTimespan(i);
         timer.start(controller->getTimespan(i));
+        timesum += controller->getTimespan(i);
         ++i;
     }
 }
