@@ -10,11 +10,11 @@ class LineTool : public Tool
 public:
     LineTool(QObject *parent);
     ~LineTool();
-    void mousePressEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 private:
-    void drawPixelLine(PixelScene* scene);
+    void drawPixelLine();
 };
 
 #endif // LINETOOL_H

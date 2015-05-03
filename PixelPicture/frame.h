@@ -8,10 +8,38 @@
 class Frame
 {
 public:
-    Frame();
+    Frame(int p);
     ~Frame();
 
+    void setLayerName(QString s);
+    QString getLayerName();
+    QString getLayerName(int index);
+
+    void setLayerTransparency(bool t);
+
+    void setActiveLayer(int index);
+
+    void addLayer();
+    void removeActiveLayer();
+    void switchLayers(int i, int j);
+
+    int numberofLayers();
+
+    void setColorofPixel(int index, QColor color);
+    QColor getColorofPixel(int index);
+    bool isPixelClear(int index);
+    void clearPixel(int index);
+    void clearLayer();
+
+    bool getTransparency(int index);
+
+    float getTimespan();
+    void setTimespan(float t);
+
+private:
+
     Canvas *canvas;
+
     float timespan = 1000.0;
 };
 

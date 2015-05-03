@@ -11,48 +11,47 @@ LineTool::~LineTool()
 
 }
 
-void LineTool::mousePressEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene)
+void LineTool::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    Q_UNUSED(scene)
     startPoint = event->scenePos();
 }
 
-void LineTool::mouseMoveEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene)
+void LineTool::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    Q_UNUSED(scene)
     endPoint = event->scenePos();
 }
 
-void LineTool::mouseReleaseEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene)
+void LineTool::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     endPoint = event->scenePos();
-    drawPixelLine(scene);
+    drawPixelLine();
 }
 
-void LineTool::drawPixelLine(PixelScene *scene)
+void LineTool::drawPixelLine()
 {
     //Getting nearest Pixels:
-    Pixel *begin = scene->nearestPixel(startPoint.x(), startPoint.y());
-    Pixel *end = scene->nearestPixel(endPoint.x(), endPoint.y());
+    QRect begin = controller->nearestPixelRect(startPoint.x(), startPoint.y());
+    QRect end = controller->nearestPixelRect(endPoint.x(), endPoint.y());
 
     //Új kezdő és végpontok koordinátái.
-    float startX = begin->rect.center().x();
-    float startY = begin->rect.center().y();
-    float endX = end->rect.center().x();
-    float endY = end->rect.center().y();
+    float startX = begin.center().x();
+    float startY = begin.center().y();
+    float endX = end.center().x();
+    float endY = end.center().y();
 
     //Meredekség
     float deltaX = (endX-startX);
     float deltaY = (endY-startY);
     float m = 0.0;
-    if(deltaX != 0.0){
+    if(deltaX != 0.0)
+    {
         m = deltaY/deltaX;
     }
     float length = sqrtf(deltaX*deltaX + deltaY*deltaY);
 
 
     //Az iterálás során egy iterációval megtett távolság:
-    float precision = scene->pixelSize;
+    float precision = controller->getPixelSize();
     float direction = (deltaX ==0) ? (deltaY/fabs(deltaY)) :(deltaX/fabs(deltaX));
     float distance = 0.0;
 
@@ -74,23 +73,9 @@ void LineTool::drawPixelLine(PixelScene *scene)
         }
 
         //Kirajzolás.
-        Pixel *p = scene->containsPoint(x,y);
-        if(p!=NULL)
-        {
-            int index = p->index;
-            if(scene->windowToggled)
-            {
-                p->window->setWindowColor(scene->primaryColor);
-                p->window->updateWindow();
-            }
-            else
-            {
-                scene->activeCanvas->activeLayer->pixels[index]->clear = false;
-                scene->activeCanvas->activeLayer->pixels[index]->color = scene->primaryColor;
-                scene->updateCombinedLayer(index);
-                scene->updatePixel(index);
-            }
-        }
+        int index = controller->containsPoint(x,y);
+        if(index != -1)
+            controller->setColorofPixel(index);
 
         //A következő iterációra növeljük a megtett távolságot.
         distance += direction*precision;

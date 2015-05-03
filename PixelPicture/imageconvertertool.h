@@ -2,9 +2,9 @@
 #define IMAGECONVERTERTOOL_H
 
 #include <QImage>
-#include "pixelscene.h"
+#include "controller.h"
 
-class PixelScene;
+class Controller;
 
 class ImageConverterTool
 {
@@ -25,7 +25,7 @@ public:
         average
     };
 
-    ImageConverterTool(PixelScene *scene, int pixelsize, int pixelx, int pixely);
+    ImageConverterTool(Controller *c, int pixelsize, int pixelx, int pixely);
     ~ImageConverterTool();
 
     void convertImage(QImage image);
@@ -39,13 +39,15 @@ public:
     void averageConvert(QImage image);
     void onlypixelsaverageConvert(QImage image);
 
+    void setColorofPixel(int index, QColor color);
+
     ImportSettingsResolution importsettingsresolution = ImageConverterTool::ImportSettingsResolution::onlypixels;
     ImportSettingsColor importsettingscolor = ImageConverterTool::ImportSettingsColor::center;
 
     bool blackisclear = false;
 
 private:
-    PixelScene *scene;
+    Controller *controller;
     int size, x, y;
 };
 

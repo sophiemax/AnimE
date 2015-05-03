@@ -10,11 +10,11 @@ class PenTool : public Tool
 public:
     PenTool(QObject *parent);
     ~PenTool();
-    void mousePressEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 private:
-    void penMouseEvent(PixelScene* scene);
+    void penMouseEvent();
 };
 
 #endif // PENTOOL_H

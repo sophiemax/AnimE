@@ -2,9 +2,9 @@
 #include <QPixmap>
 #include "layerpixel.h"
 
-ImageConverterTool::ImageConverterTool(PixelScene *pscene, int pixelsize, int pixelx, int pixely)
+ImageConverterTool::ImageConverterTool(Controller *c, int pixelsize, int pixelx, int pixely)
 {
-    scene = pscene;
+    controller = c;
     size = pixelsize;
     x = pixelx;
     y = pixely;
@@ -17,39 +17,42 @@ ImageConverterTool::~ImageConverterTool()
 
 void ImageConverterTool::convertImage(QImage image)
 {
+    QImage scaled;
     switch(importsettingsresolution)
     {
         case ImageConverterTool::ImportSettingsResolution::onlypixels:
+            scaled = image.scaled(controller->getOnlyPixelsWidth() + 1, controller->getOnlyPixelsHeight() + 1);
             switch(importsettingscolor)
             {
                 case ImageConverterTool::ImportSettingsColor::topleft:
-                    onlypixelstopleftConvert(image);
+                    onlypixelstopleftConvert(scaled);
                     break;
                 case ImageConverterTool::ImportSettingsColor::center:
-                    onlypixelscenterConvert(image);
+                    onlypixelscenterConvert(scaled);
                     break;
                 case ImageConverterTool::ImportSettingsColor::corners:
-                    onlypixelsaverageofcornersConvert(image);
+                    onlypixelsaverageofcornersConvert(scaled);
                     break;
                 case ImageConverterTool::ImportSettingsColor::average:
-                    onlypixelsaverageConvert(image);
+                    onlypixelsaverageConvert(scaled);
                     break;
             }
             break;
         case ImageConverterTool::ImportSettingsResolution::wholeimage:
+            scaled = image.scaled(controller->getWidth() + 1, controller->getHeight() + 1);
             switch(importsettingscolor)
             {
                 case ImageConverterTool::ImportSettingsColor::topleft:
-                    topleftConvert(image);
+                    topleftConvert(scaled);
                     break;
                 case ImageConverterTool::ImportSettingsColor::center:
-                    centerConvert(image);
+                    centerConvert(scaled);
                     break;
                 case ImageConverterTool::ImportSettingsColor::corners:
-                    averageofcornersConvert(image);
+                    averageofcornersConvert(scaled);
                     break;
                 case ImageConverterTool::ImportSettingsColor::average:
-                    averageConvert(image);
+                    averageConvert(scaled);
                     break;
             }
             break;
@@ -58,24 +61,12 @@ void ImageConverterTool::convertImage(QImage image)
 
 void ImageConverterTool::topleftConvert(QImage image)
 {
-    foreach(Pixel *p, scene->pixels)
+    for(int index = 0; index < controller->numberofPixels(); index++)
     {
-        int index = p->index;
+        QRect rect = controller->getPixelRect(index);
+        QColor color = image.pixel(rect.left(),rect.top());
 
-        QColor color = image.pixel(p->rect.left(),p->rect.top());
-
-        if(blackisclear && color == Qt::black)
-        {
-            scene->activeCanvas->activeLayer->pixels[index]->clear = true;
-        }
-        else
-        {
-            scene->activeCanvas->activeLayer->pixels[index]->clear = false;
-            scene->activeCanvas->activeLayer->pixels[index]->color = color;
-
-            scene->updateCombinedLayer(index);
-            scene->updatePixel(index);
-        }
+        setColorofPixel(index, color);
     }
 }
 
@@ -91,23 +82,12 @@ void ImageConverterTool::onlypixelstopleftConvert(QImage image)
 
             QColor color = image.pixel(left,top);
 
-            if(blackisclear && color == Qt::black)
-            {
-                scene->activeCanvas->activeLayer->pixels[index]->clear = true;
-            }
-            else
-            {
-                scene->activeCanvas->activeLayer->pixels[index]->clear = false;
-                scene->activeCanvas->activeLayer->pixels[index]->color = color;
-
-                scene->updateCombinedLayer(index);
-                scene->updatePixel(index);
-            }
+            setColorofPixel(index, color);
         }
     }
 }
 
-void ImageConverterTool::bottomrightConvert(QImage image)
+/*void ImageConverterTool::bottomrightConvert(QImage image)
 {
     foreach(Pixel *p, scene->pixels)
     {
@@ -119,35 +99,24 @@ void ImageConverterTool::bottomrightConvert(QImage image)
         scene->updateCombinedLayer(index);
         scene->updatePixel(index);
     }
-}
+}*/
 
 void ImageConverterTool::averageofcornersConvert(QImage image)
 {
-    foreach(Pixel *p, scene->pixels)
+    for(int index = 0; index < controller->numberofPixels(); index++)
     {
-        int index = p->index;
+        QRect rect = controller->getPixelRect(index);
 
-        QColor topleft = image.pixel(p->rect.left(),p->rect.top());
-        QColor bottomleft = image.pixel(p->rect.left(),p->rect.bottom());
-        QColor topright = image.pixel(p->rect.right(),p->rect.top());
-        QColor bottomright = image.pixel(p->rect.right(),p->rect.bottom());
+        QColor topleft = image.pixel(rect.left(),rect.top());
+        QColor bottomleft = image.pixel(rect.left(),rect.bottom());
+        QColor topright = image.pixel(rect.right(),rect.top());
+        QColor bottomright = image.pixel(rect.right(),rect.bottom());
 
         QColor average((topleft.red()+bottomleft.red()+topright.red()+bottomright.red())/4,
                        (topleft.green()+bottomleft.green()+topright.green()+bottomright.green())/4,
                        (topleft.blue()+bottomleft.blue()+topright.blue()+bottomright.blue())/4);
 
-        if(blackisclear && average == Qt::black)
-        {
-            scene->activeCanvas->activeLayer->pixels[index]->clear = true;
-        }
-        else
-        {
-            scene->activeCanvas->activeLayer->pixels[index]->clear = false;
-            scene->activeCanvas->activeLayer->pixels[index]->color = average;
-
-            scene->updateCombinedLayer(index);
-            scene->updatePixel(index);
-        }
+        setColorofPixel(index, average);
     }
 }
 
@@ -171,43 +140,20 @@ void ImageConverterTool::onlypixelsaverageofcornersConvert(QImage image)
                            (topleft.green()+bottomleft.green()+topright.green()+bottomright.green())/4,
                            (topleft.blue()+bottomleft.blue()+topright.blue()+bottomright.blue())/4);
 
-            if(blackisclear && average == Qt::black)
-            {
-                scene->activeCanvas->activeLayer->pixels[index]->clear = true;
-            }
-            else
-            {
-                scene->activeCanvas->activeLayer->pixels[index]->clear = false;
-                scene->activeCanvas->activeLayer->pixels[index]->color = average;
-
-                scene->updateCombinedLayer(index);
-                scene->updatePixel(index);
-            }
-
+            setColorofPixel(index, average);
         }
     }
 }
 
 void ImageConverterTool::centerConvert(QImage image)
 {
-    foreach(Pixel *p, scene->pixels)
+    for(int index = 0; index < controller->numberofPixels(); index++)
     {
-        int index = p->index;
+        QRect rect = controller->getPixelRect(index);
 
-        QColor color = image.pixel(p->rect.center().x(),p->rect.center().y());
+        QColor color = image.pixel(rect.center().x(),rect.center().y());
 
-        if(blackisclear && color == Qt::black)
-        {
-            scene->activeCanvas->activeLayer->pixels[index]->clear = true;
-        }
-        else
-        {
-            scene->activeCanvas->activeLayer->pixels[index]->clear = false;
-            scene->activeCanvas->activeLayer->pixels[index]->color = color;
-
-            scene->updateCombinedLayer(index);
-            scene->updatePixel(index);
-        }
+        setColorofPixel(index, color);
     }
 }
 
@@ -224,33 +170,19 @@ void ImageConverterTool::onlypixelscenterConvert(QImage image)
 
             QColor color = image.pixel(rect.center().x(),rect.center().y());
 
-            if(blackisclear && color == Qt::black)
-            {
-                scene->activeCanvas->activeLayer->pixels[index]->clear = true;
-            }
-            else
-            {
-                scene->activeCanvas->activeLayer->pixels[index]->clear = false;
-                scene->activeCanvas->activeLayer->pixels[index]->color = color;
-
-                scene->updateCombinedLayer(index);
-                scene->updatePixel(index);
-            }
-
+            setColorofPixel(index, color);
         }
     }
 }
 
 void ImageConverterTool::averageConvert(QImage image)
 {
-    int size = scene->pixelSize;
-
-    foreach(Pixel *p, scene->pixels)
+    for(int index = 0; index < controller->numberofPixels(); index++)
     {
-        int index = p->index;
+        QRect rect = controller->getPixelRect(index);
 
-        int top = p->rect.top();
-        int left = p->rect.left();
+        int top = rect.top();
+        int left = rect.left();
         int red = 0, green = 0, blue = 0;
 
         for(int i = 0; i<=size; i++)
@@ -270,18 +202,7 @@ void ImageConverterTool::averageConvert(QImage image)
 
         QColor average(red,green,blue);
 
-        if(blackisclear && average == Qt::black)
-        {
-            scene->activeCanvas->activeLayer->pixels[index]->clear = true;
-        }
-        else
-        {
-            scene->activeCanvas->activeLayer->pixels[index]->clear = false;
-            scene->activeCanvas->activeLayer->pixels[index]->color = average;
-
-            scene->updateCombinedLayer(index);
-            scene->updatePixel(index);
-        }
+        setColorofPixel(index, average);
     }
 }
 
@@ -313,18 +234,19 @@ void ImageConverterTool::onlypixelsaverageConvert(QImage image)
 
             QColor average(red,green,blue);
 
-            if(blackisclear && average == Qt::black)
-            {
-                scene->activeCanvas->activeLayer->pixels[index]->clear = true;
-            }
-            else
-            {
-                scene->activeCanvas->activeLayer->pixels[index]->clear = false;
-                scene->activeCanvas->activeLayer->pixels[index]->color = average;
-
-                scene->updateCombinedLayer(index);
-                scene->updatePixel(index);
-            }
+            setColorofPixel(index, average);
         }
+    }
+}
+
+void ImageConverterTool::setColorofPixel(int index, QColor color)
+{
+    if(blackisclear && color == Qt::black)
+    {
+        controller->clearPixel(index);
+    }
+    else
+    {
+        controller->setColorofPixel(index, color);
     }
 }

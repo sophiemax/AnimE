@@ -1,10 +1,10 @@
 #include "videoconvertertool.h"
 
-VideoConverterTool::VideoConverterTool(PixelScene *s)
+VideoConverterTool::VideoConverterTool(Controller *c)
 {
     player = new QMediaPlayer;
-    scene = s;
-    surface = new VideoSurface(s, player);
+    controller = c;
+    surface = new VideoSurface(c, player);
     player->setVideoOutput(surface);
 }
 
@@ -12,5 +12,20 @@ VideoConverterTool::~VideoConverterTool()
 {
     delete player;
     delete surface;
+}
+
+void VideoConverterTool::reset()
+{
+    surface->reset();
+}
+
+void VideoConverterTool::setMedia(QMediaContent content)
+{
+    player->setMedia(content);
+}
+
+void VideoConverterTool::start()
+{
+    player->play();
 }
 

@@ -3,14 +3,11 @@
 PixelScene::PixelScene(QObject *parent) :
     QGraphicsScene(parent)
 {
-    primaryColor = Qt::white;
-    secondaryColor = Qt::black;
-
     for(int i = 0; i < windowYNumber; i++)
     {
         for(int j = 0; j < windowXNumber; j++)
         {
-            Window* w = new Window(this);
+            Window* w = new Window();
             for(int k = 0; k < windowHeight; k++)
             {
                 for(int l = 0; l < windowWidth; l++)
@@ -36,32 +33,9 @@ PixelScene::PixelScene(QObject *parent) :
     height = pixelSize * windowHeight * windowYNumber + gapHeight * (windowYNumber-1);
     onlypixelswidth = pixelSize * windowWidth * windowXNumber;
     onlypixelsheight = pixelSize * windowHeight * windowYNumber;
-
-    Canvas* c = new Canvas(pixels.size());
-    activeCanvas = c;
-    canvases.append(c);
-
-
-
-    imageconverter = new ImageConverterTool(this, pixelSize, windowWidth * windowXNumber, windowHeight * windowYNumber);
-    videoconverter = new VideoConverterTool(this);
-    videoconverter->player->setNotifyInterval(interval);
 }
 
 PixelScene::~PixelScene()
-{
-    delete imageconverter;
-    delete videoconverter;
-
-    while (!pixels.isEmpty())
-        delete pixels.takeFirst();
-    while (!windows.isEmpty())
-        delete windows.takeFirst();
-    while (!canvases.isEmpty())
-        delete canvases.takeFirst();
-}
-
-void PixelScene::destruct()
 {
     while (!pixels.isEmpty())
         delete pixels.takeFirst();
@@ -79,86 +53,106 @@ int PixelScene::pixelsinaColumn()
     return windowYNumber*windowHeight;
 }
 
+int PixelScene::numberofPixels()
+{
+    return pixels.size();
+}
+
 void PixelScene::mousePressEvent(QGraphicsSceneMouseEvent *e)
 {
-    activeTool->mousePressEvent(e,this);
+    activeTool->mousePressEvent(e);
 }
 
 void PixelScene::mouseMoveEvent(QGraphicsSceneMouseEvent *e)
 {
-    activeTool->mouseMoveEvent(e,this);
+    activeTool->mouseMoveEvent(e);
 }
 
 void PixelScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *e)
 {
-    activeTool->mouseReleaseEvent(e,this);
+    activeTool->mouseReleaseEvent(e);
 }
 
-void PixelScene::updatePixel(int p)
+void PixelScene::updatePixel(int index, bool clear, QColor color)
 {
-    if(activeCanvas->activeLayer->pixels[p]->clear || activeCanvas->activeLayer->transparent)
-        if(!activeCanvas->combinedLayer->pixels[p]->clear)
-        {
-            pixels[p]->brush->setColor(activeCanvas->combinedLayer->pixels[p]->color);
-        }
-        else
-        {
-            pixels[p]->brush->setColor(Qt::black);
-        }
+    if(clear)
+        pixels[index]->brush->setColor(Qt::black);
     else
-        pixels[p]->brush->setColor(activeCanvas->activeLayer->pixels[p]->color);
-    pixels[p]->update();
+        pixels[index]->brush->setColor(color);
+    pixels[index]->update();
 }
 
-
-
-void PixelScene::updateScene()
+QList<int> PixelScene::windowIndexes(int index)
 {
-    foreach(Pixel *p, pixels)
-        updatePixel(p->index);
+    return pixels[index]->window->indexes;
 }
 
-void PixelScene::importImage(QImage image)
+QColor PixelScene::getColorofPixel(int index)
 {
-    switch(importsettingsresolution)
-    {
-        case PixelScene::ImportSettingsResolution::onlypixels:
-            imageconverter->convertImage(image.scaled(onlypixelswidth+1,onlypixelsheight+1));
-            break;
-        case PixelScene::ImportSettingsResolution::wholeimage:
-            imageconverter->convertImage(image.scaled(width+1,height+1));
-            break;
-    }
+    return pixels[index]->brush->color();
 }
 
-void PixelScene::importVideo(QString s)
+void PixelScene::setWindowToggled(bool checked)
 {
-    videoconverter->player->setMedia(QUrl::fromLocalFile(s));
-    videoconverter->player->play();
+    windowToggled = checked;
 }
 
-Pixel *PixelScene::pixelUnderMouse()
+bool PixelScene::getWindowToggled()
+{
+    return windowToggled;
+}
+
+int PixelScene::getPixelSize()
+{
+    return pixelSize;
+}
+
+int PixelScene::getWidth()
+{
+    return width;
+}
+
+int PixelScene::getOnlyPixelsWidth()
+{
+    return onlypixelswidth;
+}
+
+int PixelScene::getHeight()
+{
+    return height;
+}
+
+int PixelScene::getOnlyPixelsHeight()
+{
+    return onlypixelsheight;
+}
+
+void PixelScene::setActiveTool(Tool *tool)
+{
+    activeTool = tool;
+}
+
+int PixelScene::pixelUnderMouse()
 {
     foreach(Pixel *p, pixels)
     {
         if(p->isUnderMouse())
-            return p;
+            return p->index;
     }
-    return NULL;
+    return -1;
 }
 
-Pixel *PixelScene::containsPoint(float x, float y)
+int PixelScene::containsPoint(float x, float y)
 {
     foreach(Pixel *p, pixels)
     {
         if(p->rect.contains(x,y))
-            return p;
+            return p->index;
     }
-    return NULL;
+    return -1;
 }
 
-//Megtalálja, és visszatér a legközelebbi pixellel.
-Pixel *PixelScene::nearestPixel(float x, float y)
+int PixelScene::nearestPixel(float x, float y)
 {
     //A maximális távolság a pixelek között. A keresőalgoritmus finomítja.
     float min = FLT_MAX;
@@ -179,23 +173,35 @@ Pixel *PixelScene::nearestPixel(float x, float y)
             nearest = p;
         }
     }
-    return nearest;
+    return nearest->index;
 }
 
-void PixelScene::clearLayer()
+QRect PixelScene::getPixelRect(int index)
 {
-    foreach(LayerPixel *lp, activeCanvas->activeLayer->pixels)
-        lp->clear = true;
-    for(int i=0; i<pixels.size(); i++)
+    return pixels[index]->rect;
+}
+
+//Megtalálja, és visszatér a legközelebbi pixellel.
+QRect PixelScene::nearestPixelRect(float x, float y)
+{
+    //A maximális távolság a pixelek között. A keresőalgoritmus finomítja.
+    float min = FLT_MAX;
+    //Egyes pixelekkel számoláskor használt adatok:
+    float distx, disty, distance;
+    //A legközelebbi pixel
+    Pixel *nearest;
+
+    //A scene összes pixele közül megkeressük azt amelyik legközelebb van.
+    foreach(Pixel *p, pixels)
     {
-        updateCombinedLayer(i);
-        updatePixel(i);
+        distx = p->rect.center().x()-x;
+        disty = p->rect.center().y()-y;
+        distance = sqrtf(distx*distx + disty*disty);
+        if(distance < min)
+        {
+            min = distance;
+            nearest = p;
+        }
     }
-}
-
-void PixelScene::clearAll()
-{
-    foreach(Layer* l, activeCanvas->layers)
-        delete l;
-    activeCanvas->activeLayer = new Layer(pixels.size());
+    return nearest->rect;
 }

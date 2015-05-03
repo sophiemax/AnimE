@@ -11,11 +11,11 @@ public:
     EraserTool(QObject *parent);
     ~EraserTool();
 
-    void mousePressEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 private:
-    void eraserMouseEvent(PixelScene* scene);
+    void eraserMouseEvent();
 };
 
 #endif // ERASERTOOL_H

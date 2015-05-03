@@ -2,12 +2,12 @@
 #define VIDEOSURFACE_H
 
 #include <QAbstractVideoSurface>
-#include "pixelscene.h"
+#include "controller.h"
 
 class VideoSurface : public QAbstractVideoSurface
 {
 public:
-    VideoSurface(PixelScene *s, QMediaPlayer *p);
+    VideoSurface(Controller *c, QMediaPlayer *p);
     ~VideoSurface();
 
     QList<QVideoFrame::PixelFormat> supportedPixelFormats(
@@ -15,8 +15,10 @@ public:
 
     bool present(const QVideoFrame &frame);
 
+    void reset();
+
 private:
-    PixelScene *scene;
+    Controller *controller;
     QMediaPlayer *player;
 
     float videosum = 0.0;

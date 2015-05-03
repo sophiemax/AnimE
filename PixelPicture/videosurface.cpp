@@ -1,11 +1,8 @@
 #include "videosurface.h"
 
-#include "frame.h"
-#include "canvas.h"
-
-VideoSurface::VideoSurface(PixelScene *s, QMediaPlayer *p)
+VideoSurface::VideoSurface(Controller *c, QMediaPlayer *p)
 {
-    scene = s;
+    controller = c;
     player = p;
 }
 
@@ -34,19 +31,18 @@ bool VideoSurface::present(const QVideoFrame &frame)
                      currentframe.bytesPerLine(),
                      imageFormat);
 
-        Canvas *c = new Canvas(scene->pixels.size());
-        Frame* f = new Frame(c);
+        int timespan = player->position() - videosum;
+        controller->addFrame(timespan);
+        videosum += timespan;
 
-        f->timespan = player->position() - videosum;
-        videosum += f->timespan;
-        scene->timesum += f->timespan;
-
-        scene->activeCanvas = c;
-        scene->importImage(image);
-
-        scene->frames.append(f);
+        controller->importImage(image);
 
         return true;
     }
     return false;
+}
+
+void VideoSurface::reset()
+{
+    videosum = 0.0;
 }

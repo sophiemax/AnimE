@@ -18,7 +18,7 @@ public:
     ~Pixel();
 
     QBrush* brush;
-    QRectF rect;
+    QRect rect;
     Window* window;
 
     int index;

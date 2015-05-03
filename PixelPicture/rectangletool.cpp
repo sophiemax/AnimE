@@ -11,120 +11,69 @@ RectangleTool::~RectangleTool()
 
 }
 
-void RectangleTool::mousePressEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene)
+void RectangleTool::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    Q_UNUSED(scene)
     startPoint = event->scenePos();
 }
 
-void RectangleTool::mouseMoveEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene)
+void RectangleTool::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    Q_UNUSED(scene)
     endPoint = event->scenePos();
 }
 
-void RectangleTool::mouseReleaseEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene)
+void RectangleTool::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     endPoint = event->scenePos();
-    drawPixelRectangle(scene);
+    drawPixelRectangle();
 }
 
-void RectangleTool::drawPixelRectangle(PixelScene *scene)
+void RectangleTool::drawPixelRectangle()
 {
     if(startPoint!=endPoint)
     {
-        Pixel *start = scene->nearestPixel(startPoint.x(),startPoint.y());
-        Pixel *end = scene->nearestPixel(endPoint.x(), endPoint.y());
+        QRect start = controller->nearestPixelRect(startPoint.x(),startPoint.y());
+        QRect end = controller->nearestPixelRect(endPoint.x(), endPoint.y());
 
-        float a = fabs(start->rect.center().x() - end->rect.center().x());
-        float b = fabs(start->rect.center().y() - end->rect.center().y());
+        int a = start.center().x() - end.center().x();
+        int b = start.center().y() - end.center().y();
 
         int directionX = a > 0 ? 1 : -1;
         int directionY = b > 0 ? 1 : -1;
 
-        for(int i = 0; i < a; i+=scene->pixelSize)
+        for(int i = 0; i < abs(a); i+=controller->getPixelSize())
         {
-            float x = start->rect.center().x() + i * directionX;
-            float y1 = start->rect.center().y();
-            float y2 = end->rect.center().y();
+            float x = start.center().x() + i * directionX;
+            float y1 = start.center().y();
+            float y2 = end.center().y();
 
-            Pixel *p_starty = scene->containsPoint(x,y1);
-            if(p_starty!=NULL)
+            int index_starty = controller->containsPoint(x,y1);
+            if(index_starty!=-1)
             {
-                Pixel *p_endy = scene->containsPoint(x,y2);
-                int index1 = p_starty->index;
-                int index2 = p_endy->index;
-                if(scene->windowToggled)
-                {
-                    p_starty->window->setWindowColor(scene->primaryColor);
-                    p_starty->window->updateWindow();
+                int index_endy = controller->containsPoint(x,y2);
 
-                    p_endy->window->setWindowColor(scene->primaryColor);
-                    p_endy->window->updateWindow();
-                }
-                else
-                {
-                    scene->activeCanvas->activeLayer->pixels[index1]->clear = false;
-                    scene->activeCanvas->activeLayer->pixels[index1]->color = scene->primaryColor;
-                    scene->updateCombinedLayer(index1);
-                    scene->updatePixel(index1);
-
-                    scene->activeCanvas->activeLayer->pixels[index2]->clear = false;
-                    scene->activeCanvas->activeLayer->pixels[index2]->color = scene->primaryColor;
-                    scene->updateCombinedLayer(index2);
-                    scene->updatePixel(index2);
-                }
+                controller->setColorofPixel(index_starty);
+                controller->setColorofPixel(index_endy);
             }
         }
 
-        for(int i = 0; i < b; i+=scene->pixelSize)
+        for(int i = 0; i < b; i+=controller->getPixelSize())
         {
-            float y = start->rect.center().y() + i * directionY;
-            float x1 = start->rect.center().x();
-            float x2 = end->rect.center().x();
+            float y = start.center().y() + i * directionY;
+            float x1 = start.center().x();
+            float x2 = end.center().x();
 
-            Pixel *p_startx = scene->containsPoint(x1,y);
-            if(p_startx!=NULL)
+            int index_startx = controller->containsPoint(x1,y);
+            if(index_startx!=-1)
             {
-                Pixel *p_endx = scene->containsPoint(x2,y);
-                int index1 = p_startx->index;
-                int index2 = p_endx->index;
-                if(scene->windowToggled)
-                {
-                    p_startx->window->setWindowColor(scene->primaryColor);
-                    p_startx->window->updateWindow();
+                int index_endx = controller->containsPoint(x2,y);
 
-                    p_endx->window->setWindowColor(scene->primaryColor);
-                    p_endx->window->updateWindow();
-                }
-                else
-                {
-                    scene->activeCanvas->activeLayer->pixels[index1]->clear = false;
-                    scene->activeCanvas->activeLayer->pixels[index1]->color = scene->primaryColor;
-                    scene->updateCombinedLayer(index1);
-                    scene->updatePixel(index1);
-
-                    scene->activeCanvas->activeLayer->pixels[index2]->clear = false;
-                    scene->activeCanvas->activeLayer->pixels[index2]->color = scene->primaryColor;
-                    scene->updateCombinedLayer(index2);
-                    scene->updatePixel(index2);
-                }
+                controller->setColorofPixel(index_startx);
+                controller->setColorofPixel(index_endx);
             }
         }
 
-        if(scene->windowToggled)
-        {
-            end->window->setWindowColor(scene->primaryColor);
-            end->window->updateWindow();
-        }
-        else
-        {
-            int index = end->index;
-            scene->activeCanvas->activeLayer->pixels[index]->clear = false;
-            scene->activeCanvas->activeLayer->pixels[index]->color = scene->primaryColor;
-            scene->updateCombinedLayer(index);
-            scene->updatePixel(index);
-        }
+        int endindex = controller->containsPoint(end.center().x(),end.center().y());
+        controller->setColorofPixel(endindex);
     }
 }
 

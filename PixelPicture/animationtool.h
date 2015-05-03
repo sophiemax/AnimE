@@ -1,7 +1,7 @@
 #ifndef ANIMATIONTOOL_H
 #define ANIMATIONTOOL_H
 
-#include "pixelscene.h"
+#include "controller.h"
 #include <QTimer>
 
 class AnimationTool : public QObject
@@ -9,7 +9,7 @@ class AnimationTool : public QObject
     Q_OBJECT
 
 public:
-    AnimationTool(PixelScene *pscene);
+    AnimationTool(Controller *c);
 
     ~AnimationTool();
 
@@ -17,10 +17,14 @@ public:
 
 public slots:
     void updateScene();
+    void updateSlider();
 
+signals:
+    void positionChanged(int position);
 private:
-    PixelScene *scene;
+    Controller *controller;
     int i = 0;
+    float timesum = 0.0;
     QTimer timer;
 };
 

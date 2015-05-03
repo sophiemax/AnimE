@@ -13,25 +13,23 @@ EllipseTool::~EllipseTool()
 
 }
 
-void EllipseTool::mousePressEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene)
+void EllipseTool::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    Q_UNUSED(scene)
     startPoint = event->scenePos();
 }
 
-void EllipseTool::mouseMoveEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene)
+void EllipseTool::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    Q_UNUSED(scene)
     endPoint = event->scenePos();
 }
 
-void EllipseTool::mouseReleaseEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene)
+void EllipseTool::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     endPoint = event->scenePos();
-    drawPixelEllipse(scene);
+    drawPixelEllipse();
 }
 
-void EllipseTool::drawPixelEllipse(PixelScene *scene)
+void EllipseTool::drawPixelEllipse()
 {
     if(startPoint!=endPoint)
     {
@@ -43,16 +41,16 @@ void EllipseTool::drawPixelEllipse(PixelScene *scene)
         float b = fabs(endPoint.y()-startPoint.y())/2.0;
 
         //legközelebbi pixel keresése:
-        Pixel *bottom = scene->nearestPixel(centerX, centerY + b);
-        Pixel *top = scene->nearestPixel(centerX, centerY - b);
-        Pixel *left = scene->nearestPixel(centerX - a, centerY);
-        Pixel *right = scene->nearestPixel(centerX + a, centerY);
+        QRect bottom = controller->nearestPixelRect(centerX, centerY + b);
+        QRect top = controller->nearestPixelRect(centerX, centerY - b);
+        QRect left = controller->nearestPixelRect(centerX - a, centerY);
+        QRect right = controller->nearestPixelRect(centerX + a, centerY);
 
         //miután megvannak a pixelek, újra ki kell számítani az ellipszis adatait.
-        float ellipseLeftBound = left->rect.center().x();
-        float ellipseRightBound = right->rect.center().x();
-        float ellipseTopBound = top->rect.center().y();
-        float ellipseBottomBound =  bottom->rect.center().y();
+        float ellipseLeftBound = left.center().x();
+        float ellipseRightBound = right.center().x();
+        float ellipseTopBound = top.center().y();
+        float ellipseBottomBound =  bottom.center().y();
 
         //Konkrét paraméterek, a koordinátákból számolva:
         float ellipseCenterX = (ellipseLeftBound + ellipseRightBound)/2.0;
@@ -68,26 +66,11 @@ void EllipseTool::drawPixelEllipse(PixelScene *scene)
         {
             float x,y;
             x = ellipseCenterX + ellipseA * cosf(i);
-
             y = ellipseCenterY + ellipseB * sinf(i);
 
-            Pixel *p = scene->containsPoint(x,y);
-            if(p!=NULL)
-            {
-                int index = p->index;
-                if(scene->windowToggled)
-                {
-                    p->window->setWindowColor(scene->primaryColor);
-                    p->window->updateWindow();
-                }
-                else
-                {
-                    scene->activeCanvas->activeLayer->pixels[index]->clear = false;
-                    scene->activeCanvas->activeLayer->pixels[index]->color = scene->primaryColor;
-                    scene->updateCombinedLayer(index);
-                    scene->updatePixel(index);
-                }
-            }
+            int index = controller->containsPoint(x,y);
+            if(index != -1)
+                controller->setColorofPixel(index);
         }
     }
 }

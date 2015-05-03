@@ -33,7 +33,8 @@ SOURCES += main.cpp\
     linetool.cpp \
     rectangletool.cpp \
     filltool.cpp \
-    animation.cpp
+    animation.cpp \
+    controller.cpp
 
 HEADERS  += mainwindow.h \
     pixel.h \
@@ -56,7 +57,8 @@ HEADERS  += mainwindow.h \
     linetool.h \
     rectangletool.h \
     filltool.h \
-    animation.h
+    animation.h \
+    controller.h
 
 FORMS    += mainwindow.ui \
     importsettings.ui \

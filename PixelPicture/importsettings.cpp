@@ -15,13 +15,11 @@ ImportSettings::~ImportSettings()
 
 void ImportSettings::on_onlypixels_clicked()
 {
-    scene->importsettingsresolution = PixelScene::ImportSettingsResolution::onlypixels;
     converter->importsettingsresolution = ImageConverterTool::ImportSettingsResolution::onlypixels;
 }
 
 void ImportSettings::on_wholeimage_clicked()
 {
-    scene->importsettingsresolution = PixelScene::ImportSettingsResolution::wholeimage;
     converter->importsettingsresolution = ImageConverterTool::ImportSettingsResolution::wholeimage;
 }
 

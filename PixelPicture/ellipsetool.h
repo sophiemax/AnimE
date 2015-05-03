@@ -10,11 +10,11 @@ class EllipseTool : public Tool
 public:
     EllipseTool(QObject *parent);
     ~EllipseTool();
-    void mousePressEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 private:
-    void drawPixelEllipse(PixelScene *scene);
+    void drawPixelEllipse();
 };
 
 #endif // ELLIPSETOOL_H

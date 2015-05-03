@@ -11,13 +11,18 @@ class VideoSurface;
 class VideoConverterTool
 {
 public:
-    VideoConverterTool(PixelScene *s);
+    VideoConverterTool(Controller *c);
     ~VideoConverterTool();
+
+    void reset();
+    void setMedia(QMediaContent content);
+    void start();
+
+private:
+    Controller *controller;
 
     QMediaPlayer *player;
     VideoSurface *surface;
-private:
-    PixelScene *scene;
 };
 
 #endif // VIDEOCONVERTERTOOL_H

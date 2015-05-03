@@ -14,6 +14,11 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowTitle("AnimE");
     setWindowIcon(*icon);
 
+    scene = new PixelScene(this);
+    ui->graphicsView->setScene(scene);
+
+    controller = new Controller(scene);
+
     pen = new PenTool(this);
     line = new LineTool(this);
     rectangle = new RectangleTool(this);
@@ -21,22 +26,28 @@ MainWindow::MainWindow(QWidget *parent) :
     eraser = new EraserTool(this);
     fill = new FillTool(this);
 
-    scene = new PixelScene(this);
+    pen->setController(controller);
+    line->setController(controller);
+    rectangle->setController(controller);
+    ellipse->setController(controller);
+    eraser->setController(controller);
+    fill->setController(controller);
+
     scene->activeTool = pen;
-    ui->graphicsView->setScene(scene);
 
     settings = new ImportSettings(this);
-    settings->scene = scene;
-    settings->converter = scene->imageconverter;
+    settings->converter = controller->getImageConverter();
 
     renamelayer = new RenameLayer(this);
 
-    animation = new AnimationTool(scene);
+    animationtool = new AnimationTool(controller);
 
     createLayerDisplay();
 
     connect(renamelayer, &RenameLayer::accepted, this, &MainWindow::changeName);
     connect(renamelayer, &RenameLayer::rejected, this, &MainWindow::leaveName);
+
+    connect(animationtool, &AnimationTool::positionChanged, this, &MainWindow::animationSliderUpdate);
 }
 
 MainWindow::~MainWindow()
@@ -51,7 +62,7 @@ MainWindow::~MainWindow()
     delete ellipse;
     delete eraser;
     delete fill;
-    scene->destruct();
+    delete animationtool;
     delete scene;
 }
 
@@ -81,7 +92,6 @@ void MainWindow::createLayerDisplay()
 
     QPushButton *layer0 = new QPushButton("Layer0");
     activelayerButton = layer0;
-    scene->activeCanvas->activeLayer->name = "Layer0";
     layerbuttons.append(layer0);
 
     layergrid->addWidget(layer0,0,1,1,1);
@@ -111,7 +121,6 @@ void MainWindow::newLayerDisplay()
 
     QPushButton *layer0 = new QPushButton("Layer0");
     activelayerButton = layer0;
-    scene->activeCanvas->activeLayer = scene->activeCanvas->layers[0];
     layerbuttons.append(layer0);
 
     layergrid->addWidget(layer0,0,1,1,1);
@@ -127,15 +136,15 @@ void MainWindow::newLayerDisplay()
 void MainWindow::updateLayerDisplay()
 {
     clearLayerDisplay();
-    for(int i = 0; i < scene->activeCanvas->layers.size(); i++)
+    for(int i = 0; i < controller->numberofLayers(); i++)
     {
         QPushButton *transparency = new QPushButton("Tr");
         transparency->setFixedWidth(23);
         transparency->setCheckable(true);
-        transparency->setChecked(!scene->activeCanvas->layers[i]->transparent);
+        transparency->setChecked(!controller->getTransparency(i));
         transparencybuttons.append(transparency);
 
-        QPushButton *layer = new QPushButton(scene->activeCanvas->layers[i]->name);
+        QPushButton *layer = new QPushButton(controller->getLayerName(i));
         layerbuttons.append(layer);
 
         layergrid->addWidget(layer,i,1,1,1);
@@ -145,8 +154,8 @@ void MainWindow::updateLayerDisplay()
         connect(transparency,&QPushButton::toggled,this,&MainWindow::transparencybuttonToggled);
     }
     activelayerButton = layerbuttons[0];
-    scene->activeCanvas->activeLayer = scene->activeCanvas->layers[0];
-    container->setFixedHeight(scene->activeCanvas->layers.size() * 23);
+    //TODO: activeAnimation->activeFrame->canvas->activeLayer = activeAnimation->activeFrame->canvas->layers[0];
+    container->setFixedHeight(layerbuttons.size() * 23);
 }
 
 //ezeket inkább majd toolbuttonnel
@@ -154,61 +163,65 @@ void MainWindow::updateLayerDisplay()
 //Ha valid színt kap, akkor beállítja következő színnek a kapottat
 void MainWindow::on_primaryColorButton_clicked()
 {
-    QColor color = QColorDialog::getColor(scene->primaryColor, this);
+    QColor color = QColorDialog::getColor(controller->getPrimaryColor(), this);
     if( color.isValid() )
     {
-        scene->primaryColor = color;
+        controller->setPrimaryColor(color);
     }
 }
 void MainWindow::on_windowToggle_toggled(bool checked)
 {
-    scene->windowToggled = checked;
+    controller->setWindowToggled(checked);
 }
 
 void MainWindow::on_penButton_clicked()
 {
-    scene -> activeTool = pen;
+    controller->setActiveTool(pen);
 }
 
 void MainWindow::on_lineButton_clicked()
 {
-    scene->activeTool = line;
+    controller->setActiveTool(line);
 }
 
 
 void MainWindow::on_rectangleButton_clicked()
 {
-    scene->activeTool = rectangle;
+    controller->setActiveTool(rectangle);
 }
 
 void MainWindow::on_ellipseButton_clicked()
 {
-    scene -> activeTool = ellipse;
+    controller->setActiveTool(ellipse);
 }
 
 void MainWindow::on_secondaryColorButton_clicked()
 {
-    QColor color = QColorDialog::getColor(scene->secondaryColor, this);
+    QColor color = QColorDialog::getColor(controller->getSecondaryColor(), this);
     if( color.isValid() )
     {
-        scene->secondaryColor = color;
+        controller->setSecondaryColor(color);
     }
 }
 
 void MainWindow::on_eraserButton_clicked()
 {
-    scene->activeTool = eraser;
+    controller->setActiveTool(eraser);
 }
-
 
 void MainWindow::on_fillButton_clicked()
 {
-    scene->activeTool = fill;
+    controller->setActiveTool(fill);
+}
+
+void MainWindow::animationSliderUpdate(int time)
+{
+    on_animationSlider_valueChanged(time/controller->getTimesum()*100);
 }
 
 void MainWindow::on_clearLayerButton_clicked()
 {
-    scene->clearLayer();
+    controller->clearLayer();
 }
 
 void MainWindow::on_importButton_clicked()
@@ -228,7 +241,7 @@ void MainWindow::on_importButton_clicked()
 
     if (!fileName.isEmpty()) {
         QImage image(fileName);
-        scene->importImage(image);
+        controller->importImage(image);
     }
 }
 
@@ -239,14 +252,13 @@ void MainWindow::on_importSettingsButton_clicked()
 
 void MainWindow::on_newFrameButton_clicked()
 {
-    scene->addFrame();
-    scene->timesum += 1000.0;
+    controller->addFrame();
     newLayerDisplay();
 }
 
 void MainWindow::on_playButton_clicked()
 {
-    animation->play();
+    animationtool->play();
 }
 
 void MainWindow::on_importvideoButton_clicked()
@@ -255,7 +267,7 @@ void MainWindow::on_importvideoButton_clicked()
                 tr("All (*.avi *.mkv *.mp4)"));
 
     if (!fileName.isEmpty()) {
-        scene->importVideo(fileName);
+        controller->importVideo(fileName);
     }
 }
 
@@ -270,23 +282,21 @@ void MainWindow::changeName()
     if(renamelayer->name != "")
     {
         activelayerButton->setText(renamelayer->name);
-        scene->activeCanvas->activeLayer->name = renamelayer->name;
+        controller->setLayerName(renamelayer->name);
     }
 }
 
 void MainWindow::leaveName()
 {
-    activelayerButton->setText(scene->activeCanvas->activeLayer->name);
+    activelayerButton->setText(controller->getLayerName());
 }
 
 void MainWindow::on_addlayerButton_clicked()
 {
     int index = layerbuttons.indexOf(activelayerButton);
 
-    scene->activeCanvas->addLayer(index);
-    scene->activeCanvas->activeLayer = scene->activeCanvas->layers[index];
-    scene->activeCanvas->activeLayer->name = "Layer" + QString::number(layerbuttons.size());
-    scene->updateScene();
+    controller->addLayer();
+    controller->setLayerName("Layer" + QString::number(layerbuttons.size()));
 
     QPushButton *lbutton = new QPushButton("Layer" + QString::number(layerbuttons.size()));
     QPushButton *tbutton = new QPushButton("Tr");
@@ -298,8 +308,6 @@ void MainWindow::on_addlayerButton_clicked()
 
     connect(lbutton, &QPushButton::clicked, this, &MainWindow::layoutbuttonClicked);
     connect(tbutton, &QPushButton::toggled, this, &MainWindow::transparencybuttonToggled);
-
-    renamelayer->show();
 
     layerbuttons.insert(index,lbutton);
     transparencybuttons.insert(index,tbutton);
@@ -314,32 +322,33 @@ void MainWindow::on_addlayerButton_clicked()
 void MainWindow::layoutbuttonClicked()
 {
     int index = 0;
+
     while(layerbuttons[index] != sender())
         index++;
     activelayerButton = layerbuttons[index];
-    scene->activeCanvas->activeLayer = scene->activeCanvas->layers[index];
-    scene->updateScene();
+
+    controller->setActiveLayer(index);
 }
 
 void MainWindow::transparencybuttonToggled(bool toggled)
 {
     int index = 0;
+
     while(transparencybuttons[index] != sender())
         index++;
     transparencybuttons[index]->setChecked(toggled);
-    scene->activeCanvas->layers[index]->transparent = !toggled;
-    scene->updateCombined();
-    scene->updateScene();
+
+    controller->setLayerTransparency(!toggled);
 }
 
 void MainWindow::on_removeButton_clicked()
 {
+    controller->removeActiveLayer();
     if(layerbuttons.size() == 1)
     {
-        scene->clearLayer();
         layerbuttons[0]->setText("Layer0");
         transparencybuttons[0]->setChecked(true);
-        scene->activeCanvas->activeLayer->transparent = false;
+        controller->setLayerName("Layer0");
     }
     else
     {
@@ -348,27 +357,24 @@ void MainWindow::on_removeButton_clicked()
         disconnect(transparencybuttons[index], &QPushButton::toggled, this, &MainWindow::transparencybuttonToggled);
         if(index != 0)
         {
-            scene->activeCanvas->activeLayer = scene->activeCanvas->layers[index-1];
             activelayerButton = layerbuttons[index-1];
         }
         else
         {
-            scene->activeCanvas->activeLayer = scene->activeCanvas->layers[1];
             activelayerButton = layerbuttons[1];
         }
-        scene->activeCanvas->layers.removeAt(index);
+
         layergrid->removeWidget(layerbuttons[index]);
         layergrid->removeWidget(transparencybuttons[index]);
         layerbuttons.removeAt(index);
         transparencybuttons.removeAt(index);
+
         for(int j = layerbuttons.size()-1; j >index-1; j--)
         {
             layergrid->addWidget(transparencybuttons[j],j,0);
             layergrid->addWidget(layerbuttons[j],j,1);
         }
 
-        scene->updateCombined();
-        scene->updateScene();
         container->setFixedHeight(layerbuttons.size()*23);
     }
 }
@@ -392,10 +398,7 @@ void MainWindow::on_moveupButton_clicked()
         layergrid->addWidget(transparencybuttons[index-1],index-1,0);
         layergrid->addWidget(transparencybuttons[index],index,0);
 
-        scene->activeCanvas->switchLayers(index-1,index);
-
-        scene->updateCombined();
-        scene->updateScene();
+        controller->switchLayers(index-1,index);
     }
 }
 
@@ -418,28 +421,25 @@ void MainWindow::on_movedownButton_clicked()
         layergrid->addWidget(transparencybuttons[index+1],index+1,0);
         layergrid->addWidget(transparencybuttons[index],index,0);
 
-        scene->activeCanvas->switchLayers(index+1,index);
-
-        scene->updateCombined();
-        scene->updateScene();
+        controller->switchLayers(index+1,index);
     }
 }
 
 void MainWindow::on_animationSlider_valueChanged(int position)
 {
     float labelpos = ui->animationSlider->x() + position / 100.0 * ui->animationSlider->width();
-    float timepos = position /100.0 * scene->timesum;
+    ui->animationSlider->setSliderPosition(position);
+    float timepos = position /100.0 * controller->getTimesum();
     int i = 0;
-    float sum = scene->frames[i]->timespan;
+    float sum = controller->getTimespan(i);
     while(sum < timepos)
     {
         i++;
-        sum += scene->frames[i]->timespan;
+        sum += controller->getTimespan(i);
     }
-    if(scene->activeCanvas != scene->frames[i]->canvas)
+    if(i != controller->getActiveFrameIndex())
     {
-        scene->activeCanvas = scene->frames[i]->canvas;
-        scene->updateScene();
+        controller->setActiveFrame(i);
         updateLayerDisplay();
     }
 

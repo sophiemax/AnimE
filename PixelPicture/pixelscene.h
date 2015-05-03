@@ -6,72 +6,58 @@
 #include "pixel.h"
 #include "window.h"
 #include "tool.h"
-#include "canvas.h"
-#include "imageconvertertool.h"
-#include "videoconvertertool.h"
-#include "frame.h"
 
 class Tool;
-class Window;
-class Pixel;
-class ImageConverterTool;
-class VideoConverterTool;
 
 class PixelScene : public QGraphicsScene
 {
-    Q_ENUMS(ImportSetting)
-public:
 
-    enum class ImportSettingsResolution
-      {
-         onlypixels,
-         wholeimage
-      };
+public:
 
     PixelScene(QObject * parent = 0);
     ~PixelScene();
     void destruct();
 
-    QColor primaryColor, secondaryColor;
     bool windowToggled = false;
     Tool *activeTool;
-    Canvas* activeCanvas;
 
     int pixelsinaRow();
     int pixelsinaColumn();
+    int numberofPixels();
 
     void mousePressEvent(QGraphicsSceneMouseEvent *e);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *e);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *e);
 
-    void updatePixel(int p);
-    void updateScene();
+    void updatePixel(int index, bool clear, QColor color);
 
-    void importImage(QImage image);
-    void importVideo(QString s);
+    QList<int> windowIndexes(int index);
 
-    Pixel *pixelUnderMouse();
-    Pixel *containsPoint(float x, float y);
-    Pixel *nearestPixel(float x, float y);
+    QColor getColorofPixel(int index);
+    void setWindowToggled(bool checked);
+    bool getWindowToggled();
 
-    void clearLayer();
-    void clearAll();
+    int getPixelSize();
+    int getWidth();
+    int getOnlyPixelsWidth();
+    int getHeight();
+    int getOnlyPixelsHeight();
+    void setActiveTool(Tool* tool);
 
-    void addFrame();
+    int pixelUnderMouse();
+    int containsPoint(float x, float y);
+    int nearestPixel(float x, float y);
+    QRect nearestPixelRect(float x, float y);
+    QRect getPixelRect(int index);
 
     int width, height, onlypixelswidth, onlypixelsheight;
 
     QList<Pixel*> pixels;
 
     int pixelSize = 5;
-    int fps = 40;
-    float interval = 1000.0 / fps;
-    float timesum = 1000.0;
-
-    ImportSettingsResolution importsettingsresolution = PixelScene::ImportSettingsResolution::onlypixels;
-
-    ImageConverterTool *imageconverter;
-    VideoConverterTool *videoconverter;
+    //int fps = 40;
+    //float interval = 1000.0 / fps;
+    //float timesum = 1000.0;
 
 private:
 
@@ -79,7 +65,6 @@ private:
     int windowWidth = 2, windowHeight = 2, windowXNumber = 16, windowYNumber = 13;
 
     QList<Window*> windows;
-    QList<Canvas*> canvases;
 };
 
 #endif // PIXELSCENE_H

@@ -24,6 +24,7 @@
 #include "importsettings.h"
 #include "animationtool.h"
 #include "renamelayer.h"
+#include "controller.h"
 
 namespace Ui {
 class MainWindow;
@@ -88,14 +89,14 @@ private slots:
 
     void on_fillButton_clicked();
 
+    void animationSliderUpdate(int time);
+
 private:
     Ui::MainWindow *ui;
     ImportSettings *settings;
     RenameLayer *renamelayer;
 
     PixelScene *scene;
-    QList<Animation*> animations;
-    Animation *activeAnimation;
 
     int pixelSize = 5, gapWidth = 5, gapHeight = 15;
     int windowWidth = 2, windowHeight = 2, windowXNumber = 16, windowYNumber = 13;
@@ -107,7 +108,9 @@ private:
     EllipseTool *ellipse;
     EraserTool *eraser;
     FillTool *fill;
-    AnimationTool* animation;
+    AnimationTool* animationtool;
+
+    Controller *controller;
 
     QGridLayout *layergrid;
     QString newname;

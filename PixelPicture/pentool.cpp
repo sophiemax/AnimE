@@ -11,42 +11,27 @@ PenTool::~PenTool()
 
 }
 
-void PenTool::mousePressEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene)
+void PenTool::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event)
-    penMouseEvent(scene);
+    penMouseEvent();
 }
 
-void PenTool::mouseMoveEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene)
+void PenTool::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event)
-    penMouseEvent(scene);
+    penMouseEvent();
 }
 
-void PenTool::mouseReleaseEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene)
+void PenTool::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event)
-    penMouseEvent(scene);
+    penMouseEvent();
 }
 
-void PenTool::penMouseEvent(PixelScene *scene)
+void PenTool::penMouseEvent()
 {
-    Pixel* p = scene->pixelUnderMouse();
-    if(p!=NULL)
-    {
-        int index = p->index;
-        if(scene->windowToggled)
-        {
-            p->window->setWindowColor(scene->primaryColor);
-            p->window->updateWindow();
-        }
-        else
-        {
-            scene->activeCanvas->activeLayer->pixels[index]->clear = false;
-            scene->activeCanvas->activeLayer->pixels[index]->color = scene->primaryColor;
-
-            scene->updateCombinedLayer(index);
-            scene->updatePixel(index);
-        }
-    }
+    int index = controller->pixelUnderMouse();
+    if(index != -1)
+        controller->setColorofPixel(index);
 }

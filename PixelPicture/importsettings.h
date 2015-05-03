@@ -2,7 +2,6 @@
 #define IMPORTSETTINGS_H
 
 #include <QDialog>
-#include "pixelscene.h"
 #include "imageconvertertool.h"
 
 namespace Ui {
@@ -17,8 +16,6 @@ public:
     explicit ImportSettings(QWidget *parent = 0);
     ~ImportSettings();
 
-
-    PixelScene *scene;
     ImageConverterTool *converter;
 
 private slots:

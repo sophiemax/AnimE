@@ -11,40 +11,27 @@ EraserTool::~EraserTool()
 
 }
 
-void EraserTool::mousePressEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene)
+void EraserTool::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event)
-    eraserMouseEvent(scene);
+    eraserMouseEvent();
 }
 
-void EraserTool::mouseMoveEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene)
+void EraserTool::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event)
-    eraserMouseEvent(scene);
+    eraserMouseEvent();
 }
 
-void EraserTool::mouseReleaseEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene)
+void EraserTool::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event)
-    eraserMouseEvent(scene);
+    eraserMouseEvent();
 }
 
-void EraserTool::eraserMouseEvent(PixelScene *scene)
+void EraserTool::eraserMouseEvent()
 {
-    Pixel* p = scene->pixelUnderMouse();
-    if(p!=NULL)
-    {
-        int index = p->index;
-        if(scene->windowToggled)
-        {
-            p->window->clearWindow();
-            p->window->updateWindow();
-        }
-        else
-        {
-            scene->activeCanvas->activeLayer->pixels[index]->clear = true;
-            scene->updateCombinedLayer(index);
-            scene->updatePixel(index);
-        }
-    }
+    int index = controller->pixelUnderMouse();
+    if(index != -1)
+        controller->clearPixel(index);
 }

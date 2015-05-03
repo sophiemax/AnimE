@@ -11,48 +11,45 @@ FillTool::~FillTool()
 
 }
 
-void FillTool::mousePressEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene)
+void FillTool::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     startPoint = event->scenePos();
-    Pixel *start = scene->nearestPixel(startPoint.x(),startPoint.y());
-    color = start->brush->color();
-    fill(scene,start);
+    int index = controller->nearestPixel(startPoint.x(),startPoint.y());
+    color = controller->getColorofPixel(index);
+    fill(index);
 }
 
-void FillTool::mouseMoveEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene)
+void FillTool::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event)
-    Q_UNUSED(scene)
 }
 
-void FillTool::mouseReleaseEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene)
+void FillTool::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event)
-    Q_UNUSED(scene)
 }
 
-void FillTool::fill(PixelScene *scene, Pixel *pixel)
+void FillTool::fill(int index)
 {
-    int pixelsinarow = scene->pixelsinaRow();
+    int pixelsinarow = controller->pixelsinaRow();
+    int numberofPixels = controller->numberofPixels();
 
-    int index = pixel->index;
-
-    scene->activeCanvas->activeLayer->pixels[index]->clear = false;
-    scene->activeCanvas->activeLayer->pixels[index]->color = scene->primaryColor;
-    scene->updateCombinedLayer(index);
-    scene->updatePixel(index);
+    controller->setColorofPixel(index);
 
     //jobbra hív, ha nem a szélén van
-    if(!((index+1) % pixelsinarow == 0) && scene->pixels[index+1]->brush->color() == color)
-        fill(scene, scene->pixels[index+1]);
+    if(!((index+1) % pixelsinarow == 0) && controller->getColorofPixel(index+1) == color)
+        fill(index+1);
+
     //balra hív, ha nem a szélén van
-    if(!(index % pixelsinarow == 0) && scene->pixels[index-1]->brush->color() == color)
-        fill(scene, scene->pixels[index-1]);
+    if(!(index % pixelsinarow == 0) && controller->getColorofPixel(index-1) == color)
+        fill(index-1);
+
     //fel hív, ha nem a legfelső sor
-    if(index >= pixelsinarow && scene->pixels[index - pixelsinarow]->brush->color() == color)
-        fill(scene, scene->pixels[index - pixelsinarow]);
+    if(index >= pixelsinarow && controller->getColorofPixel(index - pixelsinarow) == color)
+        fill(index - pixelsinarow);
+
     //le hív, ha nem a legalsó sor
-    if(index < (scene->pixels.size() - pixelsinarow) && scene->pixels[index + pixelsinarow]->brush->color() == color)
-        fill(scene, scene->pixels[index + pixelsinarow]);
+    if(index < (numberofPixels - pixelsinarow) && controller->getColorofPixel(index + pixelsinarow) == color)
+        fill(index + pixelsinarow);
 }
 

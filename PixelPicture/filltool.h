@@ -10,14 +10,14 @@ class FillTool : public Tool
 public:
     FillTool(QObject *parent);
     ~FillTool();
-    void mousePressEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
     QColor color;
 
 private:
-    void fill(PixelScene *scene, Pixel *pixel);
+    void fill(int index);
 
     Pixel *start;
 };

@@ -3,9 +3,11 @@
 
 #include <QtGui>
 #include <QtCore>
-#include "pixelscene.h"
 
-class PixelScene;
+#include <QGraphicsSceneMouseEvent>
+#include "controller.h"
+
+class Controller;
 
 class Tool : public QObject
 {
@@ -14,11 +16,15 @@ class Tool : public QObject
 public:
     Tool(QObject *parent = 0);
     ~Tool();
-    virtual void mousePressEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene) = 0;
-    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene) = 0;
-    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event, PixelScene *scene) = 0;
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) = 0;
+    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event) = 0;
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) = 0;
+
+    void setController(Controller *c);
+
 protected:
     QPointF startPoint, endPoint;
+    Controller *controller;
 };
 
 #endif // TOOL_H
