@@ -198,7 +198,7 @@ void Layer::moveDown()
     {
         QTextStream(stdout) << "Az utolsó sor NEM volt üres!" << endl;
         //ha a kijelző első soránál végződik a layer, hozzá kell adnunk a layerhez egy sort felülre
-        if(isinLastRow(startindex + originalnumberofrows*numberofcolumns))
+        if(isinFirstRow(startindex))
         {
             QTextStream(stdout) << "Sort adunk hozzá a layer elejéhez!" << endl;
             numberofrows += 1;
