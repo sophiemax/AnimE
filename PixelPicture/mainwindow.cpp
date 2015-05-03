@@ -346,36 +346,45 @@ void MainWindow::on_removeButton_clicked()
     controller->removeActiveLayer();
     if(layerbuttons.size() == 1)
     {
-        QTextStream(stdout) << layerbuttons[0]->text() << endl;
         transparencybuttons[0]->setChecked(true);
+        layerbuttons[0]->setText("Layer0");
         controller->setLayerName("Layer0");
     }
     else
     {
         int index = layerbuttons.indexOf(activelayerButton);
+
         disconnect(layerbuttons[index], &QPushButton::clicked, this, &MainWindow::layoutbuttonClicked);
         disconnect(transparencybuttons[index], &QPushButton::toggled, this, &MainWindow::transparencybuttonToggled);
-        if(index != 0)
-        {
-            activelayerButton = layerbuttons[index-1];
-        }
-        else
-        {
-            activelayerButton = layerbuttons[1];
-        }
+
+        //layergrid->removeWidget(layerbuttons.takeLast());
 
         layergrid->removeWidget(layerbuttons[index]);
         layergrid->removeWidget(transparencybuttons[index]);
         layerbuttons.removeAt(index);
         transparencybuttons.removeAt(index);
 
-        for(int j = layerbuttons.size()-1; j >index-1; j--)
+        if(index != 0)
         {
-            layergrid->addWidget(transparencybuttons[j],j,0);
-            layergrid->addWidget(layerbuttons[j],j,1);
+            activelayerButton = layerbuttons[index-1];
+        }
+        else
+        {
+            activelayerButton = layerbuttons[0];
         }
 
-        container->setFixedHeight(layerbuttons.size()*23);
+        /*for(int j = layerbuttons.size()-1; j >index-1; j--)
+        {
+            layergrid->removeWidget(layerbuttons[j]);
+            layergrid->removeWidget(transparencybuttons[j]);
+            layergrid->addWidget(transparencybuttons[j],j,0);
+            layergrid->addWidget(layerbuttons[j],j,1);
+            QTextStream(stdout) << j << endl;
+            QTextStream(stdout) << layerbuttons[j]->text() << endl;
+        }
+
+        container->setFixedHeight(layerbuttons.size()*23);*/
+        updateLayerDisplay();
     }
 }
 
