@@ -257,6 +257,8 @@ void Layer::moveLeft()
                 pixels.removeAt(index);
             }
             numberofcolumns -= 1;
+            int startrow = startindex/numberofcolumns;
+            startindex -= startrow;
         }
     }
     else
@@ -323,8 +325,10 @@ void Layer::moveRight()
                 int index = calculateCurrentIndex(j,0);
                 pixels.removeAt(index);
             }
+
+            int startrow = startindex/numberofcolumns + 1;
+            startindex -= startrow;
             numberofcolumns -= 1;
-            startindex -= 1;
         }
     }
     else
@@ -333,6 +337,8 @@ void Layer::moveRight()
         //ha a kijelző első oszlopánál kezdődik a layer, hozzá kell adnunk a layerhez egy oszlopot az elejére
         if(isinFirstColumn(startindex))
         {
+            int startrow = startindex/numberofcolumns;
+            startindex += startrow;
             QTextStream(stdout) << "Oszlopot adunk hozzá a layer elejéhez!" << endl;
             numberofcolumns += 1;
             for(int j = 0; j < numberofrows; j++)
@@ -343,7 +349,6 @@ void Layer::moveRight()
                 int index = calculateCurrentIndex(j,0);
                 pixels.insert(index, lp);
             }
-
         }
         else
             startindex -=1;
