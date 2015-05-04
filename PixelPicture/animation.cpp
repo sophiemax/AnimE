@@ -78,6 +78,19 @@ float Animation::getTimespan(int index)
     return frames[index]->getTimespan();
 }
 
+float Animation::getCurrentTime()
+{
+    float time = 0.0;
+    int index = frames.indexOf(activeFrame);
+
+    for(int i = 0; i <= index; i++)
+    {
+        time += frames[i]->getTimespan();
+    }
+
+    return time;
+}
+
 int Animation::getActiveFrameIndex()
 {
     return frames.indexOf(activeFrame);
@@ -130,20 +143,14 @@ void Animation::addFrame(int t)
 
 void Animation::copyFrame()
 {
-    /*int index = frames.indexOf(activeFrame);
-    int numberofLayerPixels = activeFrame->numberofLayerPixels();
-    int numberofLayers = activeFrame->numberofLayers();
-    Frame *f = new Frame(numberofLayerPixels);
+    int index = frames.indexOf(activeFrame);
 
-    for(int i = 0; i < numberofLayers; i++)
-    {
-        //f->addLayer(number)
-    }
+    Frame *f = new Frame(activeFrame, pixelsinarow, pixelsinacolumn);
 
-    frames.insert(index + 1, f);
+    frames.insert(index+1,f);
+    timesum += f->getTimespan();
+
     activeFrame = f;
-
-    timesum += f->getTimespan();*/
 }
 
 void Animation::moveLayerUp()

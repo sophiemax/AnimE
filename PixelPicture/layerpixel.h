@@ -8,12 +8,13 @@ class LayerPixel
 {
 public:
     LayerPixel();
+    LayerPixel(LayerPixel *lp);
     ~LayerPixel();
 
     bool clear = true;
     QColor color;
     int index;
-    QRect rect;
+    //QRect rect;
 };
 
 #endif // LAYERPIXEL_H

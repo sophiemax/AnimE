@@ -9,6 +9,7 @@ class Canvas
 {
 public:
     Canvas(int r, int c);
+    Canvas(Canvas *c, int r, int col);
     ~Canvas();
 
     void setLayerName(QString s);
@@ -41,12 +42,16 @@ public:
     void addLayer(int index);
     void switchLayers(int i, int j);
 
+    Layer *getLayer(int index);
+
 private:
     QList<Layer*> layers;
     Layer* combinedLayer;
     Layer* activeLayer;
 
     int pixelsinarow, pixelsinacolumn;
+
+    int debugtemp = 0;
 };
 
 #endif // CANVAS_H

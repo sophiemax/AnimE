@@ -11,6 +11,27 @@ Canvas::Canvas(int r, int c)
     layers.append(l);
 }
 
+Canvas::Canvas(Canvas *c, int r, int col)
+{
+    int  numberoflayers = c->numberofLayers();
+
+    pixelsinarow = r;
+    pixelsinacolumn = col;
+
+    combinedLayer = new Layer(pixelsinarow,pixelsinacolumn);
+
+    for(int i = 0; i < numberoflayers; i++)
+    {
+        Layer *l = new Layer(c->getLayer(i),r,col);
+
+        layers.append(l);
+    }
+
+    activeLayer = layers[0];
+
+    updateCombined();
+}
+
 Canvas::~Canvas()
 {
     while (!layers.isEmpty())
@@ -87,9 +108,7 @@ void Canvas::moveLayerDown()
 void Canvas::moveLayerLeft()
 {
     activeLayer->moveLeft();
-    QTextStream(stdout) << "még jó" << endl;
     updateCombined();
-    QTextStream(stdout) << "itt is" << endl;
 }
 
 void Canvas::moveLayerRight()
@@ -145,6 +164,11 @@ void Canvas::switchLayers(int i, int j)
     updateCombined();
 }
 
+Layer *Canvas::getLayer(int index)
+{
+    return layers[index];
+}
+
 void Canvas::updateCombined()
 {
     for(int index = 0; index < pixelsinarow * pixelsinacolumn; index++)
@@ -153,22 +177,38 @@ void Canvas::updateCombined()
 
 void Canvas::updateCombinedLayer(int index)
 {
+    if(index == 676)
+    {
+        QTextStream(stdout) << index << endl;
+        QTextStream(stdout) << activeLayer->getSize() << endl;
+        QTextStream(stdout) << activeLayer->isPixelClear(index) << endl;
+        QTextStream(stdout) << activeLayer->getTransparency() << endl;
+    }
     if(!activeLayer->isPixelClear(index) && !activeLayer->getTransparency())
     {
         combinedLayer->setColorofPixel(index,activeLayer->getColorofPixel(index));
+
+        if(index == 676)
+            QTextStream(stdout) << "Pina1" << endl;
     }
     else
     {
         int i = 0;
+        if(index == 676)
+            QTextStream(stdout) << "Pina2" << endl;
         while(i<layers.size() && (layers[i]->isPixelClear(index) || layers[i]->getTransparency()))
             i++;
 
         if(i==layers.size())
         {
+            if(index == 676)
+                QTextStream(stdout) << "Pina3" << endl;
             combinedLayer->clearPixel(index);
         }
         else
         {
+            if(index == 676)
+                QTextStream(stdout) << "Pina4" << endl;
             combinedLayer->setColorofPixel(index, layers[i]->getColorofPixel(index));
         }
     }

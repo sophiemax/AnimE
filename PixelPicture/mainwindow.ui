@@ -47,7 +47,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Window</string>
+     <string/>
     </property>
     <property name="icon">
      <iconset resource="uiresources.qrc">
@@ -124,18 +124,24 @@
    <widget class="QPushButton" name="clearLayerButton">
     <property name="geometry">
      <rect>
-      <x>200</x>
+      <x>130</x>
       <y>0</y>
-      <width>31</width>
+      <width>23</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Clear</string>
+     <string/>
     </property>
     <property name="icon">
      <iconset resource="uiresources.qrc">
       <normaloff>:/icon/icons/Delete-32.png</normaloff>:/icon/icons/Delete-32.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>16</width>
+      <height>16</height>
+     </size>
     </property>
    </widget>
    <widget class="QPushButton" name="importButton">
@@ -492,6 +498,19 @@
     </property>
     <property name="shortcut">
      <string>Right</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="copyFrameButton_2">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>0</y>
+      <width>71</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Copy Frame</string>
     </property>
    </widget>
   </widget>

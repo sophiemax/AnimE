@@ -24,6 +24,7 @@ public:
     float getCurrentTimespan();
     float getTimesum();
     float getTimespan(int index);
+    float getCurrentTime();
     int getActiveFrameIndex();
     bool getTransparency(int index);
 

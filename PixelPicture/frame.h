@@ -9,6 +9,7 @@ class Frame
 {
 public:
     Frame(int r, int c);
+    Frame(Frame* f, int r, int c);
     ~Frame();
 
     void setLayerName(QString s);
@@ -40,6 +41,8 @@ public:
 
     float getTimespan();
     void setTimespan(float t);
+
+    Canvas *getCanvas();
 
 private:
 

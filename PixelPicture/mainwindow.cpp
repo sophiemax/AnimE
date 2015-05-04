@@ -373,18 +373,6 @@ void MainWindow::on_removeButton_clicked()
         {
             activelayerButton = layerbuttons[0];
         }
-
-        /*for(int j = layerbuttons.size()-1; j >index-1; j--)
-        {
-            layergrid->removeWidget(layerbuttons[j]);
-            layergrid->removeWidget(transparencybuttons[j]);
-            layergrid->addWidget(transparencybuttons[j],j,0);
-            layergrid->addWidget(layerbuttons[j],j,1);
-            QTextStream(stdout) << j << endl;
-            QTextStream(stdout) << layerbuttons[j]->text() << endl;
-        }
-
-        container->setFixedHeight(layerbuttons.size()*23);*/
         updateLayerDisplay();
     }
 }
@@ -479,6 +467,11 @@ void MainWindow::on_animationSlider_valueChanged(int position)
 void MainWindow::on_copyFrameButton_clicked()
 {
     controller->copyFrame();
+
+    QTextStream(stdout) << controller->getCurrentTime()/controller->getTimesum() << endl;
+
+    on_animationSlider_valueChanged(controller->getCurrentTime()/controller->getTimesum() * 100);
+
 }
 
 void MainWindow::on_moveUpButton_clicked()

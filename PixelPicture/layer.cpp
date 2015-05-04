@@ -15,6 +15,25 @@ Layer::Layer(int r, int c)
     }
 }
 
+Layer::Layer(Layer *l, int r, int c)
+{
+    originalnumberofrows = r;
+    originalnumberofcolumns = c;
+    numberofrows = l->getNumberofRows();
+    numberofcolumns = l->getNumberofColumns();
+    startindex = l->getStartIndex();
+    name = l->getName();
+    transparent = l->getTransparency();
+
+    for(int i = 0; i < numberofrows*numberofcolumns; i++)
+    {
+        LayerPixel *lp = new LayerPixel(l->getLayerPixel(i));
+        pixels.append(lp);
+        //if(lp->color == l->getColorofPixel(i))
+            //QTextStream(stdout) << "YESS" << endl;
+    }
+}
+
 Layer::~Layer()
 {
     while (!pixels.isEmpty())
@@ -90,6 +109,26 @@ void Layer::setStartIndex(int index)
 int Layer::getStartIndex()
 {
     return startindex;
+}
+
+int Layer::getNumberofColumns()
+{
+    return numberofcolumns;
+}
+
+int Layer::getNumberofRows()
+{
+    return numberofrows;
+}
+
+int Layer::getSize()
+{
+    return pixels.size();
+}
+
+LayerPixel *Layer::getLayerPixel(int index)
+{
+    return pixels[index];
 }
 
 void Layer::moveUp()

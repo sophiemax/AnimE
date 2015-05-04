@@ -9,6 +9,7 @@ class Layer
 {
 public:
     Layer(int r, int c);
+    Layer(Layer *l, int r, int c);
     ~Layer();
 
     QString getName();
@@ -24,6 +25,12 @@ public:
 
     void setStartIndex(int index);
     int getStartIndex();
+
+    int getNumberofColumns();
+    int getNumberofRows();
+    int getSize();
+
+    LayerPixel *getLayerPixel(int index);
 
     void moveUp();
     void moveDown();

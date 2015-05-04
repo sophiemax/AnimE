@@ -5,6 +5,11 @@ Frame::Frame(int r, int c)
     canvas = new Canvas(r,c);
 }
 
+Frame::Frame(Frame *f, int r, int c)
+{
+    canvas = new Canvas(f->getCanvas(), r, c);
+}
+
 Frame::~Frame()
 {
 
@@ -113,4 +118,9 @@ float Frame::getTimespan()
 void Frame::setTimespan(float t)
 {
     timespan = t;
+}
+
+Canvas *Frame::getCanvas()
+{
+    return canvas;
 }

@@ -35,6 +35,7 @@ public:
     float getCurrentTimespan();
     float getTimesum();
     float getTimespan(int index);
+    float getCurrentTime();
     int getActiveFrameIndex();
 
     ImageConverterTool *getImageConverter();

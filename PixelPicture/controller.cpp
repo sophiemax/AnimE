@@ -106,6 +106,12 @@ float Controller::getTimespan(int index)
     return activeAnimation->getTimespan(index);
 }
 
+float Controller::getCurrentTime()
+{
+    //QTextStream(stdout) << activeAnimation->getCurrentTime() << endl;
+    return activeAnimation->getCurrentTime();
+}
+
 int Controller::getActiveFrameIndex()
 {
     return activeAnimation->getActiveFrameIndex();
@@ -169,6 +175,7 @@ void Controller::addFrame(int timespan)
 void Controller::copyFrame()
 {
     activeAnimation->copyFrame();
+    updateScene();
 }
 
 void Controller::moveLayerDown()
