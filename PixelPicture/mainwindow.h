@@ -25,6 +25,7 @@
 #include "animationtool.h"
 #include "renamelayer.h"
 #include "controller.h"
+#include "exporttool.h"
 
 namespace Ui {
 class MainWindow;
@@ -101,6 +102,16 @@ private slots:
 
     void on_moveRightButton_clicked();
 
+    void on_moveFrameUpButton_clicked();
+
+    void on_moveFrameDownButton_clicked();
+
+    void on_moveFrameLeftButton_clicked();
+
+    void on_moveFrameRightButton_clicked();
+
+    void on_exportButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     ImportSettings *settings;
@@ -121,6 +132,7 @@ private:
     AnimationTool* animationtool;
 
     Controller *controller;
+    ExportTool *exporter;
 
     QGridLayout *layergrid;
     QString newname;

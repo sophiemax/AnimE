@@ -22,7 +22,9 @@ public:
 
     void setColorofPixel(int index, QColor color);
     QColor getColorofPixel(int index);
+    QColor getColorofPixel(int layerindex, int pixelindex);
     bool isPixelClear(int index);
+    bool isPixelClear(int layerindex, int pixelindex);
     void clearPixel(int index);
     void clearLayer();
 
@@ -31,11 +33,19 @@ public:
     void moveLayerLeft();
     void moveLayerRight();
 
+    void moveFrameUp();
+    void moveFrameDown();
+    void moveFrameLeft();
+    void moveFrameRight();
+
     void updateCombined();
     void updateCombinedLayer(int index);
 
     int numberofLayers();
     bool getTransparency(int index);
+
+    int getnumberofcolumns(int index);
+    int getnumberofrows(int index);
 
     void addLayer();
     void removeActiveLayer();
@@ -51,8 +61,6 @@ private:
     Layer* activeLayer;
 
     int pixelsinarow, pixelsinacolumn;
-
-    int debugtemp = 0;
 };
 
 #endif // CANVAS_H

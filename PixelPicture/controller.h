@@ -26,15 +26,25 @@ public:
     int getHeight();
     int getOnlyPixelsHeight();
 
+    int numberofAnimations();
     int numberofFrames();
+    int numberofFrames(int index);
     int numberofLayers();
+    int numberofLayers(int animationindex, int frameindex);
+
+    int getnumberofrows(int animationindex, int frameindex, int layerindex);
+    int getnumberofcolumns(int animationindex, int frameindex, int layerindex);
+
     void setActiveFrame(int index);
     void setNextFrameActive();
     void setActiveLayer(int index);
     bool getTransparency(int index);
+    bool getTransparency(int animationindex, int frameindex, int layerindex);
     float getCurrentTimespan();
     float getTimesum();
+    float getTimesum(int index);
     float getTimespan(int index);
+    float getTimespan(int animationindex, int frameindex);
     float getCurrentTime();
     int getActiveFrameIndex();
 
@@ -43,6 +53,13 @@ public:
     void setLayerName(QString s);
     QString getLayerName();
     QString getLayerName(int index);
+    QString getLayerName(int animationindex, int frameindex, int layerindex);
+    void setFrameName(QString s);
+    QString getFrameName();
+    QString getFrameName(int index);
+    QString getFrameName(int animationindex, int frameindex);
+    QString getAnimationName(int index);
+
     void setLayerTransparency(bool t);
     void addLayer();
     void removeActiveLayer();
@@ -56,9 +73,16 @@ public:
     void moveLayerLeft();
     void moveLayerRight();
 
+    void moveFrameUp();
+    void moveFrameDown();
+    void moveFrameLeft();
+    void moveFrameRight();
+
     void setColorofPixel(int index);
     void setColorofPixel(int index, QColor color);
+    void setColorofPixelFill(int index);
     QColor getColorofPixel(int index);
+    QColor getColorofPixel(int animationindex, int frameindex, int layerindex, int pixelindex);
     void setPrimaryColor(QColor color);
     QColor getPrimaryColor();
     void setSecondaryColor(QColor color);
@@ -70,6 +94,8 @@ public:
     QColor getColorofCombinedLayerPixel(int index);
     void clearPixel(int index);
     void clearLayer();
+
+    bool isPixelClear(int animationindex, int frameindex, int layerindex, int pixelindex);
 
     void importImage(QImage image);
     void importVideo(QString fileName);

@@ -423,14 +423,14 @@
    <widget class="QPushButton" name="moveLeftButton">
     <property name="geometry">
      <rect>
-      <x>490</x>
-      <y>120</y>
-      <width>81</width>
+      <x>580</x>
+      <y>100</y>
+      <width>31</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Move Left</string>
+     <string/>
     </property>
     <property name="icon">
      <iconset resource="uiresources.qrc">
@@ -443,14 +443,14 @@
    <widget class="QPushButton" name="moveUpButton">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>100</y>
-      <width>75</width>
+      <x>610</x>
+      <y>80</y>
+      <width>21</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Move Up</string>
+     <string/>
     </property>
     <property name="icon">
      <iconset resource="uiresources.qrc">
@@ -463,14 +463,14 @@
    <widget class="QPushButton" name="moveDownButton">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>140</y>
-      <width>75</width>
+      <x>610</x>
+      <y>120</y>
+      <width>21</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Move Down</string>
+     <string/>
     </property>
     <property name="icon">
      <iconset resource="uiresources.qrc">
@@ -483,14 +483,14 @@
    <widget class="QPushButton" name="moveRightButton">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>120</y>
-      <width>81</width>
+      <x>630</x>
+      <y>100</y>
+      <width>31</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>MoveRight</string>
+     <string/>
     </property>
     <property name="icon">
      <iconset resource="uiresources.qrc">
@@ -511,6 +511,71 @@
     </property>
     <property name="text">
      <string>Copy Frame</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="moveFrameLeftButton">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>100</y>
+      <width>20</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>F</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="moveFrameRightButton">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>100</y>
+      <width>21</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>F</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="moveFrameUpButton">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>60</y>
+      <width>21</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>F</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="moveFrameDownButton">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>140</y>
+      <width>21</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>F</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="exportButton">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>100</y>
+      <width>51</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Export</string>
     </property>
    </widget>
   </widget>

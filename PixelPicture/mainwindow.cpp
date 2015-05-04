@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->graphicsView->setScene(scene);
 
     controller = new Controller(scene);
+    exporter = new ExportTool(controller);
 
     pen = new PenTool(this);
     line = new LineTool(this);
@@ -488,4 +489,31 @@ void MainWindow::on_moveLeftButton_clicked()
 void MainWindow::on_moveRightButton_clicked()
 {
     controller->moveLayerRight();
+}
+
+void MainWindow::on_moveFrameUpButton_clicked()
+{
+    controller->moveFrameUp();
+}
+
+void MainWindow::on_moveFrameDownButton_clicked()
+{
+    controller->moveFrameDown();
+}
+
+void MainWindow::on_moveFrameLeftButton_clicked()
+{
+    controller->moveFrameLeft();
+}
+
+void MainWindow::on_moveFrameRightButton_clicked()
+{
+    controller->moveFrameRight();
+}
+
+void MainWindow::on_exportButton_clicked()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Open Image"), QString(),
+                tr("Text(*.txt)"));
+    exporter->exportFile(fileName);
 }

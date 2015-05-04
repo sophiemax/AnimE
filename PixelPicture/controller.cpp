@@ -58,14 +58,39 @@ int Controller::getOnlyPixelsHeight()
     return scene->getOnlyPixelsHeight();
 }
 
+int Controller::numberofAnimations()
+{
+    return animations.size();
+}
+
 int Controller::numberofFrames()
 {
     return activeAnimation->numberofFrames();
 }
 
+int Controller::numberofFrames(int index)
+{
+    return animations[index]->numberofFrames();
+}
+
 int Controller::numberofLayers()
 {
     return activeAnimation->numberofLayers();
+}
+
+int Controller::numberofLayers(int animationindex, int frameindex)
+{
+    return animations[animationindex]->numberofLayers(frameindex);
+}
+
+int Controller::getnumberofrows(int animationindex, int frameindex, int layerindex)
+{
+    return animations[animationindex]->getnumberofrows(frameindex, layerindex);
+}
+
+int Controller::getnumberofcolumns(int animationindex, int frameindex, int layerindex)
+{
+    return animations[animationindex]->getnumberofcolumns(frameindex, layerindex);
 }
 
 void Controller::setActiveFrame(int index)
@@ -91,6 +116,11 @@ bool Controller::getTransparency(int index)
     return activeAnimation->getTransparency(index);
 }
 
+bool Controller::getTransparency(int animationindex, int frameindex, int layerindex)
+{
+    return animations[animationindex]->getTransparency(frameindex,layerindex);
+}
+
 float Controller::getCurrentTimespan()
 {
     return activeAnimation->getCurrentTimespan();
@@ -101,14 +131,23 @@ float Controller::getTimesum()
     return activeAnimation->getTimesum();
 }
 
+float Controller::getTimesum(int index)
+{
+    return animations[index]->getTimesum();
+}
+
 float Controller::getTimespan(int index)
 {
     return activeAnimation->getTimespan(index);
 }
 
+float Controller::getTimespan(int animationindex, int frameindex)
+{
+    return animations[animationindex]->getTimespan(frameindex);
+}
+
 float Controller::getCurrentTime()
 {
-    //QTextStream(stdout) << activeAnimation->getCurrentTime() << endl;
     return activeAnimation->getCurrentTime();
 }
 
@@ -135,6 +174,36 @@ QString Controller::getLayerName()
 QString Controller::getLayerName(int index)
 {
     return activeAnimation->getLayerName(index);
+}
+
+QString Controller::getLayerName(int animationindex, int frameindex, int layerindex)
+{
+    return animations[animationindex]->getLayerName(frameindex, layerindex);
+}
+
+void Controller::setFrameName(QString s)
+{
+    activeAnimation->setFrameName(s);
+}
+
+QString Controller::getFrameName()
+{
+    return activeAnimation->getFrameName();
+}
+
+QString Controller::getFrameName(int index)
+{
+    return activeAnimation->getFrameName(index);
+}
+
+QString Controller::getFrameName(int animationindex, int frameindex)
+{
+    return animations[animationindex]->getFrameName(frameindex);
+}
+
+QString Controller::getAnimationName(int index)
+{
+    return animations[index]->getName();
 }
 
 void Controller::setLayerTransparency(bool t)
@@ -202,6 +271,30 @@ void Controller::moveLayerUp()
     updateScene();
 }
 
+void Controller::moveFrameUp()
+{
+    activeAnimation->moveFrameUp();
+    updateScene();
+}
+
+void Controller::moveFrameDown()
+{
+    activeAnimation->moveFrameDown();
+    updateScene();
+}
+
+void Controller::moveFrameLeft()
+{
+    activeAnimation->moveFrameLeft();
+    updateScene();
+}
+
+void Controller::moveFrameRight()
+{
+    activeAnimation->moveFrameRight();
+    updateScene();
+}
+
 void Controller::setColorofPixel(int index)
 {
     if(scene->getWindowToggled())
@@ -238,9 +331,20 @@ void Controller::setColorofPixel(int index, QColor color)
     }
 }
 
+void Controller::setColorofPixelFill(int index)
+{
+    activeAnimation->setColorofPixel(index, primaryColor);
+    scene->updatePixel(index,false,primaryColor);
+}
+
 QColor Controller::getColorofPixel(int index)
 {
     return scene->getColorofPixel(index);
+}
+
+QColor Controller::getColorofPixel(int animationindex, int frameindex, int layerindex, int pixelindex)
+{
+    return animations[animationindex]->getColorofPixel(frameindex,layerindex,pixelindex);
 }
 
 void Controller::setPrimaryColor(QColor color)
@@ -271,6 +375,11 @@ void Controller::setActiveTool(Tool *tool)
 void Controller::setWindowToggled(bool toggled)
 {
     scene->setWindowToggled(toggled);
+}
+
+bool Controller::isPixelClear(int animationindex, int frameindex, int layerindex, int pixelindex)
+{
+    return animations[animationindex]->isPixelClear(frameindex,layerindex,pixelindex);
 }
 
 QColor Controller::getColorofCombinedLayerPixel(int index)

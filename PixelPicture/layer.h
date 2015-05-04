@@ -17,9 +17,11 @@ public:
 
     void setColorofPixel(int i, QColor color);
     QColor getColorofPixel(int i);
+    QColor getColorofLayerPixel(int index);
     void setTransparency(bool t);
     bool getTransparency();
     bool isPixelClear(int i);
+    bool isLayerPixelClear(int index);
     void clearPixel(int i);
     void clear();
 

@@ -15,6 +15,8 @@ public:
     void setLayerName(QString s);
     QString getLayerName();
     QString getLayerName(int index);
+    void setName(QString s);
+    QString getName();
 
     void setLayerTransparency(bool t);
 
@@ -28,7 +30,9 @@ public:
 
     void setColorofPixel(int index, QColor color);
     QColor getColorofPixel(int index);
+    QColor getColorofPixel(int layerindex, int pixelindex);
     bool isPixelClear(int index);
+    bool isPixelClear(int layerindex, int pixelindex);
     void clearPixel(int index);
     void clearLayer();
 
@@ -37,7 +41,15 @@ public:
     void moveLayerLeft();
     void moveLayerRight();
 
+    void moveFrameUp();
+    void moveFrameDown();
+    void moveFrameLeft();
+    void moveFrameRight();
+
     bool getTransparency(int index);
+
+    int getnumberofcolumns(int index);
+    int getnumberofrows(int index);
 
     float getTimespan();
     void setTimespan(float t);
@@ -49,6 +61,7 @@ private:
     Canvas *canvas;
 
     float timespan = 1000.0;
+    QString name;
 };
 
 #endif // FRAME_H

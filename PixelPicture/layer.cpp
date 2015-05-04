@@ -29,15 +29,6 @@ Layer::Layer(Layer *l, int r, int c)
     {
         LayerPixel *lp = new LayerPixel(l->getLayerPixel(i));
         pixels.append(lp);
-        if(i == 676)
-        {
-            QTextStream(stdout) << "igen" << endl;
-            QTextStream(stdout) << pixels.indexOf(lp) << endl;
-            QTextStream(stdout) << lp->clear << endl;
-            QTextStream(stdout) << "igen" << endl;
-        }
-        //if(lp->color == l->getColorofPixel(i))
-            //QTextStream(stdout) << "YESS" << endl;
     }
 }
 
@@ -71,6 +62,11 @@ QColor Layer::getColorofPixel(int i)
 
     return pixels[index]->color;
 }
+
+QColor Layer::getColorofLayerPixel(int index)
+{
+    return pixels[index]->color;
+}
 void Layer::setTransparency(bool t)
 {
     transparent = t;
@@ -84,8 +80,11 @@ bool Layer::getTransparency()
 bool Layer::isPixelClear(int i)
 {
     int index = calculateCurrentIndex(i);
-    if(i == 676)
-        QTextStream(stdout) << "Index: " << index << endl;
+    return pixels[index]->clear;
+}
+
+bool Layer::isLayerPixelClear(int index)
+{
     return pixels[index]->clear;
 }
 
@@ -491,20 +490,6 @@ int Layer::calculateCurrentIndex(int originalIndex)
 {
     int originalrowofindex = originalIndex / originalnumberofcolumns;
     int originalcolumnofindex = originalIndex - originalrowofindex * originalnumberofcolumns;
-
-
-    if(originalIndex == 676)
-        QTextStream(stdout) << "originalnumberofcolumns:" << originalnumberofcolumns << endl;
-
-    if(originalIndex == 676)
-        QTextStream(stdout) << "originalrowofindex:" << originalrowofindex << endl;
-
-    if(originalIndex == 676)
-        QTextStream(stdout) << "originalcolumnofindex:" << originalcolumnofindex << endl;
-
-
-    if(originalIndex == 676)
-        QTextStream(stdout) << "startindex:" << startindex << endl;
 
     int index = startindex + originalrowofindex*numberofcolumns + originalcolumnofindex;
     return index;

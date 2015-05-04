@@ -8,6 +8,8 @@ Animation::Animation(int r, int c)
     frames.append(f);
     timesum += f->getTimespan();
     activeFrame = f;
+
+    name = "Animation0";
 }
 
 Animation::~Animation()
@@ -31,6 +33,36 @@ QString Animation::getLayerName(int index)
     return activeFrame->getLayerName(index);
 }
 
+QString Animation::getLayerName(int frameindex, int layerindex)
+{
+    return frames[frameindex]->getLayerName(layerindex);
+}
+
+void Animation::setFrameName(QString s)
+{
+    activeFrame->setName(s);
+}
+
+QString Animation::getFrameName()
+{
+    return activeFrame->getName();
+}
+
+QString Animation::getFrameName(int index)
+{
+    return frames[index]->getName();
+}
+
+void Animation::setName(QString s)
+{
+    name = s;
+}
+
+QString Animation::getName()
+{
+    return name;
+}
+
 void Animation::setLayerTransparency(bool t)
 {
     activeFrame->setLayerTransparency(t);
@@ -49,6 +81,21 @@ int Animation::numberofFrames()
 int Animation::numberofLayers()
 {
     return activeFrame->numberofLayers();
+}
+
+int Animation::numberofLayers(int index)
+{
+    return frames[index]->numberofLayers();
+}
+
+int Animation::getnumberofrows(int frameindex, int layerindex)
+{
+    return frames[frameindex]->getnumberofrows(layerindex);
+}
+
+int Animation::getnumberofcolumns(int frameindex, int layerindex)
+{
+    return frames[frameindex]->getnumberofcolumns(layerindex);
 }
 
 void Animation::setActiveFrame(int index)
@@ -99,6 +146,11 @@ int Animation::getActiveFrameIndex()
 bool Animation::getTransparency(int index)
 {
     return activeFrame->getTransparency(index);
+}
+
+bool Animation::getTransparency(int frameindex, int layerindex)
+{
+    return frames[frameindex]->getTransparency(layerindex);
 }
 
 void Animation::addLayer()
@@ -173,6 +225,26 @@ void Animation::moveLayerRight()
     activeFrame->moveLayerRight();
 }
 
+void Animation::moveFrameUp()
+{
+    activeFrame->moveFrameUp();
+}
+
+void Animation::moveFrameDown()
+{
+    activeFrame->moveFrameDown();
+}
+
+void Animation::moveFrameLeft()
+{
+    activeFrame->moveFrameLeft();
+}
+
+void Animation::moveFrameRight()
+{
+    activeFrame->moveFrameRight();
+}
+
 void Animation::setColorofPixel(int index, QColor color)
 {
     activeFrame->setColorofPixel(index, color);
@@ -183,9 +255,19 @@ QColor Animation::getColorofPixel(int index)
     return activeFrame->getColorofPixel(index);
 }
 
+QColor Animation::getColorofPixel(int frameindex, int layerindex, int pixelindex)
+{
+    return frames[frameindex]->getColorofPixel(layerindex,pixelindex);
+}
+
 bool Animation::isPixelClear(int index)
 {
     return activeFrame->isPixelClear(index);
+}
+
+bool Animation::isPixelClear(int frameindex, int layerindex, int pixelindex)
+{
+    return frames[frameindex]->isPixelClear(layerindex,pixelindex);
 }
 
 void Animation::clearPixel(int index)

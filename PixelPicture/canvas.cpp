@@ -15,8 +15,6 @@ Canvas::Canvas(Canvas *c, int r, int col)
 {
     int  numberoflayers = c->numberofLayers();
 
-    QTextStream(stdout) << "Numberoflayers:" << numberoflayers << endl;
-
     pixelsinarow = r;
     pixelsinacolumn = col;
 
@@ -30,8 +28,6 @@ Canvas::Canvas(Canvas *c, int r, int col)
     }
 
     activeLayer = layers[c->getActive()];
-    QTextStream(stdout) << "Activelayer size:" << activeLayer->getSize() << endl;
-    QTextStream(stdout) << "Numberoflayers:" << layers.size() << endl;
 
     updateCombined();
 }
@@ -80,9 +76,19 @@ QColor Canvas::getColorofPixel(int index)
     return combinedLayer->getColorofPixel(index);
 }
 
+QColor Canvas::getColorofPixel(int layerindex, int pixelindex)
+{
+    return layers[layerindex]->getColorofLayerPixel(pixelindex);
+}
+
 bool Canvas::isPixelClear(int index)
 {
     return combinedLayer->isPixelClear(index);
+}
+
+bool Canvas::isPixelClear(int layerindex, int pixelindex)
+{
+    return layers[layerindex]->isLayerPixelClear(pixelindex);
 }
 
 void Canvas::clearPixel(int index)
@@ -118,6 +124,34 @@ void Canvas::moveLayerLeft()
 void Canvas::moveLayerRight()
 {
     activeLayer->moveRight();
+    updateCombined();
+}
+
+void Canvas::moveFrameUp()
+{
+    foreach(Layer *l, layers)
+        l->moveUp();
+    updateCombined();
+}
+
+void Canvas::moveFrameDown()
+{
+    foreach(Layer *l, layers)
+        l->moveDown();
+    updateCombined();
+}
+
+void Canvas::moveFrameLeft()
+{
+    foreach(Layer *l, layers)
+        l->moveLeft();
+    updateCombined();
+}
+
+void Canvas::moveFrameRight()
+{
+    foreach(Layer *l, layers)
+        l->moveRight();
     updateCombined();
 }
 
@@ -186,39 +220,22 @@ void Canvas::updateCombined()
 
 void Canvas::updateCombinedLayer(int index)
 {
-    if(index == 676)
-    {
-        QTextStream(stdout) << index << endl;
-        QTextStream(stdout) << activeLayer->getSize() << endl;
-        QTextStream(stdout) << "yfrsdiolkmx" << endl;
-        QTextStream(stdout) << activeLayer->isPixelClear(index) << endl;
-        QTextStream(stdout) << activeLayer->getTransparency() << endl;
-    }
     if(!activeLayer->isPixelClear(index) && !activeLayer->getTransparency())
     {
         combinedLayer->setColorofPixel(index,activeLayer->getColorofPixel(index));
-
-        if(index == 676)
-            QTextStream(stdout) << "Pina1" << endl;
     }
     else
     {
         int i = 0;
-        if(index == 676)
-            QTextStream(stdout) << "Pina2" << endl;
         while(i<layers.size() && (layers[i]->isPixelClear(index) || layers[i]->getTransparency()))
             i++;
 
         if(i==layers.size())
         {
-            if(index == 676)
-                QTextStream(stdout) << "Pina3" << endl;
             combinedLayer->clearPixel(index);
         }
         else
         {
-            if(index == 676)
-                QTextStream(stdout) << "Pina4" << endl;
             combinedLayer->setColorofPixel(index, layers[i]->getColorofPixel(index));
         }
     }
@@ -232,4 +249,14 @@ int Canvas::numberofLayers()
 bool Canvas::getTransparency(int index)
 {
     return layers[index]->getTransparency();
+}
+
+int Canvas::getnumberofcolumns(int index)
+{
+    return layers[index]->getNumberofColumns();
+}
+
+int Canvas::getnumberofrows(int index)
+{
+    return layers[index]->getNumberofRows();
 }

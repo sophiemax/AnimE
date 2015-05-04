@@ -34,7 +34,7 @@ void FillTool::fill(int index)
     int pixelsinarow = controller->pixelsinaRow();
     int numberofPixels = controller->numberofPixels();
 
-    controller->setColorofPixel(index);
+    controller->setColorofPixelFill(index);
 
     //jobbra hív, ha nem a szélén van
     if(!((index+1) % pixelsinarow == 0) && controller->getColorofPixel(index+1) == color)
@@ -51,5 +51,6 @@ void FillTool::fill(int index)
     //le hív, ha nem a legalsó sor
     if(index < (numberofPixels - pixelsinarow) && controller->getColorofPixel(index + pixelsinarow) == color)
         fill(index + pixelsinarow);
+
 }
 
