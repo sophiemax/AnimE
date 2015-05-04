@@ -21,5 +21,11 @@
         <file>icons/Visible-32.png</file>
         <file>icons/Window Full-32.png</file>
         <file>icons/Window Pixel-32.png</file>
+        <file>icons/Down Arrow-32.png</file>
+        <file>icons/Film 2-32.png</file>
+        <file>icons/Left Arrow-32.png</file>
+        <file>icons/Plus Math-32.png</file>
+        <file>icons/Right Arrow-32.png</file>
+        <file>icons/Up Arrow-32.png</file>
     </qresource>
 </RCC>

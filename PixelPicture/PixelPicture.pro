@@ -63,3 +63,6 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui \
     importsettings.ui \
     renamelayer.ui
+
+RESOURCES += \
+    uiresources.qrc

@@ -285,7 +285,11 @@
      </rect>
     </property>
     <property name="text">
-     <string>Add</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="uiresources.qrc">
+      <normaloff>:/icon/icons/Plus Math-32.png</normaloff>:/icon/icons/Plus Math-32.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="removeButton">
@@ -409,12 +413,16 @@
      <rect>
       <x>490</x>
       <y>120</y>
-      <width>61</width>
+      <width>81</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
      <string>Move Left</string>
+    </property>
+    <property name="icon">
+     <iconset resource="uiresources.qrc">
+      <normaloff>:/icon/icons/Left Arrow-32.png</normaloff>:/icon/icons/Left Arrow-32.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="moveUpButton">
@@ -429,6 +437,10 @@
     <property name="text">
      <string>Move Up</string>
     </property>
+    <property name="icon">
+     <iconset resource="uiresources.qrc">
+      <normaloff>:/icon/icons/Up Arrow-32.png</normaloff>:/icon/icons/Up Arrow-32.png</iconset>
+    </property>
    </widget>
    <widget class="QPushButton" name="moveDownButton">
     <property name="geometry">
@@ -442,18 +454,26 @@
     <property name="text">
      <string>Move Down</string>
     </property>
+    <property name="icon">
+     <iconset resource="uiresources.qrc">
+      <normaloff>:/icon/icons/Down Arrow-32.png</normaloff>:/icon/icons/Down Arrow-32.png</iconset>
+    </property>
    </widget>
    <widget class="QPushButton" name="moveRightButton">
     <property name="geometry">
      <rect>
-      <x>640</x>
+      <x>620</x>
       <y>120</y>
-      <width>61</width>
+      <width>81</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
      <string>MoveRight</string>
+    </property>
+    <property name="icon">
+     <iconset resource="uiresources.qrc">
+      <normaloff>:/icon/icons/Right Arrow-32.png</normaloff>:/icon/icons/Right Arrow-32.png</iconset>
     </property>
    </widget>
   </widget>
