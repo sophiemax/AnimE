@@ -256,9 +256,9 @@ void Layer::moveLeft()
                 int index = calculateCurrentIndex(j,numberofcolumns-1);
                 pixels.removeAt(index);
             }
-            numberofcolumns -= 1;
             int startrow = startindex/numberofcolumns;
             startindex -= startrow;
+            numberofcolumns -= 1;
         }
     }
     else
@@ -269,6 +269,7 @@ void Layer::moveLeft()
         {
             int startrow = startindex/numberofcolumns;
             startindex += startrow;
+
             QTextStream(stdout) << "Oszlopot adunk hozzá a layer végéhez!" << endl;
             numberofcolumns += 1;
             for(int j = 0; j < numberofrows; j++)
