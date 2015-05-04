@@ -65,14 +65,12 @@ void ExportTool::exportFile(QString fileName)
                         counter++;
                     else
                     {
-                        stream.writeStartElement("layerpixel");
                         QString data = QString::number(counter);
                         data.append(",");
                         data.append(QString::number(clear));
                         data.append(",");
                         data.append(color.name());
                         stream.writeTextElement("data", data);
-                        stream.writeEndElement(); // layerpixel
 
                         clear = controller->isPixelClear(animation,frame,layer,pixel);
                         color = controller->getColorofPixel(animation,frame,layer,pixel);
