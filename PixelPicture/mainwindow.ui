@@ -47,7 +47,11 @@
      </rect>
     </property>
     <property name="text">
-     <string>Window</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="uiresources.qrc">
+      <normaloff>:/icon/icons/Window Full-32.png</normaloff>:/icon/icons/Window Full-32.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="penButton">
@@ -62,6 +66,10 @@
     <property name="text">
      <string/>
     </property>
+    <property name="icon">
+     <iconset resource="uiresources.qrc">
+      <normaloff>:/icon/icons/Pencil-32.png</normaloff>:/icon/icons/Pencil-32.png</iconset>
+    </property>
    </widget>
    <widget class="QPushButton" name="ellipseButton">
     <property name="geometry">
@@ -74,6 +82,10 @@
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="uiresources.qrc">
+      <normaloff>:/icon/icons/Ellipse Stroked-32.png</normaloff>:/icon/icons/Ellipse Stroked-32.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="secondaryColorButton">
@@ -101,6 +113,10 @@
     <property name="text">
      <string/>
     </property>
+    <property name="icon">
+     <iconset resource="uiresources.qrc">
+      <normaloff>:/icon/icons/Eraser-32.png</normaloff>:/icon/icons/Eraser-32.png</iconset>
+    </property>
    </widget>
    <widget class="QPushButton" name="clearLayerButton">
     <property name="geometry">
@@ -113,6 +129,10 @@
     </property>
     <property name="text">
      <string>Clear</string>
+    </property>
+    <property name="icon">
+     <iconset resource="uiresources.qrc">
+      <normaloff>:/icon/icons/Delete-32.png</normaloff>:/icon/icons/Delete-32.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="importButton">
@@ -151,7 +171,11 @@
      </rect>
     </property>
     <property name="text">
-     <string>New Frame</string>
+     <string> Frame</string>
+    </property>
+    <property name="icon">
+     <iconset resource="uiresources.qrc">
+      <normaloff>:/icon/icons/Add File-32.png</normaloff>:/icon/icons/Add File-32.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="playButton">
@@ -164,7 +188,11 @@
      </rect>
     </property>
     <property name="text">
-     <string>Play</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="uiresources.qrc">
+      <normaloff>:/icon/icons/Play-32.png</normaloff>:/icon/icons/Play-32.png</iconset>
     </property>
    </widget>
    <widget class="QTableWidget" name="layerTable">
@@ -324,6 +352,10 @@
     <property name="text">
      <string/>
     </property>
+    <property name="icon">
+     <iconset resource="uiresources.qrc">
+      <normaloff>:/icon/icons/Line-32.png</normaloff>:/icon/icons/Line-32.png</iconset>
+    </property>
    </widget>
    <widget class="QPushButton" name="rectangleButton">
     <property name="geometry">
@@ -337,6 +369,10 @@
     <property name="text">
      <string/>
     </property>
+    <property name="icon">
+     <iconset resource="uiresources.qrc">
+      <normaloff>:/icon/icons/Rectangle Stroked-32.png</normaloff>:/icon/icons/Rectangle Stroked-32.png</iconset>
+    </property>
    </widget>
    <widget class="QPushButton" name="fillButton">
     <property name="geometry">
@@ -349,6 +385,10 @@
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="uiresources.qrc">
+      <normaloff>:/icon/icons/BG Color-32.png</normaloff>:/icon/icons/BG Color-32.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="copyFrameButton">
@@ -451,6 +491,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="uiresources.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -1,0 +1,25 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file>icons/Add File-32.png</file>
+        <file>icons/BG Color-32.png</file>
+        <file>icons/Delete-32.png</file>
+        <file>icons/Ellipse Stroked-32.png</file>
+        <file>icons/Eraser-32.png</file>
+        <file>icons/File-32.png</file>
+        <file>icons/Invisible-32.png</file>
+        <file>icons/Line-32.png</file>
+        <file>icons/Opened Folder-32.png</file>
+        <file>icons/Pause-32.png</file>
+        <file>icons/Pencil-32.png</file>
+        <file>icons/Play-32.png</file>
+        <file>icons/Rectangle Stroked-32.png</file>
+        <file>icons/Save As-32.png</file>
+        <file>icons/Save-32.png</file>
+        <file>icons/Skip To End-32.png</file>
+        <file>icons/Skip To Start-32.png</file>
+        <file>icons/Text-32.png</file>
+        <file>icons/Visible-32.png</file>
+        <file>icons/Window Full-32.png</file>
+        <file>icons/Window Pixel-32.png</file>
+    </qresource>
+</RCC>
