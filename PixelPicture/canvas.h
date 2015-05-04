@@ -43,6 +43,7 @@ public:
     void switchLayers(int i, int j);
 
     Layer *getLayer(int index);
+    int getActive();
 
 private:
     QList<Layer*> layers;

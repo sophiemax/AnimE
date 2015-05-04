@@ -15,6 +15,8 @@ Canvas::Canvas(Canvas *c, int r, int col)
 {
     int  numberoflayers = c->numberofLayers();
 
+    QTextStream(stdout) << "Numberoflayers:" << numberoflayers << endl;
+
     pixelsinarow = r;
     pixelsinacolumn = col;
 
@@ -27,7 +29,9 @@ Canvas::Canvas(Canvas *c, int r, int col)
         layers.append(l);
     }
 
-    activeLayer = layers[0];
+    activeLayer = layers[c->getActive()];
+    QTextStream(stdout) << "Activelayer size:" << activeLayer->getSize() << endl;
+    QTextStream(stdout) << "Numberoflayers:" << layers.size() << endl;
 
     updateCombined();
 }
@@ -169,6 +173,11 @@ Layer *Canvas::getLayer(int index)
     return layers[index];
 }
 
+int Canvas::getActive()
+{
+    return layers.indexOf(activeLayer);
+}
+
 void Canvas::updateCombined()
 {
     for(int index = 0; index < pixelsinarow * pixelsinacolumn; index++)
@@ -181,6 +190,7 @@ void Canvas::updateCombinedLayer(int index)
     {
         QTextStream(stdout) << index << endl;
         QTextStream(stdout) << activeLayer->getSize() << endl;
+        QTextStream(stdout) << "yfrsdiolkmx" << endl;
         QTextStream(stdout) << activeLayer->isPixelClear(index) << endl;
         QTextStream(stdout) << activeLayer->getTransparency() << endl;
     }

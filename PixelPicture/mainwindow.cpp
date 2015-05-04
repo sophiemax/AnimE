@@ -467,11 +467,7 @@ void MainWindow::on_animationSlider_valueChanged(int position)
 void MainWindow::on_copyFrameButton_clicked()
 {
     controller->copyFrame();
-
-    QTextStream(stdout) << controller->getCurrentTime()/controller->getTimesum() << endl;
-
     on_animationSlider_valueChanged(controller->getCurrentTime()/controller->getTimesum() * 100);
-
 }
 
 void MainWindow::on_moveUpButton_clicked()
