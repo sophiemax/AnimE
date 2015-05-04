@@ -29,10 +29,10 @@ PixelScene::PixelScene(QObject *parent) :
             windows.append(w);
         }
     }
-    width = pixelSize * windowWidth * windowXNumber + gapWidth * (windowXNumber-1);
-    height = pixelSize * windowHeight * windowYNumber + gapHeight * (windowYNumber-1);
     onlypixelswidth = pixelSize * windowWidth * windowXNumber;
     onlypixelsheight = pixelSize * windowHeight * windowYNumber;
+    width = onlypixelswidth + gapWidth * (windowXNumber-1);
+    height = onlypixelsheight + gapHeight * (windowYNumber-1);
 }
 
 PixelScene::~PixelScene()

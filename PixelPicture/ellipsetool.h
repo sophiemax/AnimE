@@ -15,6 +15,8 @@ public:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 private:
     void drawPixelEllipse();
+    void drawAccurateEllipse();
+    void drawFillableEllipse();
 };
 
 #endif // ELLIPSETOOL_H

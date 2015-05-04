@@ -50,7 +50,7 @@
      <string>Window</string>
     </property>
     <property name="icon">
-     <iconset>
+     <iconset resource="uiresources.qrc">
       <normaloff>:/icon/icons/Window Full-32.png</normaloff>:/icon/icons/Window Full-32.png</iconset>
     </property>
    </widget>
@@ -67,8 +67,11 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset>
+     <iconset resource="uiresources.qrc">
       <normaloff>:/icon/icons/Pencil-32.png</normaloff>:/icon/icons/Pencil-32.png</iconset>
+    </property>
+    <property name="shortcut">
+     <string>B</string>
     </property>
    </widget>
    <widget class="QPushButton" name="ellipseButton">
@@ -84,7 +87,7 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset>
+     <iconset resource="uiresources.qrc">
       <normaloff>:/icon/icons/Ellipse Stroked-32.png</normaloff>:/icon/icons/Ellipse Stroked-32.png</iconset>
     </property>
    </widget>
@@ -114,7 +117,7 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset>
+     <iconset resource="uiresources.qrc">
       <normaloff>:/icon/icons/Eraser-32.png</normaloff>:/icon/icons/Eraser-32.png</iconset>
     </property>
    </widget>
@@ -131,7 +134,7 @@
      <string>Clear</string>
     </property>
     <property name="icon">
-     <iconset>
+     <iconset resource="uiresources.qrc">
       <normaloff>:/icon/icons/Delete-32.png</normaloff>:/icon/icons/Delete-32.png</iconset>
     </property>
    </widget>
@@ -174,7 +177,7 @@
      <string> Frame</string>
     </property>
     <property name="icon">
-     <iconset>
+     <iconset resource="uiresources.qrc">
       <normaloff>:/icon/icons/Add File-32.png</normaloff>:/icon/icons/Add File-32.png</iconset>
     </property>
    </widget>
@@ -191,7 +194,7 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset>
+     <iconset resource="uiresources.qrc">
       <normaloff>:/icon/icons/Play-32.png</normaloff>:/icon/icons/Play-32.png</iconset>
     </property>
    </widget>
@@ -357,7 +360,7 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset>
+     <iconset resource="uiresources.qrc">
       <normaloff>:/icon/icons/Line-32.png</normaloff>:/icon/icons/Line-32.png</iconset>
     </property>
    </widget>
@@ -374,7 +377,7 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset>
+     <iconset resource="uiresources.qrc">
       <normaloff>:/icon/icons/Rectangle Stroked-32.png</normaloff>:/icon/icons/Rectangle Stroked-32.png</iconset>
     </property>
    </widget>
@@ -391,8 +394,11 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset>
+     <iconset resource="uiresources.qrc">
       <normaloff>:/icon/icons/BG Color-32.png</normaloff>:/icon/icons/BG Color-32.png</iconset>
+    </property>
+    <property name="shortcut">
+     <string>F</string>
     </property>
    </widget>
    <widget class="QPushButton" name="copyFrameButton">
@@ -424,6 +430,9 @@
      <iconset resource="uiresources.qrc">
       <normaloff>:/icon/icons/Left Arrow-32.png</normaloff>:/icon/icons/Left Arrow-32.png</iconset>
     </property>
+    <property name="shortcut">
+     <string>Left</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="moveUpButton">
     <property name="geometry">
@@ -440,6 +449,9 @@
     <property name="icon">
      <iconset resource="uiresources.qrc">
       <normaloff>:/icon/icons/Up Arrow-32.png</normaloff>:/icon/icons/Up Arrow-32.png</iconset>
+    </property>
+    <property name="shortcut">
+     <string>Up</string>
     </property>
    </widget>
    <widget class="QPushButton" name="moveDownButton">
@@ -458,6 +470,9 @@
      <iconset resource="uiresources.qrc">
       <normaloff>:/icon/icons/Down Arrow-32.png</normaloff>:/icon/icons/Down Arrow-32.png</iconset>
     </property>
+    <property name="shortcut">
+     <string>Down</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="moveRightButton">
     <property name="geometry">
@@ -474,6 +489,9 @@
     <property name="icon">
      <iconset resource="uiresources.qrc">
       <normaloff>:/icon/icons/Right Arrow-32.png</normaloff>:/icon/icons/Right Arrow-32.png</iconset>
+    </property>
+    <property name="shortcut">
+     <string>Right</string>
     </property>
    </widget>
   </widget>
@@ -511,6 +529,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="uiresources.qrc"/>
+ </resources>
  <connections/>
 </ui>
