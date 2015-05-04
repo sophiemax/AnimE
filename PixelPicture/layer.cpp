@@ -135,9 +135,12 @@ void Layer::moveUp()
     {
         QTextStream(stdout) << "Az első sor NEM volt üres!" << endl;
         //ha a kijelző utolsó soránál végződik a layer, hozzá kell adnunk a layerhez egy sort alulra
-        if(isinLastRow(startindex + originalnumberofrows*numberofcolumns))
+        if(isinLastRow(startindex + (originalnumberofrows-1)*numberofcolumns))
         {
             QTextStream(stdout) << "Sort adunk hozzá a layer végéhez!" << endl;
+            QTextStream(stdout) << startindex << endl;
+            QTextStream(stdout) << originalnumberofrows << endl;
+            QTextStream(stdout) << numberofcolumns << endl;
             numberofrows += 1;
             for(int i = 0; i < numberofcolumns; i++)
             {
@@ -161,7 +164,7 @@ void Layer::moveDown()
     //Ha az kijelző alsó soránál végződik a layer is, és a layer alsó sorának minden pixele clear,
     //akkor valójában nem csúsztatjuk a layert, hanem lefele másoljuk a pixeladatokat.
     QTextStream(stdout) << numberofrows << endl;
-    if(isinLastRow(startindex + originalnumberofrows*numberofcolumns-1) && isLastRowClear())
+    if(isinLastRow(startindex + (originalnumberofrows-1)*numberofcolumns) && isLastRowClear())
     {
         QTextStream(stdout) << "Az utolsó sor üres volt!" << endl;
         for(int i = 0; i < numberofcolumns; i++)
@@ -256,9 +259,9 @@ void Layer::moveLeft()
                 int index = calculateCurrentIndex(j,numberofcolumns-1);
                 pixels.removeAt(index);
             }
-            numberofcolumns -= 1;
             int startrow = startindex/numberofcolumns;
             startindex -= startrow;
+            numberofcolumns -= 1;
         }
     }
     else
@@ -269,6 +272,7 @@ void Layer::moveLeft()
         {
             int startrow = startindex/numberofcolumns;
             startindex += startrow;
+
             QTextStream(stdout) << "Oszlopot adunk hozzá a layer végéhez!" << endl;
             numberofcolumns += 1;
             for(int j = 0; j < numberofrows; j++)
@@ -429,7 +433,7 @@ bool Layer::isinFirstRow(int index)
 //megnézi, hogy az adott indexű pixel a layer utolsó sorában van-e
 bool Layer::isinLastRow(int index)
 {
-    if(index > numberofcolumns * (numberofrows-1))
+    if(index >= numberofcolumns * (numberofrows-1))
         return true;
     return false;
 }
