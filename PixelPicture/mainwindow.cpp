@@ -50,12 +50,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(animationtool, &AnimationTool::positionChanged, this, &MainWindow::animationSliderUpdate);
 
     //QIcon *icon2 = new QIcon("C:/Users/Picimaci/Documents/GitHub/AnimE/PixelPicture/icons/Pencil-32.png");
-    ui->penButton->setIcon(QIcon::QIcon("C:/Users/Picimaci/Documents/GitHub/AnimE/PixelPicture/icons/Pencil-32.png"));
+    /*ui->penButton->setIcon(QIcon::QIcon("C:/Users/Picimaci/Documents/GitHub/AnimE/PixelPicture/icons/Pencil-32.png"));
     ui->eraserButton->setIcon(QIcon::QIcon("C:/Users/Picimaci/Documents/GitHub/AnimE/PixelPicture/icons/Eraser-32.png"));
     ui->lineButton->setIcon(QIcon::QIcon("C:/Users/Picimaci/Documents/GitHub/AnimE/PixelPicture/icons/Line-32.png"));
     ui->rectangleButton->setIcon(QIcon::QIcon("C:/Users/Picimaci/Documents/GitHub/AnimE/PixelPicture/icons/Rectangle Stroked-32.png"));
     ui->fillButton->setIcon(QIcon::QIcon("C:/Users/Picimaci/Documents/GitHub/AnimE/PixelPicture/icons/BG Color-32.png"));
-    ui->ellipseButton->setIcon(QIcon::QIcon("C:/Users/Picimaci/Documents/GitHub/AnimE/PixelPicture/icons/Ellipse Stroked-32.png"));
+    ui->ellipseButton->setIcon(QIcon::QIcon("C:/Users/Picimaci/Documents/GitHub/AnimE/PixelPicture/icons/Ellipse Stroked-32.png"));*/
 
 }
 
