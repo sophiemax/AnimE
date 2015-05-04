@@ -35,7 +35,8 @@ SOURCES += main.cpp\
     filltool.cpp \
     animation.cpp \
     controller.cpp \
-    exporttool.cpp
+    exporttool.cpp \
+    importtool.cpp
 
 HEADERS  += mainwindow.h \
     pixel.h \
@@ -60,7 +61,8 @@ HEADERS  += mainwindow.h \
     filltool.h \
     animation.h \
     controller.h \
-    exporttool.h
+    exporttool.h \
+    importtool.h
 
 FORMS    += mainwindow.ui \
     importsettings.ui \

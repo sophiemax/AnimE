@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     controller = new Controller(scene);
     exporter = new ExportTool(controller);
+    importer = new ImportTool(controller);
 
     pen = new PenTool(this);
     line = new LineTool(this);
@@ -66,6 +67,9 @@ MainWindow::~MainWindow()
     delete fill;
     delete animationtool;
     delete scene;
+    delete controller;
+    delete exporter;
+    delete importer;
 }
 
 void MainWindow::createLayerDisplay()

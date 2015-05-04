@@ -26,6 +26,7 @@
 #include "renamelayer.h"
 #include "controller.h"
 #include "exporttool.h"
+#include "importtool.h"
 
 namespace Ui {
 class MainWindow;
@@ -133,6 +134,7 @@ private:
 
     Controller *controller;
     ExportTool *exporter;
+    ImportTool *importer;
 
     QGridLayout *layergrid;
     QString newname;

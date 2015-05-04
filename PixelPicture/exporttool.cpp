@@ -19,28 +19,32 @@ void ExportTool::exportFile(QString fileName)
     QXmlStreamWriter stream(&document);
     stream.setAutoFormatting(true);
     stream.writeStartDocument();
+    bool clear;
+    QColor color;
+    int counter;
 
     int pixelsinaColumn = controller->pixelsinaColumn();
     int pixelsinaRow = controller->pixelsinaRow();
+
+    stream.writeStartElement("anime");
+
+    stream.writeTextElement("pixelsinacolumn", QString::number(pixelsinaColumn));
+    stream.writeTextElement("pixelsinarow", QString::number(pixelsinaRow));
 
     for(int animation = 0; animation < controller->numberofAnimations(); animation++)
     {
         stream.writeStartElement("animation");
 
         stream.writeTextElement("timesum", QString::number(controller->getTimesum(animation)));
-        stream.writeTextElement("pixelsinacolumn", QString::number(pixelsinaColumn));
-        stream.writeTextElement("pixelsinarow", QString::number(pixelsinaRow));
-        stream.writeTextElement("name", controller->getAnimationName(animation));
+        stream.writeTextElement("animationname", controller->getAnimationName(animation));
 
         for(int frame = 0; frame < controller->numberofFrames(animation); frame++)
         {
             stream.writeStartElement("frame");
             stream.writeTextElement("timespan", QString::number(controller->getTimespan(animation,frame)));
-            stream.writeTextElement("name", controller->getFrameName(animation,frame));
+            stream.writeTextElement("framename", controller->getFrameName(animation,frame));
 
             stream.writeStartElement("canvas");
-            stream.writeTextElement("pixelsinacolumn", QString::number(pixelsinaColumn));
-            stream.writeTextElement("pixelsinarow", QString::number(pixelsinaRow));
 
             for(int layer = 0; layer < controller->numberofLayers(animation, frame); layer++)
             {
@@ -49,18 +53,31 @@ void ExportTool::exportFile(QString fileName)
                 stream.writeStartElement("layer");
                 stream.writeTextElement("originalnumberofrows", QString::number(pixelsinaColumn));
                 stream.writeTextElement("originalnumberofcolumns", QString::number(pixelsinaRow));
-                stream.writeTextElement("numberofcolums", QString::number(numberofcolumns));
-                stream.writeTextElement("numberofrows", QString::number(numberofrows));
                 stream.writeTextElement("transparent", QString::number(controller->getTransparency(animation,frame,layer)));
-                stream.writeTextElement("name", controller->getLayerName(animation, frame, layer));
+                stream.writeTextElement("layername", controller->getLayerName(animation, frame, layer));
 
+                clear = controller->isPixelClear(animation,frame,layer,0);
+                color = controller->getColorofPixel(animation,frame,layer,0);
+                counter = 1;
                 for(int pixel = 0; pixel < numberofcolumns*numberofrows; pixel++)
                 {
-                    stream.writeStartElement("layerpixel");
-                    stream.writeTextElement("index", QString::number(pixel));
-                    stream.writeTextElement("clear", QString::number(controller->isPixelClear(animation,frame,layer,pixel)));
-                    stream.writeTextElement("color", controller->getColorofPixel(animation,frame,layer,pixel).name());
-                    stream.writeEndElement(); // layerpixel
+                    if(controller->isPixelClear(animation,frame,layer,pixel) == clear && controller->getColorofPixel(animation,frame,layer,pixel) == color)
+                        counter++;
+                    else
+                    {
+                        stream.writeStartElement("layerpixel");
+                        QString data = QString::number(counter);
+                        data.append(",");
+                        data.append(QString::number(clear));
+                        data.append(",");
+                        data.append(color.name());
+                        stream.writeTextElement("data", data);
+                        stream.writeEndElement(); // layerpixel
+
+                        clear = controller->isPixelClear(animation,frame,layer,pixel);
+                        color = controller->getColorofPixel(animation,frame,layer,pixel);
+                        counter = 1;
+                    }
                 }
                 stream.writeEndElement(); // layer
             }
@@ -73,6 +90,7 @@ void ExportTool::exportFile(QString fileName)
         stream.writeEndElement(); // animation
     }
 
+    stream.writeEndElement(); // anime
     stream.writeEndDocument();
 
     if (!fileName.isEmpty()) {
