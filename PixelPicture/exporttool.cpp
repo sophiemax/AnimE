@@ -61,7 +61,7 @@ void ExportTool::exportFile(QString fileName)
                 clear = controller->isPixelClear(animation,frame,layer,0);
                 color = controller->getColorofPixel(animation,frame,layer,0);
                 counter = 1;
-                for(int pixel = 0; pixel < numberofcolumns*numberofrows; pixel++)
+                for(int pixel = 1; pixel < numberofcolumns*numberofrows; pixel++)
                 {
                     if(controller->isPixelClear(animation,frame,layer,pixel) == clear && controller->getColorofPixel(animation,frame,layer,pixel) == color)
                         counter++;
