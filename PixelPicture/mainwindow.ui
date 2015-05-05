@@ -51,7 +51,14 @@
     </property>
     <property name="icon">
      <iconset resource="uiresources.qrc">
-      <normaloff>:/icon/icons/Window Full-32.png</normaloff>:/icon/icons/Window Full-32.png</iconset>
+      <normaloff>:/icon/icons/Window Pixel-32.png</normaloff>
+      <normalon>:/icon/icons/Window Full-32.png</normalon>
+      <disabledoff>:/icon/icons/Window Pixel-32.png</disabledoff>
+      <disabledon>:/icon/icons/Window Full-32.png</disabledon>
+      <activeoff>:/icon/icons/Window Pixel-32.png</activeoff>
+      <activeon>:/icon/icons/Window Full-32.png</activeon>
+      <selectedoff>:/icon/icons/Window Pixel-32.png</selectedoff>
+      <selectedon>:/icon/icons/Window Full-32.png</selectedon>:/icon/icons/Window Pixel-32.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="penButton">
@@ -614,9 +621,24 @@
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionSaveAs"/>
+   </widget>
+   <widget class="QMenu" name="menuSelect_Tool">
+    <property name="title">
+     <string>Select Tool</string>
+    </property>
+    <addaction name="actionPen"/>
+    <addaction name="actionEraser"/>
+    <addaction name="actionLine"/>
+    <addaction name="actionRectangle"/>
+    <addaction name="actionEllipse"/>
+    <addaction name="actionFill"/>
    </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuSelect_Tool"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -625,12 +647,108 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionNew"/>
    <addaction name="actionOpen"/>
+   <addaction name="actionSave"/>
+   <addaction name="actionSaveAs"/>
+   <addaction name="separator"/>
+   <addaction name="actionPen"/>
+   <addaction name="actionEraser"/>
+   <addaction name="actionLine"/>
+   <addaction name="actionRectangle"/>
+   <addaction name="actionEllipse"/>
+   <addaction name="actionFill"/>
+   <addaction name="separator"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="uiresources.qrc">
+     <normaloff>:/icon/icons/Opened Folder-32.png</normaloff>:/icon/icons/Opened Folder-32.png</iconset>
+   </property>
    <property name="text">
     <string>Open</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="icon">
+    <iconset resource="uiresources.qrc">
+     <normaloff>:/icon/icons/Save-32.png</normaloff>:/icon/icons/Save-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionNew">
+   <property name="icon">
+    <iconset resource="uiresources.qrc">
+     <normaloff>:/icon/icons/File-32.png</normaloff>:/icon/icons/File-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>New</string>
+   </property>
+  </action>
+  <action name="actionSaveAs">
+   <property name="icon">
+    <iconset resource="uiresources.qrc">
+     <normaloff>:/icon/icons/Save As-32.png</normaloff>:/icon/icons/Save As-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>SaveAs</string>
+   </property>
+  </action>
+  <action name="actionPen">
+   <property name="icon">
+    <iconset resource="uiresources.qrc">
+     <normaloff>:/icon/icons/Pencil-32.png</normaloff>:/icon/icons/Pencil-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Pen</string>
+   </property>
+  </action>
+  <action name="actionEraser">
+   <property name="icon">
+    <iconset resource="uiresources.qrc">
+     <normaloff>:/icon/icons/Eraser-32.png</normaloff>:/icon/icons/Eraser-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Eraser</string>
+   </property>
+  </action>
+  <action name="actionLine">
+   <property name="icon">
+    <iconset resource="uiresources.qrc">
+     <normaloff>:/icon/icons/Line-32.png</normaloff>:/icon/icons/Line-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Line</string>
+   </property>
+  </action>
+  <action name="actionRectangle">
+   <property name="icon">
+    <iconset resource="uiresources.qrc">
+     <normaloff>:/icon/icons/Rectangle Stroked-32.png</normaloff>:/icon/icons/Rectangle Stroked-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Rectangle</string>
+   </property>
+  </action>
+  <action name="actionEllipse">
+   <property name="icon">
+    <iconset resource="uiresources.qrc">
+     <normaloff>:/icon/icons/Ellipse Stroked-32.png</normaloff>:/icon/icons/Ellipse Stroked-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Ellipse</string>
+   </property>
+  </action>
+  <action name="actionFill">
+   <property name="icon">
+    <iconset resource="uiresources.qrc">
+     <normaloff>:/icon/icons/BG Color-32.png</normaloff>:/icon/icons/BG Color-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Fill</string>
    </property>
   </action>
  </widget>
