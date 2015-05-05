@@ -523,7 +523,7 @@ void Controller::updateScene()
 
 void Controller::addAnimation()
 {
-    Animation *a = new Animation(pixelsinaColumn(),pixelsinaRow());
+    Animation *a = new Animation(pixelsinaRow(),pixelsinaColumn());
     a->initialize();
     activeAnimation = a;
     animations.append(a);
@@ -531,7 +531,7 @@ void Controller::addAnimation()
 
 void Controller::addAnimation(int index)
 {
-    Animation *a = new Animation(pixelsinaColumn(),pixelsinaRow());
+    Animation *a = new Animation(pixelsinaRow(),pixelsinaColumn());
     animations.insert(index,a);
 }
 
