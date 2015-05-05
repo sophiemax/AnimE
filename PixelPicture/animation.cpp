@@ -112,6 +112,7 @@ int Animation::getnumberofcolumns(int frameindex, int layerindex)
 void Animation::setActiveFrame(int index)
 {
     activeFrame = frames[index];
+    activeFrame->setActiveLayer(0);
 }
 
 void Animation::setNextFrameActive()

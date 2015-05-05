@@ -29,6 +29,9 @@ MainWindow::MainWindow(QWidget *parent) :
     eraser = new EraserTool(this);
     fill = new FillTool(this);
 
+    activeButton = ui->penButton;
+    activeButton->setChecked(true);
+
     pen->setController(controller);
     line->setController(controller);
     rectangle->setController(controller);
@@ -98,7 +101,9 @@ void MainWindow::createLayerDisplay()
     transparencybuttons.append(transparency);
 
     QPushButton *layer0 = new QPushButton("Layer0");
+    layer0->setCheckable(true);
     activelayerButton = layer0;
+    activelayerButton->setChecked(true);
     layerbuttons.append(layer0);
 
     layergrid->addWidget(layer0,0,1,1,1);
@@ -127,7 +132,9 @@ void MainWindow::newLayerDisplay()
     transparencybuttons.append(transparency);
 
     QPushButton *layer0 = new QPushButton("Layer0");
+    layer0->setCheckable(true);
     activelayerButton = layer0;
+    activelayerButton->setChecked(true);
     layerbuttons.append(layer0);
 
     layergrid->addWidget(layer0,0,1,1,1);
@@ -152,6 +159,7 @@ void MainWindow::updateLayerDisplay()
         transparencybuttons.append(transparency);
 
         QPushButton *layer = new QPushButton(controller->getLayerName(i));
+        layer->setCheckable(true);
         layerbuttons.append(layer);
 
         layergrid->addWidget(layer,i,1,1,1);
@@ -161,6 +169,7 @@ void MainWindow::updateLayerDisplay()
         connect(transparency,&QPushButton::toggled,this,&MainWindow::transparencybuttonToggled);
     }
     activelayerButton = layerbuttons[0];
+    activelayerButton->setChecked(true);
     //TODO: activeAnimation->activeFrame->canvas->activeLayer = activeAnimation->activeFrame->canvas->layers[0];
     container->setFixedHeight(layerbuttons.size() * 23);
 }
@@ -183,22 +192,34 @@ void MainWindow::on_windowToggle_toggled(bool checked)
 
 void MainWindow::on_penButton_clicked()
 {
+    activeButton->setChecked(false);
+    activeButton = ui->penButton;
+    activeButton->setChecked(true);
     controller->setActiveTool(pen);
 }
 
 void MainWindow::on_lineButton_clicked()
 {
+    activeButton->setChecked(false);
+    activeButton = ui->lineButton;
+    activeButton->setChecked(true);
     controller->setActiveTool(line);
 }
 
 
 void MainWindow::on_rectangleButton_clicked()
 {
+    activeButton->setChecked(false);
+    activeButton = ui->rectangleButton;
+    activeButton->setChecked(true);
     controller->setActiveTool(rectangle);
 }
 
 void MainWindow::on_ellipseButton_clicked()
 {
+    activeButton->setChecked(false);
+    activeButton = ui->ellipseButton;
+    activeButton->setChecked(true);
     controller->setActiveTool(ellipse);
 }
 
@@ -213,11 +234,17 @@ void MainWindow::on_secondaryColorButton_clicked()
 
 void MainWindow::on_eraserButton_clicked()
 {
+    activeButton->setChecked(false);
+    activeButton = ui->eraserButton;
+    activeButton->setChecked(true);
     controller->setActiveTool(eraser);
 }
 
 void MainWindow::on_fillButton_clicked()
 {
+    activeButton->setChecked(false);
+    activeButton = ui->fillButton;
+    activeButton->setChecked(true);
     controller->setActiveTool(fill);
 }
 
@@ -231,7 +258,7 @@ void MainWindow::on_clearLayerButton_clicked()
     controller->clearLayer();
 }
 
-void MainWindow::on_importButton_clicked()
+void MainWindow::on_importPictureButton_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Image"), QString(),
                 tr("All (*.bmp *.gif *.jpg *.jpeg *.png *.pbm *.ppm *.tiff *.xbm *.xpm);;"
@@ -302,13 +329,17 @@ void MainWindow::on_addlayerButton_clicked()
 {
     int index = layerbuttons.indexOf(activelayerButton);
 
+    activelayerButton->setChecked(false);
+
     controller->addLayer();
     controller->setLayerName("Layer" + QString::number(layerbuttons.size()));
 
     QPushButton *lbutton = new QPushButton("Layer" + QString::number(layerbuttons.size()));
     QPushButton *tbutton = new QPushButton("Tr");
 
+    lbutton->setCheckable(true);
     activelayerButton = lbutton;
+    activelayerButton->setChecked(true);
     tbutton->setCheckable(true);
     tbutton->setChecked(true);
     tbutton->setFixedWidth(23);
@@ -329,10 +360,12 @@ void MainWindow::on_addlayerButton_clicked()
 void MainWindow::layoutbuttonClicked()
 {
     int index = 0;
+    activelayerButton->setChecked(false);
 
     while(layerbuttons[index] != sender())
         index++;
     activelayerButton = layerbuttons[index];
+    activelayerButton->setChecked(true);
 
     controller->setActiveLayer(index);
 }
@@ -379,6 +412,7 @@ void MainWindow::on_removeButton_clicked()
         {
             activelayerButton = layerbuttons[0];
         }
+        activelayerButton->setChecked(true);
         updateLayerDisplay();
     }
 }
@@ -523,7 +557,7 @@ void MainWindow::on_exportButton_clicked()
     exporter->exportFile(fileName);
 }
 
-void MainWindow::on_importVideoButton_clicked()
+void MainWindow::on_importButton_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), QString(),
                 tr("Text Files (*.txt);;C++ Files (*.cpp *.h)"));

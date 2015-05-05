@@ -55,7 +55,7 @@ private slots:
 
     void on_clearLayerButton_clicked();
 
-    void on_importButton_clicked();
+    void on_importPictureButton_clicked();
 
     void on_importSettingsButton_clicked();
 
@@ -113,7 +113,7 @@ private slots:
 
     void on_exportButton_clicked();
 
-    void on_importVideoButton_clicked();
+    void on_importButton_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -125,6 +125,8 @@ private:
     int pixelSize = 5, gapWidth = 5, gapHeight = 15;
     int windowWidth = 2, windowHeight = 2, windowXNumber = 16, windowYNumber = 13;
     int beginX = 0, beginY = 20;
+
+    QPushButton *activeButton;
 
     PenTool *pen;
     LineTool *line;
