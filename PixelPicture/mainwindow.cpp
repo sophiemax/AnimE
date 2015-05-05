@@ -534,11 +534,17 @@ void MainWindow::on_importVideoButton_clicked()
             QMessageBox::critical(this, tr("Error"), tr("Could not open file"));
             return;
         }
+        QTextStream(stdout) << "x0" << endl;
         importer->importFile(fileName);
+        QTextStream(stdout) << "x1" << endl;
         controller->setDefaultActives();
+        QTextStream(stdout) << "x2" << endl;
         controller->updateCombinedLayers();
+        QTextStream(stdout) << "x3" << endl;
         controller->updateScene();
+        QTextStream(stdout) << "x4" << endl;
         updateLayerDisplay();
+        QTextStream(stdout) << "x5" << endl;
         file.close();
     }
 }

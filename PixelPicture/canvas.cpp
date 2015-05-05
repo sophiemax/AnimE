@@ -196,6 +196,7 @@ void Canvas::removeActiveLayer()
 
 void Canvas::addLayer(int index)
 {
+    QTextStream(stdout) << index << endl;
     Layer *l = new Layer(pixelsinarow, pixelsinacolumn);
     activeLayer = l;
     layers.insert(index,l);

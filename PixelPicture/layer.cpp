@@ -125,7 +125,9 @@ int Layer::getNumberofRows()
 
 void Layer::setNumberofrows(int number)
 {
+    QTextStream(stdout) << number << endl;
     numberofrows = number;
+    QTextStream(stdout) << number << endl;
 }
 
 void Layer::setNumberofcolumns(int number)
