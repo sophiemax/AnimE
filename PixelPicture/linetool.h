@@ -15,6 +15,8 @@ public:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 private:
     void drawPixelLine();
+    void drawAccuratePixelLine();
+    void drawFillablePixelLine();
 };
 
 #endif // LINETOOL_H

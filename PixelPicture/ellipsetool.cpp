@@ -85,11 +85,13 @@ void EllipseTool::drawAccurateEllipse()
 void EllipseTool::drawFillableEllipse()
 {
     //A felhasználó által adott alapokat pixelekre kerekítjük:
+    QRect startPixel = controller->nearestPixelRect(startPoint.x(), startPoint.y());
+    QRect endPixel = controller->nearestPixelRect(endPoint.x(), endPoint.y());
     // Adatok:
-    float centerX = (endPoint.x()+startPoint.x())/2.0;
-    float centerY = (endPoint.y()+startPoint.y())/2.0;
-    float a = fabs(endPoint.x()-startPoint.x())/2.0;
-    float b = fabs(endPoint.y()-startPoint.y())/2.0;
+    float centerX = (endPixel.x()+startPixel.x())/2.0;
+    float centerY = (endPixel.y()+startPixel.y())/2.0;
+    float a = abs(endPixel.x()-startPixel.x())/2.0;
+    float b = abs(endPixel.y()-startPixel.y())/2.0;
 
     QTextStream(stdout) << "Alapadatok: Center- " << centerX << " , " << centerY << "Radius a: "<< a <<" b: "<< b << endl;
 

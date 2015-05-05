@@ -29,6 +29,84 @@ void LineTool::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void LineTool::drawPixelLine()
 {
+    drawFillablePixelLine();
+    //drawAccuratePixelLine();
+}
+
+void LineTool::drawFillablePixelLine()
+{
+    //Getting nearest Pixels:
+    QRect begin = controller->nearestPixelRect(startPoint.x(), startPoint.y());
+    QRect end = controller->nearestPixelRect(endPoint.x(), endPoint.y());
+
+    //Paraméterek kiszámolása:
+    int startIndex = controller->containsPoint(begin.x(),begin.y());
+    int endIndex = controller->containsPoint(end.x(),end.y());
+
+
+    int startX = startIndex % (controller->pixelsinaRow());
+    int startY = startIndex / (controller->pixelsinaRow());
+    int endX = endIndex % (controller->pixelsinaRow());
+    int endY = endIndex / (controller->pixelsinaRow());
+
+
+    QTextStream(stdout) << "Batman: "<< startIndex<< " % "<< (controller->pixelsinaRow()) << " = " << startX << endl;
+
+    //Számoláshoz szükséges részeredmények:
+    int deltaX = (endX-startX);
+    int deltaY = (endY-startY);
+    float m = 0.0;
+    if(deltaX != 0)
+    {
+        m = (deltaY + 0.0)/(deltaX - 0.0);
+    }
+    float length = sqrtf(deltaX*deltaX + deltaY*deltaY);
+
+
+    QTextStream(stdout) << "This \"wants\" to be interesting: "<< deltaX<< " , "<< deltaY << endl;
+    QTextStream(stdout) << "Start: "<< startIndex<< " ,end "<< endIndex << endl;
+
+    //Az iterálás során egy iterációval megtett távolság:
+    float precision = 1.0;
+    float direction = (deltaX==0) ? (deltaY/abs(deltaY)) : (deltaX/abs(deltaX));
+    float distance = 0.0;
+
+    //Amíg nem értünk el a végéig, precisionnal arrébb is beszínezzük a pixelt.
+    while(fabs(distance) <= length)
+    {
+
+        QTextStream(stdout) << "For the king: "<< distance<< " <= "<< length << endl;
+        float x, y;
+        //Ki kell szűrni a függőleges vonalat, mert nem tudunk 0-val osztani.
+        if(deltaX == 0)
+        {
+            x = startX;
+            y = startY + distance;
+        }
+        else
+        {
+            //Egyéb esetben a meredekség valós értéket ad, számolhatunk vele.
+            x =startX + direction * sqrtf( distance*distance/(1 + m*m) );
+            y =startY + (x - startX)*m;
+        }
+        QTextStream(stdout) << "    -and also: "<< x<< " ... "<< y << endl;
+
+        int xId = x;
+        int yId = y;
+        //Kirajzolás.
+        int index = xId + yId * (controller->pixelsinaRow());
+        if(index != -1)
+            controller->setColorofPixel(index);
+
+        //A következő iterációra növeljük a megtett távolságot.
+        distance +=  direction*precision;
+    }
+
+
+}
+
+void LineTool::drawAccuratePixelLine()
+{
     //Getting nearest Pixels:
     QRect begin = controller->nearestPixelRect(startPoint.x(), startPoint.y());
     QRect end = controller->nearestPixelRect(endPoint.x(), endPoint.y());

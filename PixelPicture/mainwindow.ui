@@ -261,6 +261,10 @@
     <property name="text">
      <string>ImportVideo</string>
     </property>
+    <property name="icon">
+     <iconset resource="uiresources.qrc">
+      <normaloff>:/icon/icons/Film 2-32.png</normaloff>:/icon/icons/Film 2-32.png</iconset>
+    </property>
    </widget>
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
