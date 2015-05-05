@@ -37,9 +37,10 @@ void RectangleTool::drawPixelRectangle()
         int a = start.center().x() - end.center().x();
         int b = start.center().y() - end.center().y();
 
-        int directionX = a > 0 ? 1 : -1;
-        int directionY = b > 0 ? 1 : -1;
+        int directionX = a < 0 ? 1 : -1;
+        int directionY = b < 0 ? 1 : -1;
 
+        //A vízszintes oldalak behúzása
         for(int i = 0; i < abs(a); i+=controller->getPixelSize())
         {
             float x = start.center().x() + i * directionX;
@@ -50,13 +51,13 @@ void RectangleTool::drawPixelRectangle()
             if(index_starty!=-1)
             {
                 int index_endy = controller->containsPoint(x,y2);
-
                 controller->setColorofPixel(index_starty);
                 controller->setColorofPixel(index_endy);
             }
         }
 
-        for(int i = 0; i < b; i+=controller->getPixelSize())
+        //A függőleges oldalak behúzása
+        for(int i = 0; i < abs(b); i+=controller->getPixelSize())
         {
             float y = start.center().y() + i * directionY;
             float x1 = start.center().x();
@@ -66,7 +67,6 @@ void RectangleTool::drawPixelRectangle()
             if(index_startx!=-1)
             {
                 int index_endx = controller->containsPoint(x2,y);
-
                 controller->setColorofPixel(index_startx);
                 controller->setColorofPixel(index_endx);
             }

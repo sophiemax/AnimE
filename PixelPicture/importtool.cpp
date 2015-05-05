@@ -32,14 +32,7 @@ void ImportTool::importFile(QString fileName)
         if(xml.isStartElement())
         {
             // Read the tag name.
-
-            QTextStream(stdout) << "startElement:" << endl;
             QString name(xml.name().toString());
-            //QString element(xml.readElementText());
-            QTextStream(stdout) << name << endl;
-            //QTextStream(stdout) << "innerElement:" << endl;
-            //QTextStream(stdout) << element << endl;
-            //QTextStream(stdout) << "done:" << endl;
             QString element;
             switch(names.indexOf(name))
             {
@@ -105,10 +98,7 @@ void ImportTool::importFile(QString fileName)
         }
         else if(xml.isEndElement())
         {
-
-            QTextStream(stdout) << "endElement:" << endl;
             QString name(xml.name().toString());
-            QTextStream(stdout) << name << endl;
 
             switch(names.indexOf(name))
             {
@@ -124,8 +114,6 @@ void ImportTool::importFile(QString fileName)
                 default:
                     break;
             }
-        } else {
-            QTextStream(stdout) << "egyik se" << endl;
         }
     }
     if (xml.hasError()) {

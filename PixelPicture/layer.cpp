@@ -145,13 +145,10 @@ LayerPixel *Layer::getLayerPixel(int index)
 
 void Layer::moveUp()
 {
-    QTextStream(stdout) << startindex << endl;
-    QTextStream(stdout) << numberofrows << endl;
     //Ha az kijelző felső soránál kezdődik a layer is, és a layer első sorának minden pixele clear,
     //akkor valójában nem csúsztatjuk a layert, hanem felfele másoljuk a pixeladatokat.
     if(isinFirstRow(startindex) && isFirstRowClear())
     {
-        QTextStream(stdout) << "Az első sor üres volt!" << endl;
         for(int i = 0; i < numberofcolumns; i++)
         {
             for(int j = 1; j < numberofrows; j++)
@@ -172,8 +169,6 @@ void Layer::moveUp()
         //ha nem, a legalsó sort töröljük, mivel mindent felmásoltunk, abban már nincsen valid adat
         if(numberofrows > originalnumberofrows)
         {
-            QTextStream(stdout) << "A layer nagyobb, mint a kijelző." << endl;
-            QTextStream(stdout) << "Az alsó sort töröljük, mert nincs benne valid adat" << endl;
             for(int i = numberofcolumns-1; i >= 0; i--)
             {
                 int index = calculateCurrentIndex(numberofrows-1,i);
@@ -184,14 +179,9 @@ void Layer::moveUp()
     }
     else
     {
-        QTextStream(stdout) << "Az első sor NEM volt üres!" << endl;
         //ha a kijelző utolsó soránál végződik a layer, hozzá kell adnunk a layerhez egy sort alulra
         if(isinLastRow(startindex + (originalnumberofrows-1)*numberofcolumns))
         {
-            QTextStream(stdout) << "Sort adunk hozzá a layer végéhez!" << endl;
-            QTextStream(stdout) << startindex << endl;
-            QTextStream(stdout) << originalnumberofrows << endl;
-            QTextStream(stdout) << numberofcolumns << endl;
             numberofrows += 1;
             for(int i = 0; i < numberofcolumns; i++)
             {
@@ -203,21 +193,14 @@ void Layer::moveUp()
         }
         startindex += numberofcolumns;
     }
-
-    QTextStream(stdout) << startindex << endl;
-    QTextStream(stdout) << numberofrows << endl;
 }
 
 void Layer::moveDown()
 {
-    QTextStream(stdout) << startindex << endl;
-    QTextStream(stdout) << numberofrows << endl;
     //Ha az kijelző alsó soránál végződik a layer is, és a layer alsó sorának minden pixele clear,
     //akkor valójában nem csúsztatjuk a layert, hanem lefele másoljuk a pixeladatokat.
-    QTextStream(stdout) << numberofrows << endl;
     if(isinLastRow(startindex + (originalnumberofrows-1)*numberofcolumns) && isLastRowClear())
     {
-        QTextStream(stdout) << "Az utolsó sor üres volt!" << endl;
         for(int i = 0; i < numberofcolumns; i++)
         {
             for(int j = numberofrows - 2; j >= 0; j--)
@@ -237,8 +220,6 @@ void Layer::moveDown()
         //ha nem, a legfelső sort töröljük, mivel mindent lemásoltunk, abban már nincsen valid adat
         if(numberofrows > originalnumberofrows)
         {
-            QTextStream(stdout) << "A layer nagyobb, mint a kijelző." << endl;
-            QTextStream(stdout) << "Az első sort töröljük, mert nincs benne valid adat" << endl;
             for(int i = numberofcolumns-1; i >= 0; i--)
             {
                 int index = calculateCurrentIndex(0,i);
@@ -250,11 +231,9 @@ void Layer::moveDown()
     }
     else
     {
-        QTextStream(stdout) << "Az utolsó sor NEM volt üres!" << endl;
         //ha a kijelző első soránál végződik a layer, hozzá kell adnunk a layerhez egy sort felülre
         if(isinFirstRow(startindex))
         {
-            QTextStream(stdout) << "Sort adunk hozzá a layer elejéhez!" << endl;
             numberofrows += 1;
             for(int i = 0; i < numberofcolumns; i++)
             {
@@ -268,21 +247,14 @@ void Layer::moveDown()
         else
             startindex -= numberofcolumns;
     }
-
-    QTextStream(stdout) << startindex << endl;
-    QTextStream(stdout) << numberofrows << endl;
 }
 
 void Layer::moveLeft()
 {
-    QTextStream(stdout) << startindex << endl;
-    QTextStream(stdout) << numberofcolumns << endl;
-
     //Ha az kijelző első oszlopában kezdődik a layer is, és a layer első oszlopának minden pixele clear,
     //akkor valójában nem csúsztatjuk a layert, hanem balra másoljuk a pixeladatokat.
     if(isinFirstColumn(startindex) && isFirstColumnClear())
     {
-        QTextStream(stdout) << "Az első oszlop üres volt!" << endl;
         for(int j = 0; j < numberofrows; j++)
         {
             for(int i = 1; i < numberofcolumns; i++)
@@ -303,8 +275,6 @@ void Layer::moveLeft()
         //ha nem, a legutolsó oszlopot töröljük, mivel mindent balramásoltunk, abban már nincsen valid adat
         if(numberofcolumns > originalnumberofcolumns)
         {
-            QTextStream(stdout) << "A layer nagyobb, mint a kijelző." << endl;
-            QTextStream(stdout) << "Az utolsó oszlopot töröljük, mert nincs benne valid adat" << endl;
             for(int j = numberofrows-1; j >= 0; j--)
             {
                 int index = calculateCurrentIndex(j,numberofcolumns-1);
@@ -317,14 +287,12 @@ void Layer::moveLeft()
     }
     else
     {
-        QTextStream(stdout) << "Az első oszlop NEM volt üres!" << endl;
         //ha a kijelző utolsó oszlopánál vége van a layernek, hozzá kell adnunk a layerhez egy oszlopot a végére
         if(isinLastColumn(startindex + originalnumberofcolumns - 1))
         {
             int startrow = startindex/numberofcolumns;
             startindex += startrow;
 
-            QTextStream(stdout) << "Oszlopot adunk hozzá a layer végéhez!" << endl;
             numberofcolumns += 1;
             for(int j = 0; j < numberofrows; j++)
             {
@@ -337,13 +305,6 @@ void Layer::moveLeft()
         startindex += 1;
         //a kijelző kezdetét jelző startindex eggyel jobbra csúszott.
     }
-
-    QTextStream(stdout) << "<End>" << endl;
-    QTextStream(stdout) << startindex + originalnumberofcolumns - 1 << endl;
-    QTextStream(stdout) << isinLastColumn(startindex + originalnumberofcolumns - 1) << endl;
-    QTextStream(stdout) << startindex << endl;
-    QTextStream(stdout) << numberofcolumns << endl;
-    QTextStream(stdout) << "</End>" << endl;
 }
 
 void Layer::moveRight()
@@ -352,8 +313,6 @@ void Layer::moveRight()
     //akkor valójában nem csúsztatjuk a layert, hanem jobbra másoljuk a pixeladatokat.
     if(isinLastColumn(startindex + originalnumberofcolumns - 1) && isLastColumnClear())
     {
-
-        QTextStream(stdout) << "Az utolsó oszlop üres volt!" << endl;
         for(int j = 0; j < numberofrows; j++)
         {
             for(int i = numberofcolumns - 2; i >= 0; i--)
@@ -373,8 +332,6 @@ void Layer::moveRight()
         //ha nem, a legelső oszlopot töröljük, mivel mindent jobbramásoltunk, abban már nincsen valid adat
         if(numberofcolumns > originalnumberofcolumns)
         {
-            QTextStream(stdout) << "A layer nagyobb, mint a kijelző." << endl;
-            QTextStream(stdout) << "Az első oszlopot töröljük, mert nincs benne valid adat" << endl;
             for(int j = numberofrows-1; j >= 0; j --)
             {
                 int index = calculateCurrentIndex(j,0);
@@ -388,13 +345,11 @@ void Layer::moveRight()
     }
     else
     {
-        QTextStream(stdout) << "Az utolsó oszlop NEM volt üres!" << endl;
         //ha a kijelző első oszlopánál kezdődik a layer, hozzá kell adnunk a layerhez egy oszlopot az elejére
         if(isinFirstColumn(startindex))
         {
             int startrow = startindex/numberofcolumns;
             startindex += startrow;
-            QTextStream(stdout) << "Oszlopot adunk hozzá a layer elejéhez!" << endl;
             numberofcolumns += 1;
             for(int j = 0; j < numberofrows; j++)
             {
@@ -409,9 +364,6 @@ void Layer::moveRight()
             startindex -=1;
         //a kijelző kezdetét jelző startindex eggyel balra csúszott.
     }
-
-    QTextStream(stdout) << startindex << endl;
-    QTextStream(stdout) << numberofcolumns << endl;
 }
 
 //megnézi, hogy a layer első oszlopában minden pixel clear-e
@@ -526,10 +478,6 @@ void Layer::addLayerPixels(QString data)
     int counter = data.section(',',0,0).toInt();
     bool clear = data.section(',',1,1).toInt();
     QColor color(data.section(',',2,2));
-
-    QTextStream(stdout) << counter << endl;
-    QTextStream(stdout) << clear << endl;
-    QTextStream(stdout) << color.name() << endl;
 
     for(int i = 0; i < counter; i++)
     {

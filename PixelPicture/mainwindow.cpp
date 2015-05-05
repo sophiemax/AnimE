@@ -535,13 +535,10 @@ void MainWindow::on_importVideoButton_clicked()
             return;
         }
         importer->importFile(fileName);
-        QTextStream(stdout) << "1" << endl;
         controller->setDefaultActives();
-        QTextStream(stdout) << "2" << endl;
         controller->updateCombinedLayers();
-        QTextStream(stdout) << "3" << endl;
         controller->updateScene();
-        QTextStream(stdout) << "4" << endl;
+        updateLayerDisplay();
         file.close();
     }
 }

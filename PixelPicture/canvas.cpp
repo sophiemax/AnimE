@@ -277,10 +277,6 @@ void Canvas::updateCombined()
 
 void Canvas::updateCombinedLayer(int index)
 {
-    QTextStream(stdout) << activeLayer->getSize() << endl;
-    QTextStream(stdout) << activeLayer->isPixelClear(0) << endl;
-    QTextStream(stdout) << activeLayer->getTransparency() << endl;
-
     if(!activeLayer->isPixelClear(index) && !activeLayer->getTransparency())
     {
         combinedLayer->setColorofPixel(index,activeLayer->getColorofPixel(index));

@@ -74,7 +74,6 @@ void Frame::addLayer(int index)
 
 void Frame::addCanvas()
 {
-    QTextStream(stdout) << pixelsinarow << ";" << pixelsinacolumn << endl;
     canvas = new Canvas(pixelsinarow,pixelsinacolumn);
 }
 
