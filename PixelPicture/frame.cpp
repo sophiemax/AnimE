@@ -2,7 +2,8 @@
 
 Frame::Frame(int r, int c)
 {
-    canvas = new Canvas(r,c);
+    pixelsinarow = r;
+    pixelsinacolumn = c;
     name = "Frame";
 }
 
@@ -174,4 +175,26 @@ void Frame::setTimespan(float t)
 Canvas *Frame::getCanvas()
 {
     return canvas;
+}
+
+void Frame::initialize()
+{
+    canvas = new Canvas(pixelsinarow,pixelsinacolumn);
+    initializeCanvas();
+}
+
+void Frame::initializeCanvas()
+{
+    canvas->initialize();
+}
+
+void Frame::initializeLayer()
+{
+    canvas->initializeLayer();
+}
+
+void Frame::clearAll()
+{
+    canvas->clearAll();
+    delete canvas;
 }

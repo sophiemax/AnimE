@@ -113,6 +113,8 @@ private slots:
 
     void on_exportButton_clicked();
 
+    void on_importVideoButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     ImportSettings *settings;

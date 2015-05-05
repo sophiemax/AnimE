@@ -65,6 +65,13 @@ public:
     void clearPixel(int index);
     void clearLayer();
 
+    void initialize();
+    void initializeFrame();
+    void initializeCanvas();
+    void initializeLayer();
+
+    void clearAll();
+
 private:
     float timesum = 0;
     int pixelsinarow, pixelsinacolumn;

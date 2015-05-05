@@ -52,6 +52,9 @@ public:
     int calculateCurrentIndex(int originalIndex);
     int calculateCurrentIndex(int row, int column);
 
+    void initialize();
+    void clearAll();
+
 private:
     bool transparent = false;
     QList<LayerPixel*> pixels;

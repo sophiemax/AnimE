@@ -55,6 +55,11 @@ public:
     Layer *getLayer(int index);
     int getActive();
 
+    void initialize();
+    void initializeLayer();
+
+    void clearAll();
+
 private:
     QList<Layer*> layers;
     Layer* combinedLayer;

@@ -8,6 +8,7 @@ Controller::Controller(PixelScene *s)
     secondaryColor = Qt::black;
 
     activeAnimation = new Animation(pixelsinaRow(), pixelsinaColumn());
+    activeAnimation->initialize();
     animations.append(activeAnimation);
 
     imageconverter = new ImageConverterTool(this,getPixelSize(), pixelsinaRow(), pixelsinaColumn());
@@ -215,6 +216,7 @@ void Controller::setLayerTransparency(bool t)
 void Controller::addLayer()
 {
     activeAnimation->addLayer();
+    activeAnimation->initializeLayer();
 }
 
 void Controller::removeActiveLayer()
@@ -232,12 +234,14 @@ void Controller::switchLayers(int i, int j)
 void Controller::addFrame()
 {
     activeAnimation->addFrame();
+    activeAnimation->initializeFrame();
     updateScene();
 }
 
 void Controller::addFrame(int timespan)
 {
     activeAnimation->addFrame(timespan);
+    activeAnimation->initializeFrame();
     updateScene();
 }
 
@@ -463,6 +467,28 @@ void Controller::updateScene()
     for(int index = 0; index < numberofPixels(); index++)
     {
         scene->updatePixel(index, isCombinedLayerPixelClear(index),getColorofCombinedLayerPixel(index));
+    }
+}
+
+void Controller::addAnimation()
+{
+    Animation *a = new Animation(pixelsinaColumn(),pixelsinaRow());
+    a->initialize();
+    animations.append(a);
+}
+
+void Controller::addAnimation(int index)
+{
+    Animation *a = new Animation(pixelsinaColumn(),pixelsinaRow());
+    animations.insert(index,a);
+}
+
+void Controller::clearAll()
+{
+    foreach(Animation* a, animations)
+    {
+        a->clearAll();
+        delete a;
     }
 }
 

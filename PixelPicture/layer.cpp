@@ -7,12 +7,6 @@ Layer::Layer(int r, int c)
     originalnumberofrows = c;
     numberofrows = c;
     startindex = 0;
-    for(int i = 0; i < r*c; i++)
-    {
-        LayerPixel *lp = new LayerPixel();
-        lp->index = i;
-        pixels.append(lp);
-    }
 }
 
 Layer::Layer(Layer *l, int r, int c)
@@ -499,4 +493,23 @@ int Layer::calculateCurrentIndex(int originalIndex)
 int Layer::calculateCurrentIndex(int row, int column)
 {
     return (row * numberofcolumns + column);
+}
+
+void Layer::initialize()
+{
+    for(int i = 0; i < numberofcolumns*numberofrows; i++)
+    {
+        LayerPixel *lp = new LayerPixel();
+        lp->index = i;
+        pixels.append(lp);
+        QTextStream(stdout) << i << endl;
+    }
+}
+
+void Layer::clearAll()
+{
+    foreach(LayerPixel *lp, pixels)
+    {
+        delete lp;
+    }
 }

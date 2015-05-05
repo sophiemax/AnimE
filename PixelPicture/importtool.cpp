@@ -1,4 +1,5 @@
 #include "importtool.h"
+#include <QXmlStreamReader>
 
 ImportTool::ImportTool(Controller *c)
 {
@@ -12,15 +13,8 @@ ImportTool::~ImportTool()
 
 void ImportTool::importFile(QString fileName)
 {
-    /*QFile file;
-    if (!fileName.isEmpty())
-    {
-        file = QFile::QFile(fileName);
-        if (!file.open(QIODevice::ReadOnly)) {
-            QMessageBox::critical(this, tr("Error"), tr("Could not open file"));
-            return;
-        }
-    }
+    QFile file(fileName);
+    file.open(QIODevice::ReadOnly);
 
     QXmlStreamReader xml(&file);
 
@@ -29,23 +23,25 @@ void ImportTool::importFile(QString fileName)
     int layer = 0;
     int pixel = 0;
 
+    controller->clearAll();
+
     while (!xml.atEnd())
     {
         xml.readNext();
-        if(xmlStream.isStartElement())
+        if(xml.isStartElement())
         {
             // Read the tag name.
-            QString name(xmlStream.name().toString());
+            QString name(xml.name().toString());
             if(name == "animation")
-                controller->addAnimation();
-            if(name)
+            {
+                controller->addAnimation(0);
+            }
             // Check in settings map, whether there's already an entry. If not, insert.
-            if(!_settingsMap.contains(sec))
-                _settingsMap.insert(sec, xmlStream.attributes());
+            /*if(!_settingsMap.contains(sec))
+                _settingsMap.insert(sec, xml.attributes());*/
         }
     }
     if (xml.hasError()) {
-        QMessageBox::critical(this, tr("Error"), tr("Could not parse XML"));
+        //QMessageBox::critical(this, tr("Error"), tr("Could not parse XML"));
     }
-    file.close();*/
 }

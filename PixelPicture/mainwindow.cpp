@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QIcon>
 #include <QFileDialog>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -520,4 +521,20 @@ void MainWindow::on_exportButton_clicked()
     QString fileName = QFileDialog::getSaveFileName(this, tr("Open Image"), QString(),
                 tr("Text(*.txt)"));
     exporter->exportFile(fileName);
+}
+
+void MainWindow::on_importVideoButton_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), QString(),
+                tr("Text Files (*.txt);;C++ Files (*.cpp *.h)"));
+
+    if (!fileName.isEmpty()) {
+        QFile file(fileName);
+        if (!file.open(QIODevice::ReadOnly)) {
+            QMessageBox::critical(this, tr("Error"), tr("Could not open file"));
+            return;
+        }
+        importer->importFile(fileName);
+        file.close();
+    }
 }

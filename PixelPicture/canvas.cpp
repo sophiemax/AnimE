@@ -4,11 +4,7 @@ Canvas::Canvas(int r, int c)
 {
     pixelsinarow = r;
     pixelsinacolumn = c;
-    Layer* l = new Layer(r,c);
-    activeLayer = l;
-    l->setName("Layer0");
     combinedLayer = new Layer(r,c);
-    layers.append(l);
 }
 
 Canvas::Canvas(Canvas *c, int r, int col)
@@ -210,6 +206,30 @@ Layer *Canvas::getLayer(int index)
 int Canvas::getActive()
 {
     return layers.indexOf(activeLayer);
+}
+
+void Canvas::initialize()
+{
+    Layer* l = new Layer(pixelsinarow,pixelsinacolumn);
+    activeLayer = l;
+    l->setName("Layer0");
+    layers.append(l);
+    initializeLayer();
+}
+
+void Canvas::initializeLayer()
+{
+    activeLayer->initialize();
+}
+
+void Canvas::clearAll()
+{
+    foreach(Layer *l, layers)
+    {
+        l->clearAll();
+        delete l;
+    }
+    delete combinedLayer;
 }
 
 void Canvas::updateCombined()

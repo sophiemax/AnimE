@@ -109,6 +109,11 @@ public:
     int getPixelSize();
     void updateScene();
 
+    void addAnimation();
+    void addAnimation(int index);
+
+    void clearAll();
+
 private:
     PixelScene *scene;
 

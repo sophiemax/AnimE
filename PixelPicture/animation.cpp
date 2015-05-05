@@ -2,12 +2,8 @@
 
 Animation::Animation(int r, int c)
 {
-    Frame* f = new Frame(r,c);
     pixelsinarow = r;
     pixelsinacolumn = c;
-    frames.append(f);
-    timesum += f->getTimespan();
-    activeFrame = f;
 
     name = "Animation0";
 }
@@ -278,5 +274,40 @@ void Animation::clearPixel(int index)
 void Animation::clearLayer()
 {
     activeFrame->clearLayer();
+}
+
+void Animation::initialize()
+{
+    Frame* f = new Frame(pixelsinarow,pixelsinacolumn);
+    frames.append(f);
+    timesum += f->getTimespan();
+    activeFrame = f;
+    initializeFrame();
+    initializeCanvas();
+    initializeLayer();
+}
+
+void Animation::initializeFrame()
+{
+    activeFrame->initialize();
+}
+
+void Animation::initializeCanvas()
+{
+    activeFrame->initializeCanvas();
+}
+
+void Animation::initializeLayer()
+{
+    activeFrame->initializeLayer();
+}
+
+void Animation::clearAll()
+{
+    foreach(Frame *f, frames)
+    {
+        f->clearAll();
+        delete f;
+    }
 }
 

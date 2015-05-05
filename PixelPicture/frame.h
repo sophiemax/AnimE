@@ -56,11 +56,18 @@ public:
 
     Canvas *getCanvas();
 
+    void initialize();
+    void initializeCanvas();
+    void initializeLayer();
+
+    void clearAll();
+
 private:
 
     Canvas *canvas;
 
     float timespan = 1000.0;
+    int pixelsinarow, pixelsinacolumn;
     QString name;
 };
 
