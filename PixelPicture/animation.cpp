@@ -234,11 +234,12 @@ void Animation::copyFrame()
 {
     int index = frames.indexOf(activeFrame);
 
+    QTextStream(stdout) << "itt" << endl;
     Frame *f = new Frame(activeFrame, pixelsinarow, pixelsinacolumn);
-
+    QTextStream(stdout) << "ott" << endl;
     frames.insert(index+1,f);
     timesum += f->getTimespan();
-
+    QTextStream(stdout) << "blu" << endl;
     activeFrame = f;
 }
 

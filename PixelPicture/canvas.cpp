@@ -16,6 +16,7 @@ Canvas::Canvas(Canvas *c, int r, int col)
     pixelsinacolumn = col;
 
     combinedLayer = new Layer(pixelsinarow,pixelsinacolumn);
+    combinedLayer->initialize();
 
     for(int i = 0; i < numberoflayers; i++)
     {
