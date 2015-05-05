@@ -55,6 +55,9 @@ public:
     QList<Pixel*> pixels;
 
     int pixelSize = 5;
+
+    void setpixelsinarow();
+    void setpixelsinacolumn();
     //int fps = 40;
     //float interval = 1000.0 / fps;
     //float timesum = 1000.0;

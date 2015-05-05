@@ -123,6 +123,16 @@ int Layer::getNumberofRows()
     return numberofrows;
 }
 
+void Layer::setNumberofrows(int number)
+{
+    numberofrows = number;
+}
+
+void Layer::setNumberofcolumns(int number)
+{
+    numberofcolumns = number;
+}
+
 int Layer::getSize()
 {
     return pixels.size();
@@ -502,14 +512,31 @@ void Layer::initialize()
         LayerPixel *lp = new LayerPixel();
         lp->index = i;
         pixels.append(lp);
-        QTextStream(stdout) << i << endl;
     }
 }
 
 void Layer::clearAll()
 {
-    foreach(LayerPixel *lp, pixels)
+    while (!pixels.isEmpty())
+        delete pixels.takeFirst();
+}
+
+void Layer::addLayerPixels(QString data)
+{
+    int counter = data.section(',',0,0).toInt();
+    bool clear = data.section(',',1,1).toInt();
+    QColor color(data.section(',',2,2));
+
+    QTextStream(stdout) << counter << endl;
+    QTextStream(stdout) << clear << endl;
+    QTextStream(stdout) << color.name() << endl;
+
+    for(int i = 0; i < counter; i++)
     {
-        delete lp;
+        LayerPixel *lp = new LayerPixel();
+        lp->clear = clear;
+        lp->color = color;
+        pixels.append(lp);
     }
+
 }

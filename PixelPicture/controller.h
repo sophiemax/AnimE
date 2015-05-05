@@ -41,8 +41,10 @@ public:
     bool getTransparency(int index);
     bool getTransparency(int animationindex, int frameindex, int layerindex);
     float getCurrentTimespan();
+    void setTimesum(int index, float t);
     float getTimesum();
     float getTimesum(int index);
+    void setTimespan(int animationindex, int frameindex, float t);
     float getTimespan(int index);
     float getTimespan(int animationindex, int frameindex);
     float getCurrentTime();
@@ -51,20 +53,27 @@ public:
     ImageConverterTool *getImageConverter();
 
     void setLayerName(QString s);
+    void setLayerName(int animationindex, int frameindex, int layerindex, QString name);
     QString getLayerName();
     QString getLayerName(int index);
     QString getLayerName(int animationindex, int frameindex, int layerindex);
     void setFrameName(QString s);
+    void setFrameName(int animationindex, int frameindex, QString name);
     QString getFrameName();
     QString getFrameName(int index);
-    QString getFrameName(int animationindex, int frameindex);
+    QString getFrameName(int animationindex, int frameindex);    
+    void setAnimationName(int index, QString s);
     QString getAnimationName(int index);
 
     void setLayerTransparency(bool t);
+    void setLayerTransparency(int animationindex, int frameindex, int layerindex, bool t);
     void addLayer();
+    void addLayer(int animationindex, int frameindex, int layerindex);
     void removeActiveLayer();
     void switchLayers(int i, int j);
+    void addCanvas(int animationindex, int frameindex);
     void addFrame();
+    void addFrameIndexed(int animationindex, int frameindex);
     void addFrame(int timespan);
     void copyFrame();
 
@@ -114,6 +123,18 @@ public:
 
     void clearAll();
 
+    QStringList getNameList();
+
+    void setpixelsinarow(int r);
+    void setpixelsinacolumn(int c);
+
+    void setNumberofrows(int animationindex, int frameindex, int layerindex, int number);
+    void setNumberofcolumns(int animationindex, int frameindex, int layerindex, int number);
+
+    void addLayerPixels(int animationindex, int frameindex, int layerindex, QString data);
+    void updateCombinedLayers();
+    void setDefaultActives();
+
 private:
     PixelScene *scene;
 
@@ -121,6 +142,8 @@ private:
     Animation *activeAnimation;
 
     QColor primaryColor, secondaryColor;
+
+    QStringList nameList;
 
     ImageConverterTool *imageconverter;
     VideoConverterTool *videoconverter;

@@ -22,6 +22,11 @@ void Frame::setLayerName(QString s)
     canvas->setLayerName(s);
 }
 
+void Frame::setLayerName(int layerindex, QString name)
+{
+    canvas->setLayerName(layerindex, name);
+}
+
 QString Frame::getLayerName()
 {
     return canvas->getLayerName();
@@ -47,6 +52,11 @@ void Frame::setLayerTransparency(bool t)
     canvas->setLayerTransparency(t);
 }
 
+void Frame::setLayerTransparency(int layerindex, bool t)
+{
+    canvas->setLayerTransparency(layerindex, t);
+}
+
 void Frame::setActiveLayer(int index)
 {
     canvas->setActiveLayer(index);
@@ -55,6 +65,16 @@ void Frame::setActiveLayer(int index)
 void Frame::addLayer()
 {
     canvas->addLayer();
+}
+
+void Frame::addLayer(int index)
+{
+    canvas->addLayer(index);
+}
+
+void Frame::addCanvas()
+{
+    canvas = new Canvas(pixelsinarow,pixelsinacolumn);
 }
 
 void Frame::removeActiveLayer()
@@ -197,4 +217,34 @@ void Frame::clearAll()
 {
     canvas->clearAll();
     delete canvas;
+}
+
+void Frame::setNumberofrows(int layerindex, int number)
+{
+    canvas->setNumberofrows(layerindex,number);
+}
+
+void Frame::setNumberofcolumns(int layerindex, int number)
+{
+    canvas->setNumberofcolumns(layerindex,number);
+}
+
+void Frame::addLayerPixels(int layerindex, QString data)
+{
+    canvas->addLayerPixels(layerindex, data);
+}
+
+void Frame::updateCombinedLayers()
+{
+    canvas->updateCombined();
+}
+
+void Frame::setDefaultActives()
+{
+    canvas->setDefaultActives();
+}
+
+int Frame::getLayerSize()
+{
+    return canvas->getLayerSize();
 }

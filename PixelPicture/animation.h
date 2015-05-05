@@ -10,11 +10,13 @@ public:
     ~Animation();
 
     void setLayerName(QString s);
+    void setLayerName(int frameindex, int layerindex, QString name);
     QString getLayerName();
     QString getLayerName(int index);
     QString getLayerName(int frameindex, int layerindex);
 
     void setFrameName(QString s);
+    void setFrameName(int index, QString s);
     QString getFrameName();
     QString getFrameName(int index);
 
@@ -22,6 +24,7 @@ public:
     QString getName();
 
     void setLayerTransparency(bool t);
+    void setLayerTransparency(int frameindex, int layerindex, bool t);
 
     void setActiveLayer(int index);
 
@@ -33,6 +36,8 @@ public:
     void setActiveFrame(int index);
     void setNextFrameActive();
     float getCurrentTimespan();
+    void setTimesum(float t);
+    void setTimespan(int index, float t);
     float getTimesum();
     float getTimespan(int index);
     float getCurrentTime();
@@ -41,10 +46,13 @@ public:
     bool getTransparency(int frameindex, int layerindex);
 
     void addLayer();
+    void addLayer(int frameindex, int layerindex);
     void removeActiveLayer();
     void switchLayers(int i, int j);
+    void addCanvas(int index);
     void addFrame();
     void addFrame(int t);
+    void addFrameIndexed(int index);
     void copyFrame();
 
     void moveLayerUp();
@@ -71,6 +79,16 @@ public:
     void initializeLayer();
 
     void clearAll();
+
+    void setNumberofrows(int frameindex, int layerindex, int number);
+    void setNumberofcolumns(int frameindex, int layerindex, int number);
+
+    void addLayerPixels(int frameindex, int layerindex, QString data);
+    void updateCombinedLayers();
+    void setDefaultActives();
+
+    //for debugging
+    int getLayerSize();
 
 private:
     float timesum = 0;

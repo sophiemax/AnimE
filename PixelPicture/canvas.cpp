@@ -5,6 +5,7 @@ Canvas::Canvas(int r, int c)
     pixelsinarow = r;
     pixelsinacolumn = c;
     combinedLayer = new Layer(r,c);
+    combinedLayer->initialize();
 }
 
 Canvas::Canvas(Canvas *c, int r, int col)
@@ -39,6 +40,11 @@ void Canvas::setLayerName(QString s)
     activeLayer->setName(s);
 }
 
+void Canvas::setLayerName(int layerindex, QString name)
+{
+    layers[layerindex]->setName(name);
+}
+
 QString Canvas::getLayerName()
 {
     return activeLayer->getName();
@@ -53,6 +59,11 @@ void Canvas::setLayerTransparency(bool t)
 {
     activeLayer->setTransparency(t);
     updateCombined();
+}
+
+void Canvas::setLayerTransparency(int layerindex, bool t)
+{
+    layers[layerindex]->setTransparency(t);
 }
 
 void Canvas::setActiveLayer(int index)
@@ -227,9 +238,35 @@ void Canvas::clearAll()
     foreach(Layer *l, layers)
     {
         l->clearAll();
-        delete l;
     }
+    while (!layers.isEmpty())
+        delete layers.takeFirst();
     delete combinedLayer;
+}
+
+void Canvas::setNumberofrows(int layerindex, int number)
+{
+    layers[layerindex]->setNumberofrows(number);
+}
+
+void Canvas::setNumberofcolumns(int layerindex, int number)
+{
+    layers[layerindex]->setNumberofcolumns(number);
+}
+
+void Canvas::addLayerPixels(int layerindex, QString data)
+{
+    layers[layerindex]->addLayerPixels(data);
+}
+
+void Canvas::setDefaultActives()
+{
+    activeLayer = layers[0];
+}
+
+int Canvas::getLayerSize()
+{
+    return activeLayer->getSize();
 }
 
 void Canvas::updateCombined()
@@ -249,7 +286,6 @@ void Canvas::updateCombinedLayer(int index)
         int i = 0;
         while(i<layers.size() && (layers[i]->isPixelClear(index) || layers[i]->getTransparency()))
             i++;
-
         if(i==layers.size())
         {
             combinedLayer->clearPixel(index);

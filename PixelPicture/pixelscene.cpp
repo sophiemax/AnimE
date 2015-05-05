@@ -181,6 +181,16 @@ QRect PixelScene::getPixelRect(int index)
     return pixels[index]->rect;
 }
 
+void PixelScene::setpixelsinarow()
+{
+
+}
+
+void PixelScene::setpixelsinacolumn()
+{
+
+}
+
 //Megtalálja, és visszatér a legközelebbi pixellel.
 QRect PixelScene::nearestPixelRect(float x, float y)
 {

@@ -13,10 +13,12 @@ public:
     ~Canvas();
 
     void setLayerName(QString s);
+    void setLayerName(int layerindex, QString name);
     QString getLayerName();
     QString getLayerName(int index);
 
     void setLayerTransparency(bool t);
+    void setLayerTransparency(int layerindex, bool t);
 
     void setActiveLayer(int index);
 
@@ -59,6 +61,16 @@ public:
     void initializeLayer();
 
     void clearAll();
+
+    void setNumberofrows(int layerindex, int number);
+    void setNumberofcolumns(int layerindex, int number);
+
+    void addLayerPixels(int layerindex, QString data);
+
+    void setDefaultActives();
+
+    //for debugging
+    int getLayerSize();
 
 private:
     QList<Layer*> layers;

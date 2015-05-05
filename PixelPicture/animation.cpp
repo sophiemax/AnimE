@@ -19,6 +19,11 @@ void Animation::setLayerName(QString s)
     activeFrame->setLayerName(s);
 }
 
+void Animation::setLayerName(int frameindex, int layerindex, QString name)
+{
+    frames[frameindex]->setLayerName(layerindex, name);
+}
+
 QString Animation::getLayerName()
 {
     return activeFrame->getLayerName();
@@ -37,6 +42,11 @@ QString Animation::getLayerName(int frameindex, int layerindex)
 void Animation::setFrameName(QString s)
 {
     activeFrame->setName(s);
+}
+
+void Animation::setFrameName(int index, QString s)
+{
+    frames[index]->setName(s);
 }
 
 QString Animation::getFrameName()
@@ -62,6 +72,11 @@ QString Animation::getName()
 void Animation::setLayerTransparency(bool t)
 {
     activeFrame->setLayerTransparency(t);
+}
+
+void Animation::setLayerTransparency(int frameindex, int layerindex, bool t)
+{
+    frames[frameindex]->setLayerTransparency(layerindex, t);
 }
 
 void Animation::setActiveLayer(int index)
@@ -111,6 +126,16 @@ float Animation::getCurrentTimespan()
     return activeFrame->getTimespan();
 }
 
+void Animation::setTimesum(float t)
+{
+    timesum = t;
+}
+
+void Animation::setTimespan(int index, float t)
+{
+    frames[index]->setTimespan(t);
+}
+
 float Animation::getTimesum()
 {
     return timesum;
@@ -154,6 +179,11 @@ void Animation::addLayer()
     activeFrame->addLayer();
 }
 
+void Animation::addLayer(int frameindex, int layerindex)
+{
+    frames[frameindex]->addLayer(layerindex);
+}
+
 void Animation::removeActiveLayer()
 {
     activeFrame->removeActiveLayer();
@@ -162,6 +192,11 @@ void Animation::removeActiveLayer()
 void Animation::switchLayers(int i, int j)
 {
     activeFrame->switchLayers(i,j);
+}
+
+void Animation::addCanvas(int index)
+{
+    frames[index]->addCanvas();
 }
 
 void Animation::addFrame()
@@ -187,6 +222,12 @@ void Animation::addFrame(int t)
     activeFrame = f;
 
     timesum += t;
+}
+
+void Animation::addFrameIndexed(int index)
+{
+    Frame* f = new Frame(pixelsinarow, pixelsinacolumn);
+    frames.insert(index,f);
 }
 
 void Animation::copyFrame()
@@ -283,8 +324,6 @@ void Animation::initialize()
     timesum += f->getTimespan();
     activeFrame = f;
     initializeFrame();
-    initializeCanvas();
-    initializeLayer();
 }
 
 void Animation::initializeFrame()
@@ -307,7 +346,41 @@ void Animation::clearAll()
     foreach(Frame *f, frames)
     {
         f->clearAll();
-        delete f;
     }
+    while (!frames.isEmpty())
+        delete frames.takeFirst();
+}
+
+void Animation::setNumberofrows(int frameindex, int layerindex, int number)
+{
+    frames[frameindex]->setNumberofrows(layerindex,number);
+}
+
+void Animation::setNumberofcolumns(int frameindex, int layerindex, int number)
+{
+    frames[frameindex]->setNumberofcolumns(layerindex, number);
+}
+
+void Animation::addLayerPixels(int frameindex, int layerindex, QString data)
+{
+    frames[frameindex]->addLayerPixels(layerindex, data);
+}
+
+void Animation::updateCombinedLayers()
+{
+    foreach(Frame *f, frames)
+        f->updateCombinedLayers();
+}
+
+void Animation::setDefaultActives()
+{
+    activeFrame = frames[0];
+    foreach(Frame *f, frames)
+        f->setDefaultActives();
+}
+
+int Animation::getLayerSize()
+{
+    return activeFrame->getLayerSize();
 }
 

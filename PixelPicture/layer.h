@@ -30,6 +30,8 @@ public:
 
     int getNumberofColumns();
     int getNumberofRows();
+    void setNumberofrows(int number);
+    void setNumberofcolumns(int number);
     int getSize();
 
     LayerPixel *getLayerPixel(int index);
@@ -54,6 +56,8 @@ public:
 
     void initialize();
     void clearAll();
+
+    void addLayerPixels(QString data);
 
 private:
     bool transparent = false;

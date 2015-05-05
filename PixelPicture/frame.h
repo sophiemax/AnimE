@@ -13,16 +13,20 @@ public:
     ~Frame();
 
     void setLayerName(QString s);
+    void setLayerName(int layerindex, QString name);
     QString getLayerName();
     QString getLayerName(int index);
     void setName(QString s);
     QString getName();
 
     void setLayerTransparency(bool t);
+    void setLayerTransparency(int layerindex, bool t);
 
     void setActiveLayer(int index);
 
     void addLayer();
+    void addLayer(int index);
+    void addCanvas();
     void removeActiveLayer();
     void switchLayers(int i, int j);
 
@@ -61,6 +65,18 @@ public:
     void initializeLayer();
 
     void clearAll();
+
+    void setNumberofrows(int layerindex, int number);
+    void setNumberofcolumns(int layerindex, int number);
+
+    void addLayerPixels(int layerindex, QString data);
+
+    void updateCombinedLayers();
+    void setDefaultActives();
+
+    //for debugging
+
+    int getLayerSize();
 
 private:
 

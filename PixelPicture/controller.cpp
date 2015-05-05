@@ -13,6 +13,12 @@ Controller::Controller(PixelScene *s)
 
     imageconverter = new ImageConverterTool(this,getPixelSize(), pixelsinaRow(), pixelsinaColumn());
     videoconverter = new VideoConverterTool(this);
+
+    nameList << "pixelsinacolumn" << "pixelsinarow"; //0,1
+    nameList << "animation" << "timesum" << "animationname"; //2,3,4
+    nameList << "frame" << "timespan" << "framename"; //5,6,7
+    nameList << "canvas"; //8
+    nameList << "layer" << "numberofrows" << "numberofcolumns" << "transparent" << "layername" << "data"; //9,10,11,12,13,14
 }
 
 Controller::~Controller()
@@ -127,6 +133,11 @@ float Controller::getCurrentTimespan()
     return activeAnimation->getCurrentTimespan();
 }
 
+void Controller::setTimesum(int index, float t)
+{
+    animations[index]->setTimesum(t);
+}
+
 float Controller::getTimesum()
 {
     return activeAnimation->getTimesum();
@@ -135,6 +146,11 @@ float Controller::getTimesum()
 float Controller::getTimesum(int index)
 {
     return animations[index]->getTimesum();
+}
+
+void Controller::setTimespan(int animationindex, int frameindex, float t)
+{
+    animations[animationindex]->setTimespan(frameindex, t);
 }
 
 float Controller::getTimespan(int index)
@@ -167,6 +183,11 @@ void Controller::setLayerName(QString s)
     activeAnimation->setLayerName(s);
 }
 
+void Controller::setLayerName(int animationindex, int frameindex, int layerindex, QString name)
+{
+    animations[animationindex]->setLayerName(frameindex, layerindex, name);
+}
+
 QString Controller::getLayerName()
 {
     return activeAnimation->getLayerName();
@@ -187,6 +208,11 @@ void Controller::setFrameName(QString s)
     activeAnimation->setFrameName(s);
 }
 
+void Controller::setFrameName(int animationindex, int frameindex, QString name)
+{
+    animations[animationindex]->setFrameName(frameindex,name);
+}
+
 QString Controller::getFrameName()
 {
     return activeAnimation->getFrameName();
@@ -202,6 +228,11 @@ QString Controller::getFrameName(int animationindex, int frameindex)
     return animations[animationindex]->getFrameName(frameindex);
 }
 
+void Controller::setAnimationName(int index, QString s)
+{
+    animations[index]->setName(s);
+}
+
 QString Controller::getAnimationName(int index)
 {
     return animations[index]->getName();
@@ -213,10 +244,20 @@ void Controller::setLayerTransparency(bool t)
     updateScene();
 }
 
+void Controller::setLayerTransparency(int animationindex, int frameindex, int layerindex, bool t)
+{
+    animations[animationindex]->setLayerTransparency(frameindex, layerindex, t);
+}
+
 void Controller::addLayer()
 {
     activeAnimation->addLayer();
     activeAnimation->initializeLayer();
+}
+
+void Controller::addLayer(int animationindex, int frameindex, int layerindex)
+{
+    animations[animationindex]->addLayer(frameindex, layerindex);
 }
 
 void Controller::removeActiveLayer()
@@ -231,11 +272,21 @@ void Controller::switchLayers(int i, int j)
     updateScene();
 }
 
+void Controller::addCanvas(int animationindex, int frameindex)
+{
+    animations[animationindex]->addCanvas(frameindex);
+}
+
 void Controller::addFrame()
 {
     activeAnimation->addFrame();
     activeAnimation->initializeFrame();
     updateScene();
+}
+
+void Controller::addFrameIndexed(int animationindex, int frameindex)
+{
+    animations[animationindex]->addFrameIndexed(frameindex);
 }
 
 void Controller::addFrame(int timespan)
@@ -474,6 +525,7 @@ void Controller::addAnimation()
 {
     Animation *a = new Animation(pixelsinaColumn(),pixelsinaRow());
     a->initialize();
+    activeAnimation = a;
     animations.append(a);
 }
 
@@ -488,7 +540,53 @@ void Controller::clearAll()
     foreach(Animation* a, animations)
     {
         a->clearAll();
-        delete a;
     }
+    while (!animations.isEmpty())
+        delete animations.takeFirst();
+}
+
+QStringList Controller::getNameList()
+{
+    return nameList;
+}
+
+//a pixelscene összes adatát el kell menteni és le kell kérdezni, ha átjárhatóságot akarunk épületek között is!
+
+void Controller::setpixelsinarow(int r)
+{
+
+}
+
+void Controller::setpixelsinacolumn(int c)
+{
+
+}
+
+void Controller::setNumberofrows(int animationindex, int frameindex, int layerindex, int number)
+{
+    animations[animationindex]->setNumberofrows(frameindex,layerindex,number);
+}
+
+void Controller::setNumberofcolumns(int animationindex, int frameindex, int layerindex, int number)
+{
+    animations[animationindex]->setNumberofcolumns(frameindex,layerindex,number);
+}
+
+void Controller::addLayerPixels(int animationindex, int frameindex, int layerindex, QString data)
+{
+    animations[animationindex]->addLayerPixels(frameindex,layerindex,data);
+}
+
+void Controller::updateCombinedLayers()
+{
+    foreach(Animation *a, animations)
+        a->updateCombinedLayers();
+}
+
+void Controller::setDefaultActives()
+{
+    activeAnimation = animations[0];
+    foreach(Animation *a, animations)
+        a->setDefaultActives();
 }
 
