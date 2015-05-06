@@ -27,9 +27,9 @@
    <widget class="QPushButton" name="primaryColorButton">
     <property name="geometry">
      <rect>
-      <x>530</x>
+      <x>620</x>
       <y>0</y>
-      <width>81</width>
+      <width>91</width>
       <height>23</height>
      </rect>
     </property>
@@ -40,8 +40,8 @@
    <widget class="QRadioButton" name="windowToggle">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>0</y>
+      <x>520</x>
+      <y>10</y>
       <width>71</width>
       <height>17</height>
      </rect>
@@ -61,54 +61,11 @@
       <selectedon>:/icon/icons/Window Full-32.png</selectedon>:/icon/icons/Window Pixel-32.png</iconset>
     </property>
    </widget>
-   <widget class="QPushButton" name="penButton">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>23</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset resource="uiresources.qrc">
-      <normaloff>:/icon/icons/Pencil-32.png</normaloff>:/icon/icons/Pencil-32.png</iconset>
-    </property>
-    <property name="shortcut">
-     <string>B</string>
-    </property>
-    <property name="checkable">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="ellipseButton">
-    <property name="geometry">
-     <rect>
-      <x>100</x>
-      <y>0</y>
-      <width>23</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset resource="uiresources.qrc">
-      <normaloff>:/icon/icons/Ellipse Stroked-32.png</normaloff>:/icon/icons/Ellipse Stroked-32.png</iconset>
-    </property>
-    <property name="checkable">
-     <bool>true</bool>
-    </property>
-   </widget>
    <widget class="QPushButton" name="secondaryColorButton">
     <property name="geometry">
      <rect>
-      <x>610</x>
-      <y>0</y>
+      <x>620</x>
+      <y>20</y>
       <width>91</width>
       <height>23</height>
      </rect>
@@ -117,34 +74,17 @@
      <string>Secondary Color</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="eraserButton">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>0</y>
-      <width>23</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset resource="uiresources.qrc">
-      <normaloff>:/icon/icons/Eraser-32.png</normaloff>:/icon/icons/Eraser-32.png</iconset>
-    </property>
-    <property name="checkable">
-     <bool>true</bool>
-    </property>
-   </widget>
    <widget class="QPushButton" name="clearLayerButton">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>0</y>
-      <width>23</width>
+      <x>512</x>
+      <y>440</y>
+      <width>151</width>
       <height>23</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Clear Layer</string>
     </property>
     <property name="text">
      <string/>
@@ -160,54 +100,11 @@
      </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="importPictureButton">
-    <property name="geometry">
-     <rect>
-      <x>230</x>
-      <y>0</y>
-      <width>51</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Import</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="importSettingsButton">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>0</y>
-      <width>81</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>ImportSettings</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="newFrameButton">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>0</y>
-      <width>71</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string> Frame</string>
-    </property>
-    <property name="icon">
-     <iconset resource="uiresources.qrc">
-      <normaloff>:/icon/icons/Add File-32.png</normaloff>:/icon/icons/Add File-32.png</iconset>
-    </property>
-   </widget>
    <widget class="QPushButton" name="playButton">
     <property name="geometry">
      <rect>
-      <x>430</x>
-      <y>0</y>
+      <x>520</x>
+      <y>40</y>
       <width>31</width>
       <height>23</height>
      </rect>
@@ -249,23 +146,6 @@
      <string>00:00:000</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="importvideoButton">
-    <property name="geometry">
-     <rect>
-      <x>520</x>
-      <y>40</y>
-      <width>23</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset resource="uiresources.qrc">
-      <normaloff>:/icon/icons/Film 2-32.png</normaloff>:/icon/icons/Film 2-32.png</iconset>
-    </property>
-   </widget>
    <widget class="QWidget" name="gridLayoutWidget_2">
     <property name="geometry">
      <rect>
@@ -282,9 +162,12 @@
      <rect>
       <x>510</x>
       <y>380</y>
-      <width>31</width>
+      <width>51</width>
       <height>23</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Add Layer</string>
     </property>
     <property name="text">
      <string/>
@@ -297,27 +180,41 @@
    <widget class="QPushButton" name="removeButton">
     <property name="geometry">
      <rect>
-      <x>540</x>
+      <x>560</x>
       <y>380</y>
       <width>51</width>
       <height>23</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Remove Layer</string>
+    </property>
     <property name="text">
-     <string>Remove</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="uiresources.qrc">
+      <normaloff>:/icons/Delete Sign-32.png</normaloff>:/icons/Delete Sign-32.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="renameButton">
     <property name="geometry">
      <rect>
-      <x>590</x>
+      <x>610</x>
       <y>380</y>
-      <width>75</width>
+      <width>51</width>
       <height>23</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Rename layer</string>
+    </property>
     <property name="text">
-     <string>Rename</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="uiresources.qrc">
+      <normaloff>:/icons/Rename-32.png</normaloff>:/icons/Rename-32.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="movelayerupButton">
@@ -325,12 +222,19 @@
      <rect>
       <x>510</x>
       <y>410</y>
-      <width>75</width>
+      <width>81</width>
       <height>23</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Move  layer up</string>
+    </property>
     <property name="text">
-     <string>Move up</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="uiresources.qrc">
+      <normaloff>:/icons/Move-Up-32.png</normaloff>:/icons/Move-Up-32.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="movelayerdownButton">
@@ -342,84 +246,15 @@
       <height>23</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Move down</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="lineButton">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>0</y>
-      <width>23</width>
-      <height>23</height>
-     </rect>
+    <property name="toolTip">
+     <string>Move layer down</string>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="icon">
      <iconset resource="uiresources.qrc">
-      <normaloff>:/icon/icons/Line-32.png</normaloff>:/icon/icons/Line-32.png</iconset>
-    </property>
-    <property name="checkable">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="rectangleButton">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>0</y>
-      <width>23</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset resource="uiresources.qrc">
-      <normaloff>:/icon/icons/Rectangle Stroked-32.png</normaloff>:/icon/icons/Rectangle Stroked-32.png</iconset>
-    </property>
-    <property name="checkable">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="fillButton">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>0</y>
-      <width>23</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset resource="uiresources.qrc">
-      <normaloff>:/icon/icons/BG Color-32.png</normaloff>:/icon/icons/BG Color-32.png</iconset>
-    </property>
-    <property name="shortcut">
-     <string>F</string>
-    </property>
-    <property name="checkable">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="copyFrameButton">
-    <property name="geometry">
-     <rect>
-      <x>160</x>
-      <y>0</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Copy Frame</string>
+      <normaloff>:/icons/Move-Down-32.png</normaloff>:/icons/Move-Down-32.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="moveLeftButton">
@@ -554,32 +389,6 @@
      <string>F</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="exportButton">
-    <property name="geometry">
-     <rect>
-      <x>480</x>
-      <y>100</y>
-      <width>51</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Export</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="importButton">
-    <property name="geometry">
-     <rect>
-      <x>480</x>
-      <y>120</y>
-      <width>51</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Import</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -618,9 +427,17 @@
     <addaction name="actionImport_video"/>
     <addaction name="actionImport_Settings"/>
    </widget>
+   <widget class="QMenu" name="menuFrame">
+    <property name="title">
+     <string>Frame</string>
+    </property>
+    <addaction name="actionNew_Frame"/>
+    <addaction name="actionCopy_Frame"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuSelect_Tool"/>
    <addaction name="menuImport"/>
+   <addaction name="menuFrame"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <property name="movable">
@@ -650,6 +467,9 @@
    <addaction name="actionImport_Picture"/>
    <addaction name="actionImport_video"/>
    <addaction name="actionImport_Settings"/>
+   <addaction name="separator"/>
+   <addaction name="actionNew_Frame"/>
+   <addaction name="actionCopy_Frame"/>
    <addaction name="separator"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -764,7 +584,7 @@
   <action name="actionImport_Picture">
    <property name="icon">
     <iconset resource="uiresources.qrc">
-     <normaloff>:/icon/icons/Picture-32.png</normaloff>:/icon/icons/Picture-32.png</iconset>
+     <normaloff>:/icons/Import-32.png</normaloff>:/icons/Import-32.png</iconset>
    </property>
    <property name="text">
     <string>Import Picture</string>
@@ -782,10 +602,28 @@
   <action name="actionImport_Settings">
    <property name="icon">
     <iconset resource="uiresources.qrc">
-     <normaloff>:/icon/icons/Settings-32.png</normaloff>:/icon/icons/Settings-32.png</iconset>
+     <normaloff>:/icons/View Details-32.png</normaloff>:/icons/View Details-32.png</iconset>
    </property>
    <property name="text">
     <string>Import Settings</string>
+   </property>
+  </action>
+  <action name="actionNew_Frame">
+   <property name="icon">
+    <iconset resource="uiresources.qrc">
+     <normaloff>:/icon/icons/Add File-32.png</normaloff>:/icon/icons/Add File-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>New Frame</string>
+   </property>
+  </action>
+  <action name="actionCopy_Frame">
+   <property name="icon">
+    <iconset resource="uiresources.qrc">
+     <normaloff>:/icons/Copy-32.png</normaloff>:/icons/Copy-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Copy Frame</string>
    </property>
   </action>
  </widget>

@@ -30,8 +30,6 @@ MainWindow::MainWindow(QWidget *parent) :
     eraser = new EraserTool(this);
     fill = new FillTool(this);
 
-    activeButton = ui->penButton;
-    activeButton->setChecked(true);
     activeAction = ui->actionPen;
     activeAction->setChecked(true);
 
@@ -56,7 +54,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(renamelayer, &RenameLayer::accepted, this, &MainWindow::changeName);
     connect(renamelayer, &RenameLayer::rejected, this, &MainWindow::leaveName);
 
-    connect(animationtool, &AnimationTool::positionChanged, this, &MainWindow::animationSliderUpdate);
+    //connect(animationtool, &AnimationTool::positionChanged, this, &MainWindow::animationSliderUpdate);
 
 }
 
@@ -210,12 +208,6 @@ void MainWindow::animationSliderUpdate(int time)
 void MainWindow::on_clearLayerButton_clicked()
 {
     controller->clearLayer();
-}
-
-void MainWindow::on_newFrameButton_clicked()
-{
-    controller->addFrame();
-    newLayerDisplay();
 }
 
 void MainWindow::on_playButton_clicked()
@@ -422,12 +414,6 @@ void MainWindow::on_animationSlider_valueChanged(int position)
     ui->animationLabel->setText(label);
 }
 
-void MainWindow::on_copyFrameButton_clicked()
-{
-    controller->copyFrame();
-    on_animationSlider_valueChanged(controller->getCurrentTime()/controller->getTimesum() * 100);
-}
-
 void MainWindow::on_moveUpButton_clicked()
 {
     controller->moveLayerUp();
@@ -610,4 +596,16 @@ void MainWindow::on_actionImport_video_triggered()
 void MainWindow::on_actionImport_Settings_triggered()
 {
     settings->show();
+}
+
+void MainWindow::on_actionNew_Frame_triggered()
+{
+    controller->addFrame();
+    newLayerDisplay();
+}
+
+void MainWindow::on_actionCopy_Frame_triggered()
+{
+    controller->copyFrame();
+    on_animationSlider_valueChanged(controller->getCurrentTime()/controller->getTimesum() * 100);
 }

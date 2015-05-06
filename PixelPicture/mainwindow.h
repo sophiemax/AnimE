@@ -49,8 +49,6 @@ private slots:
 
     void on_clearLayerButton_clicked();
 
-    void on_newFrameButton_clicked();
-
     void on_playButton_clicked();
 
     void on_renameButton_clicked();
@@ -74,8 +72,6 @@ private slots:
     void on_animationSlider_valueChanged(int position);
 
     void animationSliderUpdate(int time);
-
-    void on_copyFrameButton_clicked();
 
     void on_moveUpButton_clicked();
 
@@ -115,6 +111,10 @@ private slots:
 
     void on_actionImport_Settings_triggered();
 
+    void on_actionNew_Frame_triggered();
+
+    void on_actionCopy_Frame_triggered();
+
 private:
     Ui::MainWindow *ui;
     ImportSettings *settings;
@@ -126,7 +126,6 @@ private:
     int windowWidth = 2, windowHeight = 2, windowXNumber = 16, windowYNumber = 13;
     int beginX = 0, beginY = 20;
 
-    QPushButton *activeButton;
     QAction *activeAction;
 
     PenTool *pen;
