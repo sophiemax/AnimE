@@ -27,6 +27,9 @@
         <file>icons/Plus Math-32.png</file>
         <file>icons/Right Arrow-32.png</file>
         <file>icons/Up Arrow-32.png</file>
+        <file>icons/Clear-32.png</file>
+        <file>icons/Picture-32.png</file>
+        <file>icons/Settings-32.png</file>
     </qresource>
     <qresource prefix="/">
         <file>icons/Copy-32.png</file>

@@ -45,25 +45,13 @@ private slots:
 
     void on_windowToggle_toggled(bool checked);
 
-    void on_ellipseButton_clicked();
-
-    void on_penButton_clicked();
-
     void on_secondaryColorButton_clicked();
 
-    void on_eraserButton_clicked();
-
     void on_clearLayerButton_clicked();
-
-    void on_importPictureButton_clicked();
-
-    void on_importSettingsButton_clicked();
 
     void on_newFrameButton_clicked();
 
     void on_playButton_clicked();
-
-    void on_importvideoButton_clicked();
 
     void on_renameButton_clicked();
 
@@ -79,17 +67,11 @@ private slots:
 
     void on_removeButton_clicked();
 
-    void on_lineButton_clicked();
-
     void on_movelayerupButton_clicked();
 
     void on_movelayerdownButton_clicked();
 
-    void on_rectangleButton_clicked();
-
     void on_animationSlider_valueChanged(int position);
-
-    void on_fillButton_clicked();
 
     void animationSliderUpdate(int time);
 
@@ -111,9 +93,27 @@ private slots:
 
     void on_moveFrameRightButton_clicked();
 
-    void on_exportButton_clicked();
+    void on_actionOpen_triggered();
 
-    void on_importButton_clicked();
+    void on_actionSaveAs_triggered();
+
+    void on_actionPen_triggered();
+
+    void on_actionEraser_triggered();
+
+    void on_actionLine_triggered();
+
+    void on_actionRectangle_triggered();
+
+    void on_actionEllipse_triggered();
+
+    void on_actionFill_triggered();
+
+    void on_actionImport_Picture_triggered();
+
+    void on_actionImport_video_triggered();
+
+    void on_actionImport_Settings_triggered();
 
 private:
     Ui::MainWindow *ui;
@@ -127,6 +127,7 @@ private:
     int beginX = 0, beginY = 20;
 
     QPushButton *activeButton;
+    QAction *activeAction;
 
     PenTool *pen;
     LineTool *line;

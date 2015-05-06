@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     scene = new PixelScene(this);
     ui->graphicsView->setScene(scene);
-    setCentralWidget(ui->graphicsView);
+    //setCentralWidget(ui->graphicsView);
 
     controller = new Controller(scene);
     exporter = new ExportTool(controller);
