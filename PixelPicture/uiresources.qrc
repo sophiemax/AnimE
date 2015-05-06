@@ -28,4 +28,13 @@
         <file>icons/Right Arrow-32.png</file>
         <file>icons/Up Arrow-32.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>icons/Copy-32.png</file>
+        <file>icons/Delete Sign-32.png</file>
+        <file>icons/Import-32.png</file>
+        <file>icons/Move-Down-32.png</file>
+        <file>icons/Move-Up-32.png</file>
+        <file>icons/Rename-32.png</file>
+        <file>icons/View Details-32.png</file>
+    </qresource>
 </RCC>
