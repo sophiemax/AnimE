@@ -100,11 +100,15 @@ public:
     //az összes adat és változó törlése
     void clearAll();
 
+    //a sorok illetve számának beállítása, egy bizonyos framen belüli bizonyos layerre.
     void setNumberofrows(int frameindex, int layerindex, int number);
     void setNumberofcolumns(int frameindex, int layerindex, int number);
 
+    //layer pixelek hozzáadása betöltés alapján
     void addLayerPixels(int frameindex, int layerindex, QString data);
+    //combinedLayer frissítése a megjelenítéshez.
     void updateCombinedLayers();
+    //A felhasználói felület aktívvá tétele.
     void setDefaultActives();
 
     //for debugging
