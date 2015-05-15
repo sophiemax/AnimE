@@ -116,10 +116,10 @@ private:
     ImportSettings *settings;
     RenameLayer *renamelayer;
 
-    //a kijelző
+    //a kijelzőt megvalósító pixelscene
     PixelScene *scene;
 
-    //
+    //az aktív action
     QAction *activeAction;
 
     //a rajzoló eszközök tárolása
@@ -133,14 +133,17 @@ private:
     //módosítások lekommunikálásához
     Controller *controller;
 
+    //layerek megjelenítéséhez szükséges widgetek
     QGridLayout *layergrid;
     QPushButton *activelayerButton;
     QScrollArea *scroll;
     QWidget *container;
 
+    //layerek gombjai és az átlátszóságukat kezelő gombok
     QList<QPushButton*> layerbuttons;
     QList<QPushButton*> transparencybuttons;
 
+    //a layerek megjelenítését létrehozó, illetve frissítő függvények
     void createLayerDisplay();
     void clearLayerDisplay();
     void newLayerDisplay();
