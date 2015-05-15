@@ -16,6 +16,7 @@ class PaintTool : public QObject
 public:
     PaintTool(QObject *parent = 0);
     ~PaintTool();
+    //egérműveletek lekezelését szolgáló függvények
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) = 0;
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event) = 0;
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) = 0;

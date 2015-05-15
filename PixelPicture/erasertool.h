@@ -15,6 +15,7 @@ public:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 private:
+    //a törlést elvégző függvény
     void eraserMouseEvent();
 };
 

@@ -11,6 +11,7 @@ public:
     ImportTool(Controller *c);
     ~ImportTool();
 
+    //fájl beimportálása
     void importFile(QString fileName);
 private:
     //módosítások lekommunikálásához

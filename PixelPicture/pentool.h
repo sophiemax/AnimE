@@ -14,6 +14,7 @@ public:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 private:
+    //a kirajzolást végző függvény
     void penMouseEvent();
 };
 

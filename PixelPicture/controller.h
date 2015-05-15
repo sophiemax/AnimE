@@ -146,10 +146,10 @@ public:
     //megállapítja hogy egy adott koordinátán (vagy az egér pozíciójában) van e pixel.
     int pixelUnderMouse();
     int containsPoint(float x, float y);
-    //megkeresi a legközelebbi pixelt a megadott koordinátához, és visszatér annak indexélvel, vagy az őt definiáló téglalappal.
+    //megkeresi a legközelebbi pixelt a megadott koordinátához, és visszatér annak indexélvel, vagy az őt definiáló téglappal.
     int nearestPixel(float x, float y);
     QRect nearestPixelRect(float x, float y);
-    //lekérdezi a megadott indexű pixelt  definiáló téglalapot
+    //lekérdezi a megadott indexű pixelt definiáló téglalapot
     QRect getPixelRect(int index);
 
     //pixelméret lekérdezése

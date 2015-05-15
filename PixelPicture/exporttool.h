@@ -12,6 +12,7 @@ public:
     ExportTool(Controller *c);
     ~ExportTool();
 
+    //fájl exportálása
     void exportFile(QString fileName);
 private:
     //módosítások kommunikálásához
