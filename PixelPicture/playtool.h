@@ -1,17 +1,17 @@
-#ifndef ANIMATIONTOOL_H
-#define ANIMATIONTOOL_H
+#ifndef PLAYTOOL_H
+#define PLAYTOOL_H
 
 #include "controller.h"
 #include <QTimer>
 
-class AnimationTool : public QObject
+class PlayTool : public QObject
 {
     Q_OBJECT
 
 public:
-    AnimationTool(Controller *c);
+    PlayTool(Controller *c);
 
-    ~AnimationTool();
+    ~PlayTool();
 
     void play();
 
@@ -22,10 +22,14 @@ public slots:
 signals:
     void positionChanged(int position);
 private:
+    //módosítások lekommunikálásához
     Controller *controller;
+    //frame számláló
     int i = 0;
+    //eltelt idő számláló
     float timesum = 0.0;
+    //időzítést megvalósító timer
     QTimer timer;
 };
 
-#endif // ANIMATIONTOOL_H
+#endif // PLAYTOOL_H

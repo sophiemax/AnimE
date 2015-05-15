@@ -1,9 +1,9 @@
 #ifndef RECTANGLETOOL_H
 #define RECTANGLETOOL_H
 
-#include "tool.h"
+#include "painttool.h"
 
-class RectangleTool : public Tool
+class RectangleTool : public PaintTool
 {
 public:
 

@@ -7,14 +7,17 @@ Controller::Controller(PixelScene *s)
     primaryColor = Qt::white;
     secondaryColor = Qt::black;
 
-    activeAnimation = new Animation(pixelsinaRow(), pixelsinaColumn());
+    activeAnimation = new Animation(originalnumberofcolumns(), originalnumberofrows());
     activeAnimation->initialize();
     animations.append(activeAnimation);
 
-    imageconverter = new ImageConverterTool(this,getPixelSize(), pixelsinaRow(), pixelsinaColumn());
+    imageconverter = new ImageConverterTool(this,getPixelSize(), originalnumberofcolumns(), originalnumberofrows());
     videoconverter = new VideoConverterTool(this);
 
-    nameList << "pixelsinacolumn" << "pixelsinarow"; //0,1
+    exporter = new ExportTool(this);
+    importer = new ImportTool(this);
+
+    nameList << "originalnumberofrows" << "originalnumberofcolumns"; //0,1
     nameList << "animation" << "timesum" << "animationname"; //2,3,4
     nameList << "frame" << "timespan" << "framename"; //5,6,7
     nameList << "canvas"; //8
@@ -26,18 +29,21 @@ Controller::~Controller()
     delete imageconverter;
     delete videoconverter;
 
+    delete importer;
+    delete exporter;
+
     while (!animations.isEmpty())
         delete animations.takeFirst();
 }
 
-int Controller::pixelsinaRow()
+int Controller::originalnumberofcolumns()
 {
-    return scene->pixelsinaRow();
+    return scene->originalnumberofcolumns();
 }
 
-int Controller::pixelsinaColumn()
+int Controller::originalnumberofrows()
 {
-    return scene->pixelsinaColumn();
+    return scene->originalnumberofrows();
 }
 
 int Controller::numberofPixels()
@@ -422,9 +428,9 @@ QColor Controller::getSecondaryColor()
     return secondaryColor;
 }
 
-void Controller::setActiveTool(Tool *tool)
+void Controller::setActivePaintTool(PaintTool *t)
 {
-    scene->setActiveTool(tool);
+    scene->setActivePaintTool(t);
 }
 
 void Controller::setWindowToggled(bool toggled)
@@ -523,7 +529,7 @@ void Controller::updateScene()
 
 void Controller::addAnimation()
 {
-    Animation *a = new Animation(pixelsinaRow(),pixelsinaColumn());
+    Animation *a = new Animation(originalnumberofcolumns(),originalnumberofrows());
     a->initialize();
     activeAnimation = a;
     animations.append(a);
@@ -531,7 +537,7 @@ void Controller::addAnimation()
 
 void Controller::addAnimation(int index)
 {
-    Animation *a = new Animation(pixelsinaRow(),pixelsinaColumn());
+    Animation *a = new Animation(originalnumberofcolumns(),originalnumberofrows());
     animations.insert(index,a);
 }
 
@@ -552,12 +558,12 @@ QStringList Controller::getNameList()
 
 //a pixelscene összes adatát el kell menteni és le kell kérdezni, ha átjárhatóságot akarunk épületek között is!
 
-void Controller::setpixelsinarow(int r)
+void Controller::setoriginalnumberofcolumns(int r)
 {
 
 }
 
-void Controller::setpixelsinacolumn(int c)
+void Controller::setoriginalnumberofrows(int c)
 {
 
 }
@@ -588,5 +594,24 @@ void Controller::setDefaultActives()
     activeAnimation = animations[0];
     foreach(Animation *a, animations)
         a->setDefaultActives();
+}
+
+void Controller::importFile(QString fileName)
+{
+    importer->importFile(fileName);
+
+    setDefaultActives();
+    updateCombinedLayers();
+    updateScene();
+}
+
+void Controller::exportFile(QString fileName)
+{
+    exporter->exportFile(fileName);
+}
+
+void Controller::playAnimation()
+{
+    playTool->play();
 }
 

@@ -19,9 +19,12 @@ public:
     void start();
 
 private:
+    //módosítások lekommunikálásához
     Controller *controller;
 
+    //a lejátszást végrehajtó player
     QMediaPlayer *player;
+    //a feldolgozást végrehajtó surface
     VideoSurface *surface;
 };
 

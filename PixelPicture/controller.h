@@ -5,12 +5,19 @@
 #include "animation.h"
 #include "imageconvertertool.h"
 #include "videoconvertertool.h"
-#include "tool.h"
+#include "importtool.h"
+#include "exporttool.h"
+#include "playtool.h"
+#include "painttool.h"
 
 class ImageConverterTool;
 class VideoConverterTool;
+class ImportTool;
+class ExportTool;
 class PixelScene;
-class Tool;
+
+class PlayTool;
+class PaintTool;
 
 class Controller
 {
@@ -18,8 +25,8 @@ public:
     Controller(PixelScene *s);
     ~Controller();
 
-    int pixelsinaRow();
-    int pixelsinaColumn();
+    int originalnumberofcolumns();
+    int originalnumberofrows();
     int numberofPixels();
     int getWidth();
     int getOnlyPixelsWidth();
@@ -96,7 +103,7 @@ public:
     QColor getPrimaryColor();
     void setSecondaryColor(QColor color);
     QColor getSecondaryColor();
-    void setActiveTool(Tool *tool);
+    void setActivePaintTool(PaintTool *t);
     void setWindowToggled(bool toggled);
 
     bool isCombinedLayerPixelClear(int index);
@@ -125,8 +132,8 @@ public:
 
     QStringList getNameList();
 
-    void setpixelsinarow(int r);
-    void setpixelsinacolumn(int c);
+    void setoriginalnumberofcolumns(int r);
+    void setoriginalnumberofrows(int c);
 
     void setNumberofrows(int animationindex, int frameindex, int layerindex, int number);
     void setNumberofcolumns(int animationindex, int frameindex, int layerindex, int number);
@@ -135,18 +142,35 @@ public:
     void updateCombinedLayers();
     void setDefaultActives();
 
+    void importFile(QString fileName);
+    void exportFile(QString fileName);
+
+    void playAnimation();
+
 private:
+    //a kijelzőpixelek megjelenítéséhez, adatok lekéréséhez és módosításához
     PixelScene *scene;
 
+    //az animációk és az aktív animáció
     QList<Animation*> animations;
     Animation *activeAnimation;
 
+    //az elsődleges és a másodlagos szín
     QColor primaryColor, secondaryColor;
 
+    //export és import névlista
     QStringList nameList;
 
+    //kép- és videókonvertáló eszköz
     ImageConverterTool *imageconverter;
     VideoConverterTool *videoconverter;
+
+    //export és import eszköz
+    ExportTool *exporter;
+    ImportTool *importer;
+
+    //animáció lejátszásához szükséges eszköz
+    PlayTool* playTool;
 };
 
 #endif // CONTROLLER_H

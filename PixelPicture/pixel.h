@@ -17,10 +17,14 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     ~Pixel();
 
+    //kitöltéshez használt ecset
     QBrush* brush;
+    //a pixel elhelyezkedése a scene-en
     QRect rect;
+    //a pixelhez tartozó ablak
     Window* window;
 
+    //a pixel indexe
     int index;
 };
 

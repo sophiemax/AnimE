@@ -18,9 +18,12 @@ public:
     void reset();
 
 private:
+    //módosítások lekommunikálásához
     Controller *controller;
+    //a lejátszást végrehajtó player
     QMediaPlayer *player;
 
+    //a videó eddigi hossza
     float videosum = 0.0;
 };
 

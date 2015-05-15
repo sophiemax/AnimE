@@ -1,9 +1,9 @@
 #ifndef ELLIPSETOOL_H
 #define ELLIPSETOOL_H
 
-#include "tool.h"
+#include "painttool.h"
 
-class EllipseTool : public Tool
+class EllipseTool : public PaintTool
 {
     Q_OBJECT
 

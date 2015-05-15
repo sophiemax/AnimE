@@ -446,10 +446,12 @@ bool Layer::isinLastRow(int index)
 //kiszámolja az eredeti kijelzőindexből az aktuális layerindexet (a képernyő indexének megfelelő pixel indexét)
 int Layer::calculateCurrentIndex(int originalIndex)
 {
+    QTextStream(stdout) << "bla: " << originalIndex << endl;
     int originalrowofindex = originalIndex / originalnumberofcolumns;
     int originalcolumnofindex = originalIndex - originalrowofindex * originalnumberofcolumns;
 
     int index = startindex + originalrowofindex*numberofcolumns + originalcolumnofindex;
+    QTextStream(stdout) << index << endl;
     return index;
 }
 

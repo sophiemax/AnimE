@@ -1,8 +1,11 @@
 #include "pixelscene.h"
+#include <QTextStream>
 
 PixelScene::PixelScene(QObject *parent) :
     QGraphicsScene(parent)
 {
+    for(int i = 0; i < windowYNumber*windowXNumber*windowHeight*windowWidth; i++)
+        pixels.append(new Pixel());
     for(int i = 0; i < windowYNumber; i++)
     {
         for(int j = 0; j < windowXNumber; j++)
@@ -12,18 +15,25 @@ PixelScene::PixelScene(QObject *parent) :
             {
                 for(int l = 0; l < windowWidth; l++)
                 {
-                    Pixel *p = new Pixel();
                     int x1 = j*windowWidth*pixelSize + j*gapWidth + l*pixelSize;
                     int x2 = j*windowWidth*pixelSize + j*gapWidth + (l+1)*pixelSize;
                     int y1 = i*windowHeight*pixelSize + i*gapHeight + k*pixelSize;
                     int y2 = i*windowHeight*pixelSize + i*gapHeight + (k+1)*pixelSize;
-                    p->rect.adjust(x1,y1,x2,y2);
-                    addItem(p);
-                    p->window = w;
+
                     int index = i*windowWidth*windowHeight*windowXNumber + j*windowWidth + k*windowWidth*windowXNumber + l;
+                    pixels[index]->rect.adjust(x1,y1,x2,y2);
+                    pixels[index]->window = w;
+                    pixels[index]->index = index;
                     w->indexes.append(index);
-                    p->index = index;
-                    pixels.insert(index,p);
+                    addItem(pixels[index]);
+                    if(index==96)
+                    {
+                        QTextStream(stdout) << index << ":" << endl;
+                        QTextStream(stdout) << x1 << endl;
+                        QTextStream(stdout) << x2 << endl;
+                        QTextStream(stdout) << y1 << endl;
+                        QTextStream(stdout) << y2 << endl;
+                    }
                 }
             }
             windows.append(w);
@@ -33,6 +43,10 @@ PixelScene::PixelScene(QObject *parent) :
     onlypixelsheight = pixelSize * windowHeight * windowYNumber;
     width = onlypixelswidth + gapWidth * (windowXNumber-1);
     height = onlypixelsheight + gapHeight * (windowYNumber-1);
+
+    QTextStream(stdout) << "96-os index:" << endl;
+    QTextStream(stdout) << pixels[96]->rect.x() << endl;
+    QTextStream(stdout) << pixels[96]->rect.y() << endl;
 }
 
 PixelScene::~PixelScene()
@@ -43,12 +57,12 @@ PixelScene::~PixelScene()
         delete windows.takeFirst();
 }
 
-int PixelScene::pixelsinaRow()
+int PixelScene::originalnumberofcolumns()
 {
     return windowXNumber*windowWidth;
 }
 
-int PixelScene::pixelsinaColumn()
+int PixelScene::originalnumberofrows()
 {
     return windowYNumber*windowHeight;
 }
@@ -60,21 +74,24 @@ int PixelScene::numberofPixels()
 
 void PixelScene::mousePressEvent(QGraphicsSceneMouseEvent *e)
 {
-    activeTool->mousePressEvent(e);
+    activePaintTool->mousePressEvent(e);
 }
 
 void PixelScene::mouseMoveEvent(QGraphicsSceneMouseEvent *e)
 {
-    activeTool->mouseMoveEvent(e);
+    activePaintTool->mouseMoveEvent(e);
 }
 
 void PixelScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *e)
 {
-    activeTool->mouseReleaseEvent(e);
+    activePaintTool->mouseReleaseEvent(e);
 }
 
 void PixelScene::updatePixel(int index, bool clear, QColor color)
 {
+    QTextStream(stdout) << index << endl;
+    QTextStream(stdout) << pixels[index]->rect.x() << endl;
+    QTextStream(stdout) << pixels[index]->rect.y() << endl;
     if(clear)
         pixels[index]->brush->setColor(Qt::black);
     else
@@ -127,9 +144,9 @@ int PixelScene::getOnlyPixelsHeight()
     return onlypixelsheight;
 }
 
-void PixelScene::setActiveTool(Tool *tool)
+void PixelScene::setActivePaintTool(PaintTool *tool)
 {
-    activeTool = tool;
+    activePaintTool = tool;
 }
 
 int PixelScene::pixelUnderMouse()
@@ -181,12 +198,12 @@ QRect PixelScene::getPixelRect(int index)
     return pixels[index]->rect;
 }
 
-void PixelScene::setpixelsinarow()
+void PixelScene::setoriginalnumberofcolumns()
 {
 
 }
 
-void PixelScene::setpixelsinacolumn()
+void PixelScene::setoriginalnumberofrows()
 {
 
 }

@@ -11,10 +11,12 @@ public:
     LayerPixel(LayerPixel *lp);
     ~LayerPixel();
 
+    //pixel átlátszósága
     bool clear = true;
+    //pixel színe
     QColor color;
+    //pixel indexe
     int index;
-    //QRect rect;
 };
 
 #endif // LAYERPIXEL_H

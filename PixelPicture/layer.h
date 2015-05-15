@@ -60,13 +60,21 @@ public:
     void addLayerPixels(QString data);
 
 private:
-    bool transparent = false;
-    QList<LayerPixel*> pixels;
 
+    //a layer oszlopainak és sorainak száma
     int numberofcolumns, numberofrows;
+    //a kijelző oszlopainak és sorainak száma
     int originalnumberofcolumns, originalnumberofrows;
+    //layerpixel indexe, ahol a kijelző kezdődik
     int startindex;
 
+    //a layer átlátszósága
+    bool transparent = false;
+
+    //a layerhez tartozó pixelek
+    QList<LayerPixel*> pixels;
+
+    //a layer neve
     QString name;
 };
 

@@ -80,10 +80,16 @@ public:
 
 private:
 
+    //a frame időtartama
+    float timespan = 1000.0;
+
+    //a kijelző oszlopainak és sorainak száma
+    int originalnumberofcolumns, originalnumberofrows;
+
+    //a frame-hez tartozó canvas
     Canvas *canvas;
 
-    float timespan = 1000.0;
-    int pixelsinarow, pixelsinacolumn;
+    //frame neve
     QString name;
 };
 

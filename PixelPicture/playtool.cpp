@@ -1,27 +1,27 @@
-#include "animationtool.h"
+#include "playtool.h"
 #include <QElapsedTimer>
 
-AnimationTool::AnimationTool(Controller* c)
+PlayTool::PlayTool(Controller* c)
 {
     controller = c;
-    connect(&timer, &QTimer::timeout, this, &AnimationTool::updateScene);
-    connect(&timer, &QTimer::timeout, this, &AnimationTool::updateSlider);
+    connect(&timer, &QTimer::timeout, this, &PlayTool::updateScene);
+    connect(&timer, &QTimer::timeout, this, &PlayTool::updateSlider);
     timer.setSingleShot(true);
 }
 
-AnimationTool::~AnimationTool()
+PlayTool::~PlayTool()
 {
 
 }
 
-void AnimationTool::play()
+void PlayTool::play()
 {
     i = 0;
     timesum = 0.0;
     updateScene();
 }
 
-void AnimationTool::updateScene()
+void PlayTool::updateScene()
 {
     if (i < controller->numberofFrames())
     {
@@ -32,7 +32,7 @@ void AnimationTool::updateScene()
     }
 }
 
-void AnimationTool::updateSlider()
+void PlayTool::updateSlider()
 {
     emit positionChanged(timesum);
 }

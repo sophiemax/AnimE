@@ -10,18 +10,24 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QIcon *icon = new QIcon("C:/Users/Picimaci/Documents/ImportingPicture/palinkaVSviz.jpg");
+    QIcon *icon = new QIcon(":/icon/icons/Anime_ikon.png");
 
     setWindowTitle("AnimE");
     setWindowIcon(*icon);
 
     scene = new PixelScene(this);
     ui->graphicsView->setScene(scene);
-    setCentralWidget(ui->graphicsView);
+    //setCentralWidget(ui->graphicsView);
+    //QBrush brush(Qt::black);
+    //scene->setBackgroundBrush(brush);
 
     controller = new Controller(scene);
-    exporter = new ExportTool(controller);
-    importer = new ImportTool(controller);
+
+    activeAction = ui->actionPen;
+    activeAction->setChecked(true);
+
+    settings = new ImportSettings(this);
+    settings->converter = controller->getImageConverter();
 
     pen = new PenTool(this);
     line = new LineTool(this);
@@ -30,9 +36,6 @@ MainWindow::MainWindow(QWidget *parent) :
     eraser = new EraserTool(this);
     fill = new FillTool(this);
 
-    activeAction = ui->actionPen;
-    activeAction->setChecked(true);
-
     pen->setController(controller);
     line->setController(controller);
     rectangle->setController(controller);
@@ -40,21 +43,16 @@ MainWindow::MainWindow(QWidget *parent) :
     eraser->setController(controller);
     fill->setController(controller);
 
-    scene->activeTool = pen;
-
-    settings = new ImportSettings(this);
-    settings->converter = controller->getImageConverter();
+    scene->setActivePaintTool(pen);
 
     renamelayer = new RenameLayer(this);
-
-    animationtool = new AnimationTool(controller);
 
     createLayerDisplay();
 
     connect(renamelayer, &RenameLayer::accepted, this, &MainWindow::changeName);
     connect(renamelayer, &RenameLayer::rejected, this, &MainWindow::leaveName);
 
-    //connect(animationtool, &AnimationTool::positionChanged, this, &MainWindow::animationSliderUpdate);
+    //connect(animationtool, &AnimationPaintTool::positionChanged, this, &MainWindow::animationSliderUpdate);
 
 }
 
@@ -64,17 +62,16 @@ MainWindow::~MainWindow()
     delete settings;
     delete renamelayer;
     delete scroll;
+    delete scene;
+
     delete pen;
     delete line;
     delete rectangle;
     delete ellipse;
     delete eraser;
     delete fill;
-    delete animationtool;
-    delete scene;
+
     delete controller;
-    delete exporter;
-    delete importer;
 }
 
 void MainWindow::createLayerDisplay()
@@ -208,11 +205,6 @@ void MainWindow::animationSliderUpdate(int time)
 void MainWindow::on_clearLayerButton_clicked()
 {
     controller->clearLayer();
-}
-
-void MainWindow::on_playButton_clicked()
-{
-    animationtool->play();
 }
 
 void MainWindow::on_renameButton_clicked()
@@ -454,39 +446,6 @@ void MainWindow::on_moveFrameRightButton_clicked()
     controller->moveFrameRight();
 }
 
-/*void MainWindow::on_exportButton_clicked()
-{
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Open Image"), QString(),
-                tr("Text(*.txt)"));
-    exporter->exportFile(fileName);
-}*/
-
-/*void MainWindow::on_importButton_clicked()
-{
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), QString(),
-                tr("Text Files (*.txt);;C++ Files (*.cpp *.h)"));
-
-    if (!fileName.isEmpty()) {
-        QFile file(fileName);
-        if (!file.open(QIODevice::ReadOnly)) {
-            QMessageBox::critical(this, tr("Error"), tr("Could not open file"));
-            return;
-        }
-        QTextStream(stdout) << "x0" << endl;
-        importer->importFile(fileName);
-        QTextStream(stdout) << "x1" << endl;
-        controller->setDefaultActives();
-        QTextStream(stdout) << "x2" << endl;
-        controller->updateCombinedLayers();
-        QTextStream(stdout) << "x3" << endl;
-        controller->updateScene();
-        QTextStream(stdout) << "x4" << endl;
-        updateLayerDisplay();
-        QTextStream(stdout) << "x5" << endl;
-        file.close();
-    }
-}*/
-
 void MainWindow::on_actionOpen_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), QString(),
@@ -498,10 +457,7 @@ void MainWindow::on_actionOpen_triggered()
             QMessageBox::critical(this, tr("Error"), tr("Could not open file"));
             return;
         }
-        importer->importFile(fileName);
-        controller->setDefaultActives();
-        controller->updateCombinedLayers();
-        controller->updateScene();
+        controller->importFile(fileName);
         updateLayerDisplay();
         file.close();
     }
@@ -511,7 +467,7 @@ void MainWindow::on_actionSaveAs_triggered()
 {
     QString fileName = QFileDialog::getSaveFileName(this, tr("Open Image"), QString(),
                 tr("Text(*.txt)"));
-    exporter->exportFile(fileName);
+    controller->exportFile(fileName);
 }
 
 void MainWindow::on_actionPen_triggered()
@@ -519,7 +475,7 @@ void MainWindow::on_actionPen_triggered()
     activeAction->setChecked(false);
     activeAction = ui->actionPen;
     activeAction->setChecked(true);
-    controller->setActiveTool(pen);
+    controller->setActivePaintTool(pen); //pen
 }
 
 void MainWindow::on_actionEraser_triggered()
@@ -527,7 +483,7 @@ void MainWindow::on_actionEraser_triggered()
     activeAction->setChecked(false);
     activeAction = ui->actionEraser;
     activeAction->setChecked(true);
-    controller->setActiveTool(eraser);
+    controller->setActivePaintTool(eraser); //eraser
 }
 
 void MainWindow::on_actionLine_triggered()
@@ -535,7 +491,7 @@ void MainWindow::on_actionLine_triggered()
     activeAction->setChecked(false);
     activeAction = ui->actionLine;
     activeAction->setChecked(true);
-    controller->setActiveTool(line);
+    controller->setActivePaintTool(line); //line
 }
 
 void MainWindow::on_actionRectangle_triggered()
@@ -543,7 +499,7 @@ void MainWindow::on_actionRectangle_triggered()
     activeAction->setChecked(false);
     activeAction = ui->actionRectangle;
     activeAction->setChecked(true);
-    controller->setActiveTool(rectangle);
+    controller->setActivePaintTool(rectangle); //rectangle
 }
 
 void MainWindow::on_actionEllipse_triggered()
@@ -551,7 +507,7 @@ void MainWindow::on_actionEllipse_triggered()
     activeAction->setChecked(false);
     activeAction = ui->actionEllipse;
     activeAction->setChecked(true);
-    controller->setActiveTool(ellipse);
+    controller->setActivePaintTool(ellipse); //ellipse
 }
 
 void MainWindow::on_actionFill_triggered()
@@ -559,7 +515,7 @@ void MainWindow::on_actionFill_triggered()
     activeAction->setChecked(false);
     activeAction = ui->actionFill;
     activeAction->setChecked(true);
-    controller->setActiveTool(fill);
+    controller->setActivePaintTool(fill); //fill
 }
 
 void MainWindow::on_actionImport_Picture_triggered()
@@ -608,4 +564,9 @@ void MainWindow::on_actionCopy_Frame_triggered()
 {
     controller->copyFrame();
     on_animationSlider_valueChanged(controller->getCurrentTime()/controller->getTimesum() * 100);
+}
+
+void MainWindow::on_actionPlay_triggered()
+{
+    controller->playAnimation ();
 }

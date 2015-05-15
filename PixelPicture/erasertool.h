@@ -1,9 +1,9 @@
 #ifndef ERASERTOOL_H
 #define ERASERTOOL_H
 
-#include "tool.h"
+#include "painttool.h"
 
-class EraserTool : public Tool
+class EraserTool : public PaintTool
 {
     Q_OBJECT
 

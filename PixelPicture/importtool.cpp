@@ -36,15 +36,15 @@ void ImportTool::importFile(QString fileName)
             QString element;
             switch(names.indexOf(name))
             {
-                case 0: //pixelsinacolumn
+                case 0: //originalnumberofrows
                     QTextStream(stdout) << name << endl;
                     element = xml.readElementText();
-                    controller->setpixelsinacolumn(element.toInt());
+                    controller->setoriginalnumberofrows(element.toInt());
                     break;
-                case 1: //pixelsinarow
+                case 1: //originalnumberofcolumns
                     QTextStream(stdout) << name << endl;
                     element = xml.readElementText();
-                    controller->setpixelsinarow(element.toInt());
+                    controller->setoriginalnumberofcolumns(element.toInt());
                     break;
                 case 2: //animation
                     QTextStream(stdout) << name << endl;

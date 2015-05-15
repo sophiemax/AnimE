@@ -3,6 +3,8 @@
 
 #include "controller.h"
 
+class Controller;
+
 class ImportTool
 {
 public:
@@ -11,6 +13,7 @@ public:
 
     void importFile(QString fileName);
 private:
+    //módosítások lekommunikálásához
     Controller *controller;
 };
 

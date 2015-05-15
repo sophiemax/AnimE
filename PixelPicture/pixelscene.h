@@ -5,9 +5,9 @@
 #include <QtGui>
 #include "pixel.h"
 #include "window.h"
-#include "tool.h"
+#include "painttool.h"
 
-class Tool;
+class PaintTool;
 
 class PixelScene : public QGraphicsScene
 {
@@ -18,11 +18,8 @@ public:
     ~PixelScene();
     void destruct();
 
-    bool windowToggled = false;
-    Tool *activeTool;
-
-    int pixelsinaRow();
-    int pixelsinaColumn();
+    int originalnumberofcolumns();
+    int originalnumberofrows();
     int numberofPixels();
 
     void mousePressEvent(QGraphicsSceneMouseEvent *e);
@@ -42,31 +39,37 @@ public:
     int getOnlyPixelsWidth();
     int getHeight();
     int getOnlyPixelsHeight();
-    void setActiveTool(Tool* tool);
+    void setActivePaintTool(PaintTool* tool);
 
     int pixelUnderMouse();
     int containsPoint(float x, float y);
     int nearestPixel(float x, float y);
     QRect nearestPixelRect(float x, float y);
-    QRect getPixelRect(int index);
+    QRect getPixelRect(int index);    
 
-    int width, height, onlypixelswidth, onlypixelsheight;
-
-    QList<Pixel*> pixels;
-
-    int pixelSize = 5;
-
-    void setpixelsinarow();
-    void setpixelsinacolumn();
-    //int fps = 40;
-    //float interval = 1000.0 / fps;
-    //float timesum = 1000.0;
+    void setoriginalnumberofcolumns();
+    void setoriginalnumberofrows();
 
 private:
 
+    //kijelzőpixelméret pixelben megadva
+    int pixelSize = 3;
+    //az ablakok közötti lyukak pixelben megadva
     int gapWidth = 5, gapHeight = 15;
-    int windowWidth = 2, windowHeight = 2, windowXNumber = 16, windowYNumber = 13;
+    //az ablak szélessége és magassága kijelzőpixelben megadva
+    int windowWidth = 3, windowHeight = 3;
+    //az ablakok száma vízszintesen és fü;ggőlegesen
+    int windowXNumber = 16, windowYNumber = 13;
+    //a kijelző szélessége és magassága pixelben (lyukakkal, és anélkül)
+    int width, height, onlypixelswidth, onlypixelsheight;
 
+    //ablak, vagy pixelszinten módosítunk
+    bool windowToggled = false;
+    //az aktív painttool
+    PaintTool *activePaintTool;
+
+    //pixelek és ablakok eltárolása
+    QList<Pixel*> pixels;
     QList<Window*> windows;
 };
 

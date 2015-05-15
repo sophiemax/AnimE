@@ -14,19 +14,15 @@
 #include "pixelscene.h"
 #include "animation.h"
 #include "pixel.h"
-#include "tool.h"
-#include "ellipsetool.h"
-#include "pentool.h"
-#include "linetool.h"
-#include "rectangletool.h"
-#include "erasertool.h"
-#include "filltool.h"
 #include "importsettings.h"
-#include "animationtool.h"
 #include "renamelayer.h"
 #include "controller.h"
-#include "exporttool.h"
-#include "importtool.h"
+#include "pentool.h"
+#include "erasertool.h"
+#include "filltool.h"
+#include "linetool.h"
+#include "rectangletool.h"
+#include "ellipsetool.h"
 
 namespace Ui {
 class MainWindow;
@@ -48,8 +44,6 @@ private slots:
     void on_secondaryColorButton_clicked();
 
     void on_clearLayerButton_clicked();
-
-    void on_playButton_clicked();
 
     void on_renameButton_clicked();
 
@@ -115,36 +109,35 @@ private slots:
 
     void on_actionCopy_Frame_triggered();
 
+    void on_actionPlay_triggered();
+
 private:
     Ui::MainWindow *ui;
     ImportSettings *settings;
     RenameLayer *renamelayer;
 
+    //a kijelző
     PixelScene *scene;
 
-    int pixelSize = 5, gapWidth = 5, gapHeight = 15;
-    int windowWidth = 2, windowHeight = 2, windowXNumber = 16, windowYNumber = 13;
-    int beginX = 0, beginY = 20;
-
+    //
     QAction *activeAction;
 
+    //a rajzoló eszközök tárolása
     PenTool *pen;
+    FillTool *fill;
     LineTool *line;
     RectangleTool *rectangle;
     EllipseTool *ellipse;
     EraserTool *eraser;
-    FillTool *fill;
-    AnimationTool* animationtool;
 
+    //módosítások lekommunikálásához
     Controller *controller;
-    ExportTool *exporter;
-    ImportTool *importer;
 
     QGridLayout *layergrid;
-    QString newname;
     QPushButton *activelayerButton;
     QScrollArea *scroll;
     QWidget *container;
+
     QList<QPushButton*> layerbuttons;
     QList<QPushButton*> transparencybuttons;
 

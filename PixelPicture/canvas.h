@@ -73,11 +73,16 @@ public:
     int getLayerSize();
 
 private:
+
+    //a kijelző oszlopainak és sorainak száma
+    int originalnumberofcolumns, originalnumberofrows;
+
+    //a frame-hez tartozó layerek és az aktív layer
     QList<Layer*> layers;
-    Layer* combinedLayer;
     Layer* activeLayer;
 
-    int pixelsinarow, pixelsinacolumn;
+    //a layerek összesítése
+    Layer* combinedLayer;
 };
 
 #endif // CANVAS_H

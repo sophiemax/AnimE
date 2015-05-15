@@ -30,6 +30,7 @@
         <file>icons/Clear-32.png</file>
         <file>icons/Picture-32.png</file>
         <file>icons/Settings-32.png</file>
+        <file>icons/Anime_ikon.png</file>
     </qresource>
     <qresource prefix="/">
         <file>icons/Copy-32.png</file>

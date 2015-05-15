@@ -47,8 +47,10 @@ public:
     bool blackisclear = false;
 
 private:
-    Controller *controller;
+    //pixelméret, kijelző szélessége és magassága
     int size, x, y;
+    //módosítások kommunikálásához
+    Controller *controller;
 };
 
 #endif // IMAGECONVERTERTOOL_H

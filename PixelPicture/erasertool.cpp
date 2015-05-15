@@ -1,7 +1,7 @@
 #include "erasertool.h"
 
 EraserTool::EraserTool(QObject *parent) :
-    Tool(parent)
+    PaintTool(parent)
 {
 
 }

@@ -14,6 +14,7 @@ public:
     Window();
     ~Window();
 
+    //az ablakhoz tartozó pixelek indexei
     QList<int> indexes;
 };
 

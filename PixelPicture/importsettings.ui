@@ -11,9 +11,9 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Import Settings</string>
   </property>
-  <widget class="QGroupBox" name="holes">
+  <widget class="QGroupBox" name="area">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="title">
-    <string>Holes</string>
+    <string>Area</string>
    </property>
    <widget class="QRadioButton" name="onlypixels">
     <property name="geometry">
@@ -46,16 +46,16 @@
      <rect>
       <x>10</x>
       <y>40</y>
-      <width>81</width>
+      <width>91</width>
       <height>17</height>
      </rect>
     </property>
     <property name="text">
-     <string>Whole image</string>
+     <string>Whole display</string>
     </property>
    </widget>
   </widget>
-  <widget class="QGroupBox" name="colorconverting">
+  <widget class="QGroupBox" name="color">
    <property name="geometry">
     <rect>
      <x>170</x>
@@ -133,7 +133,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Black = clear</string>
+    <string>Black is transparent</string>
    </property>
   </widget>
  </widget>

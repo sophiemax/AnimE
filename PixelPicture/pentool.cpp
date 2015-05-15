@@ -1,7 +1,7 @@
 #include "pentool.h"
 
 PenTool::PenTool(QObject *parent) :
-    Tool(parent)
+    PaintTool(parent)
 {
 
 }

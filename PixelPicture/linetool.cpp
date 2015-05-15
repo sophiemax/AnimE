@@ -1,7 +1,7 @@
 #include "linetool.h"
 
 LineTool::LineTool(QObject *parent) :
-    Tool(parent)
+    PaintTool(parent)
 {
 
 }
@@ -24,13 +24,14 @@ void LineTool::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 void LineTool::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     endPoint = event->scenePos();
-    drawPixelLine();
+    if(startPoint != endPoint)
+        drawPixelLine();
 }
 
 void LineTool::drawPixelLine()
 {
-    drawFillablePixelLine();
-    //drawAccuratePixelLine();
+    //drawFillablePixelLine();
+    drawAccuratePixelLine();
 }
 
 void LineTool::drawFillablePixelLine()
@@ -44,13 +45,13 @@ void LineTool::drawFillablePixelLine()
     int endIndex = controller->containsPoint(end.x(),end.y());
 
 
-    int startX = startIndex % (controller->pixelsinaRow());
-    int startY = startIndex / (controller->pixelsinaRow());
-    int endX = endIndex % (controller->pixelsinaRow());
-    int endY = endIndex / (controller->pixelsinaRow());
+    int startX = startIndex % (controller->originalnumberofcolumns());
+    int startY = startIndex / (controller->originalnumberofcolumns());
+    int endX = endIndex % (controller->originalnumberofcolumns());
+    int endY = endIndex / (controller->originalnumberofcolumns());
 
 
-    QTextStream(stdout) << "Batman: "<< startIndex<< " % "<< (controller->pixelsinaRow()) << " = " << startX << endl;
+    QTextStream(stdout) << "Batman: "<< startIndex<< " % "<< (controller->originalnumberofcolumns()) << " = " << startX << endl;
 
     //Számoláshoz szükséges részeredmények:
     int deltaX = (endX-startX);
@@ -94,7 +95,7 @@ void LineTool::drawFillablePixelLine()
         int xId = x;
         int yId = y;
         //Kirajzolás.
-        int index = xId + yId * (controller->pixelsinaRow());
+        int index = xId + yId * (controller->originalnumberofcolumns());
         if(index != -1)
             controller->setColorofPixel(index);
 

@@ -2,8 +2,8 @@
 
 Canvas::Canvas(int r, int c)
 {
-    pixelsinarow = r;
-    pixelsinacolumn = c;
+    originalnumberofcolumns = r;
+    originalnumberofrows = c;
     combinedLayer = new Layer(r,c);
     combinedLayer->initialize();
 }
@@ -12,10 +12,10 @@ Canvas::Canvas(Canvas *c, int r, int col)
 {
     int  numberoflayers = c->numberofLayers();
 
-    pixelsinarow = r;
-    pixelsinacolumn = col;
+    originalnumberofcolumns = r;
+    originalnumberofrows = col;
 
-    combinedLayer = new Layer(pixelsinarow,pixelsinacolumn);
+    combinedLayer = new Layer(originalnumberofcolumns,originalnumberofrows);
     combinedLayer->initialize();
 
     for(int i = 0; i < numberoflayers; i++)
@@ -196,8 +196,7 @@ void Canvas::removeActiveLayer()
 
 void Canvas::addLayer(int index)
 {
-    QTextStream(stdout) << index << endl;
-    Layer *l = new Layer(pixelsinarow, pixelsinacolumn);
+    Layer *l = new Layer(originalnumberofcolumns, originalnumberofrows);
     activeLayer = l;
     layers.insert(index,l);
 }
@@ -223,7 +222,7 @@ int Canvas::getActive()
 
 void Canvas::initialize()
 {
-    Layer* l = new Layer(pixelsinarow,pixelsinacolumn);
+    Layer* l = new Layer(originalnumberofcolumns,originalnumberofrows);
     activeLayer = l;
     l->setName("Layer0");
     layers.append(l);
@@ -273,12 +272,13 @@ int Canvas::getLayerSize()
 
 void Canvas::updateCombined()
 {
-    for(int index = 0; index < pixelsinarow * pixelsinacolumn; index++)
+    for(int index = 0; index < originalnumberofcolumns * originalnumberofrows; index++)
         updateCombinedLayer(index);
 }
 
 void Canvas::updateCombinedLayer(int index)
 {
+    QTextStream(stdout) << index << endl;
     if(!activeLayer->isPixelClear(index) && !activeLayer->getTransparency())
     {
         combinedLayer->setColorofPixel(index,activeLayer->getColorofPixel(index));

@@ -2,8 +2,8 @@
 
 Animation::Animation(int r, int c)
 {
-    pixelsinarow = r;
-    pixelsinacolumn = c;
+    originalnumberofcolumns = r;
+    originalnumberofrows = c;
 
     name = "Animation0";
 }
@@ -203,7 +203,7 @@ void Animation::addFrame()
 {
     int index = frames.indexOf(activeFrame);
 
-    Frame* f = new Frame(pixelsinarow,pixelsinacolumn);
+    Frame* f = new Frame(originalnumberofcolumns,originalnumberofrows);
 
     frames.insert(index + 1, f);
     activeFrame = f;
@@ -215,7 +215,7 @@ void Animation::addFrame(int t)
 {
     int index = frames.indexOf(activeFrame);
 
-    Frame* f = new Frame(pixelsinarow, pixelsinacolumn);
+    Frame* f = new Frame(originalnumberofcolumns, originalnumberofrows);
     f->setTimespan(t);
 
     frames.insert(index + 1, f);
@@ -226,7 +226,7 @@ void Animation::addFrame(int t)
 
 void Animation::addFrameIndexed(int index)
 {
-    Frame* f = new Frame(pixelsinarow, pixelsinacolumn);
+    Frame* f = new Frame(originalnumberofcolumns, originalnumberofrows);
     frames.insert(index,f);
 }
 
@@ -234,7 +234,7 @@ void Animation::copyFrame()
 {
     int index = frames.indexOf(activeFrame);
 
-    Frame *f = new Frame(activeFrame, pixelsinarow, pixelsinacolumn);
+    Frame *f = new Frame(activeFrame, originalnumberofcolumns, originalnumberofrows);
     frames.insert(index+1,f);
     QString name = activeFrame->getName();
     name.prepend("Copy of ");
@@ -320,7 +320,7 @@ void Animation::clearLayer()
 
 void Animation::initialize()
 {
-    Frame* f = new Frame(pixelsinarow,pixelsinacolumn);
+    Frame* f = new Frame(originalnumberofcolumns,originalnumberofrows);
     frames.append(f);
     timesum += f->getTimespan();
     activeFrame = f;

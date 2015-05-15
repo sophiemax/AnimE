@@ -1,9 +1,9 @@
 #ifndef FILLTOOL_H
 #define FILLTOOL_H
 
-#include "tool.h"
+#include "painttool.h"
 
-class FillTool : public Tool
+class FillTool : public PaintTool
 {
     Q_OBJECT
 
@@ -14,12 +14,11 @@ public:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
-    QColor color;
-
 private:
     void fill(int index);
 
-    Pixel *start;
+    //kezdőszín eltárolásához
+    QColor color;
 };
 
 #endif // FILLTOOL_H

@@ -40,9 +40,9 @@
    <widget class="QRadioButton" name="windowToggle">
     <property name="geometry">
      <rect>
-      <x>520</x>
+      <x>570</x>
       <y>10</y>
-      <width>71</width>
+      <width>41</width>
       <height>17</height>
      </rect>
     </property>
@@ -77,9 +77,9 @@
    <widget class="QPushButton" name="clearLayerButton">
     <property name="geometry">
      <rect>
-      <x>512</x>
-      <y>440</y>
-      <width>151</width>
+      <x>510</x>
+      <y>426</y>
+      <width>165</width>
       <height>23</height>
      </rect>
     </property>
@@ -98,23 +98,6 @@
       <width>16</width>
       <height>16</height>
      </size>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="playButton">
-    <property name="geometry">
-     <rect>
-      <x>520</x>
-      <y>40</y>
-      <width>31</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset resource="uiresources.qrc">
-      <normaloff>:/icon/icons/Play-32.png</normaloff>:/icon/icons/Play-32.png</iconset>
     </property>
    </widget>
    <widget class="QSlider" name="animationSlider">
@@ -162,7 +145,7 @@
      <rect>
       <x>510</x>
       <y>380</y>
-      <width>51</width>
+      <width>55</width>
       <height>23</height>
      </rect>
     </property>
@@ -180,9 +163,9 @@
    <widget class="QPushButton" name="removeButton">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>565</x>
       <y>380</y>
-      <width>51</width>
+      <width>55</width>
       <height>23</height>
      </rect>
     </property>
@@ -200,9 +183,9 @@
    <widget class="QPushButton" name="renameButton">
     <property name="geometry">
      <rect>
-      <x>610</x>
+      <x>620</x>
       <y>380</y>
-      <width>51</width>
+      <width>55</width>
       <height>23</height>
      </rect>
     </property>
@@ -221,8 +204,8 @@
     <property name="geometry">
      <rect>
       <x>510</x>
-      <y>410</y>
-      <width>81</width>
+      <y>403</y>
+      <width>82</width>
       <height>23</height>
      </rect>
     </property>
@@ -240,9 +223,9 @@
    <widget class="QPushButton" name="movelayerdownButton">
     <property name="geometry">
      <rect>
-      <x>590</x>
-      <y>410</y>
-      <width>75</width>
+      <x>593</x>
+      <y>403</y>
+      <width>82</width>
       <height>23</height>
      </rect>
     </property>
@@ -260,7 +243,7 @@
    <widget class="QPushButton" name="moveLeftButton">
     <property name="geometry">
      <rect>
-      <x>580</x>
+      <x>550</x>
       <y>100</y>
       <width>31</width>
       <height>23</height>
@@ -280,7 +263,7 @@
    <widget class="QPushButton" name="moveUpButton">
     <property name="geometry">
      <rect>
-      <x>610</x>
+      <x>580</x>
       <y>80</y>
       <width>21</width>
       <height>23</height>
@@ -300,7 +283,7 @@
    <widget class="QPushButton" name="moveDownButton">
     <property name="geometry">
      <rect>
-      <x>610</x>
+      <x>580</x>
       <y>120</y>
       <width>21</width>
       <height>23</height>
@@ -320,7 +303,7 @@
    <widget class="QPushButton" name="moveRightButton">
     <property name="geometry">
      <rect>
-      <x>630</x>
+      <x>600</x>
       <y>100</y>
       <width>31</width>
       <height>23</height>
@@ -340,7 +323,7 @@
    <widget class="QPushButton" name="moveFrameLeftButton">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>530</x>
       <y>100</y>
       <width>20</width>
       <height>23</height>
@@ -353,7 +336,7 @@
    <widget class="QPushButton" name="moveFrameRightButton">
     <property name="geometry">
      <rect>
-      <x>660</x>
+      <x>630</x>
       <y>100</y>
       <width>21</width>
       <height>23</height>
@@ -366,7 +349,7 @@
    <widget class="QPushButton" name="moveFrameUpButton">
     <property name="geometry">
      <rect>
-      <x>610</x>
+      <x>580</x>
       <y>60</y>
       <width>21</width>
       <height>23</height>
@@ -379,7 +362,7 @@
    <widget class="QPushButton" name="moveFrameDownButton">
     <property name="geometry">
      <rect>
-      <x>610</x>
+      <x>580</x>
       <y>140</y>
       <width>21</width>
       <height>23</height>
@@ -408,16 +391,16 @@
     <addaction name="actionSave"/>
     <addaction name="actionSaveAs"/>
    </widget>
-   <widget class="QMenu" name="menuSelect_Tool">
+   <widget class="QMenu" name="menuSelect_PaintTool">
     <property name="title">
-     <string>Select Tool</string>
+     <string>Select PaintTool</string>
     </property>
     <addaction name="actionPen"/>
     <addaction name="actionEraser"/>
+    <addaction name="actionFill"/>
     <addaction name="actionLine"/>
     <addaction name="actionRectangle"/>
     <addaction name="actionEllipse"/>
-    <addaction name="actionFill"/>
    </widget>
    <widget class="QMenu" name="menuImport">
     <property name="title">
@@ -434,10 +417,17 @@
     <addaction name="actionNew_Frame"/>
     <addaction name="actionCopy_Frame"/>
    </widget>
+   <widget class="QMenu" name="menuAnimation">
+    <property name="title">
+     <string>Animation</string>
+    </property>
+    <addaction name="actionPlay"/>
+   </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuSelect_Tool"/>
+   <addaction name="menuSelect_PaintTool"/>
    <addaction name="menuImport"/>
    <addaction name="menuFrame"/>
+   <addaction name="menuAnimation"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <property name="movable">
@@ -459,10 +449,10 @@
    <addaction name="separator"/>
    <addaction name="actionPen"/>
    <addaction name="actionEraser"/>
+   <addaction name="actionFill"/>
    <addaction name="actionLine"/>
    <addaction name="actionRectangle"/>
    <addaction name="actionEllipse"/>
-   <addaction name="actionFill"/>
    <addaction name="separator"/>
    <addaction name="actionImport_Picture"/>
    <addaction name="actionImport_video"/>
@@ -470,6 +460,8 @@
    <addaction name="separator"/>
    <addaction name="actionNew_Frame"/>
    <addaction name="actionCopy_Frame"/>
+   <addaction name="separator"/>
+   <addaction name="actionPlay"/>
    <addaction name="separator"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -624,6 +616,15 @@
    </property>
    <property name="text">
     <string>Copy Frame</string>
+   </property>
+  </action>
+  <action name="actionPlay">
+   <property name="icon">
+    <iconset resource="uiresources.qrc">
+     <normaloff>:/icon/icons/Play-32.png</normaloff>:/icon/icons/Play-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Play</string>
    </property>
   </action>
  </widget>

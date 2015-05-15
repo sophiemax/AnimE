@@ -1,9 +1,9 @@
 #ifndef PENTOOL_H
 #define PENTOOL_H
 
-#include "tool.h"
+#include "painttool.h"
 
-class PenTool : public Tool
+class PenTool : public PaintTool
 {
     Q_OBJECT
 

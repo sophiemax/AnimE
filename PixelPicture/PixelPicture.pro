@@ -15,7 +15,6 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     pixel.cpp \
     window.cpp \
-    tool.cpp \
     ellipsetool.cpp \
     pentool.cpp \
     pixelscene.cpp \
@@ -25,7 +24,6 @@ SOURCES += main.cpp\
     layerpixel.cpp \
     frame.cpp \
     importsettings.cpp \
-    animationtool.cpp \
     imageconvertertool.cpp \
     videoconvertertool.cpp \
     videosurface.cpp \
@@ -36,12 +34,13 @@ SOURCES += main.cpp\
     animation.cpp \
     controller.cpp \
     exporttool.cpp \
-    importtool.cpp
+    importtool.cpp \
+    playtool.cpp \
+    painttool.cpp
 
 HEADERS  += mainwindow.h \
     pixel.h \
     window.h \
-    tool.h \
     ellipsetool.h \
     pentool.h \
     pixelscene.h \
@@ -51,7 +50,6 @@ HEADERS  += mainwindow.h \
     layerpixel.h \
     frame.h \
     importsettings.h \
-    animationtool.h \
     imageconvertertool.h \
     videoconvertertool.h \
     videosurface.h \
@@ -62,7 +60,9 @@ HEADERS  += mainwindow.h \
     animation.h \
     controller.h \
     exporttool.h \
-    importtool.h
+    importtool.h \
+    playtool.h \
+    painttool.h
 
 FORMS    += mainwindow.ui \
     importsettings.ui \

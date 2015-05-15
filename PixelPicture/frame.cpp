@@ -2,8 +2,8 @@
 
 Frame::Frame(int r, int c)
 {
-    pixelsinarow = r;
-    pixelsinacolumn = c;
+    originalnumberofcolumns = r;
+    originalnumberofrows = c;
     name = "Frame";
 }
 
@@ -74,7 +74,7 @@ void Frame::addLayer(int index)
 
 void Frame::addCanvas()
 {
-    canvas = new Canvas(pixelsinarow,pixelsinacolumn);
+    canvas = new Canvas(originalnumberofcolumns,originalnumberofrows);
 }
 
 void Frame::removeActiveLayer()
@@ -199,7 +199,7 @@ Canvas *Frame::getCanvas()
 
 void Frame::initialize()
 {
-    canvas = new Canvas(pixelsinarow,pixelsinacolumn);
+    canvas = new Canvas(originalnumberofcolumns,originalnumberofrows);
     initializeCanvas();
 }
 

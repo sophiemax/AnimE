@@ -4,6 +4,8 @@
 #include <QString>
 #include "controller.h"
 
+class Controller;
+
 class ExportTool
 {
 public:
@@ -12,6 +14,7 @@ public:
 
     void exportFile(QString fileName);
 private:
+    //módosítások kommunikálásához
     Controller *controller;
 };
 

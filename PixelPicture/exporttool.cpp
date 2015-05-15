@@ -23,15 +23,15 @@ void ExportTool::exportFile(QString fileName)
     QColor color;
     int counter;
 
-    int pixelsinaColumn = controller->pixelsinaColumn();
-    int pixelsinaRow = controller->pixelsinaRow();
+    int originalnumberofrows = controller->originalnumberofrows();
+    int originalnumberofcolumns = controller->originalnumberofcolumns();
 
     stream.writeStartElement("anime");
 
     QStringList names = controller->getNameList();
 
-    stream.writeTextElement(names[0], QString::number(pixelsinaColumn)); //pixelsinacolumn
-    stream.writeTextElement(names[1], QString::number(pixelsinaRow)); //pixelsinarow
+    stream.writeTextElement(names[0], QString::number(originalnumberofrows)); //originalnumberofrows
+    stream.writeTextElement(names[1], QString::number(originalnumberofcolumns)); //originalnumberofcolumns
 
     for(int animation = 0; animation < controller->numberofAnimations(); animation++)
     {
