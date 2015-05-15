@@ -26,14 +26,6 @@ PixelScene::PixelScene(QObject *parent) :
                     pixels[index]->index = index;
                     w->indexes.append(index);
                     addItem(pixels[index]);
-                    if(index==96)
-                    {
-                        QTextStream(stdout) << index << ":" << endl;
-                        QTextStream(stdout) << x1 << endl;
-                        QTextStream(stdout) << x2 << endl;
-                        QTextStream(stdout) << y1 << endl;
-                        QTextStream(stdout) << y2 << endl;
-                    }
                 }
             }
             windows.append(w);
@@ -43,10 +35,6 @@ PixelScene::PixelScene(QObject *parent) :
     onlypixelsheight = pixelSize * windowHeight * windowYNumber;
     width = onlypixelswidth + gapWidth * (windowXNumber-1);
     height = onlypixelsheight + gapHeight * (windowYNumber-1);
-
-    QTextStream(stdout) << "96-os index:" << endl;
-    QTextStream(stdout) << pixels[96]->rect.x() << endl;
-    QTextStream(stdout) << pixels[96]->rect.y() << endl;
 }
 
 PixelScene::~PixelScene()

@@ -16,6 +16,7 @@ public:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 private:
+    //téglalap rajzolását megvalósító függvény
     void drawPixelRectangle();
 };
 

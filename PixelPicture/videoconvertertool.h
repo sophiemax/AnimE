@@ -11,11 +11,15 @@ class VideoSurface;
 class VideoConverterTool
 {
 public:
+    //a videoconvertertool létrehozása a megfelelő controller pointerrel
     VideoConverterTool(Controller *c);
     ~VideoConverterTool();
 
+    //új videó esetén a szükséges változókat nullába állítja
     void reset();
+    //beállítja a kapott videót a player tartalmának
     void setMedia(QMediaContent content);
+    //elindítja a player lejátszását
     void start();
 
 private:

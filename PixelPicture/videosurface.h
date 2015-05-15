@@ -7,14 +7,18 @@
 class VideoSurface : public QAbstractVideoSurface
 {
 public:
+    //a videosurface létrehozása megfelelő controller és player pointerrel
     VideoSurface(Controller *c, QMediaPlayer *p);
     ~VideoSurface();
 
+    //megvalósítás szempontjából nem lényeges, de az interface implementálásához szükséges
     QList<QVideoFrame::PixelFormat> supportedPixelFormats(
             QAbstractVideoBuffer::HandleType handleType = QAbstractVideoBuffer::NoHandle) const;
 
+    //az aktuális frame-et kezeli
     bool present(const QVideoFrame &frame);
 
+    //új videó esetén a szükséges változókat nullába állítja
     void reset();
 
 private:

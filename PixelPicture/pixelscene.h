@@ -13,40 +13,55 @@ class PixelScene : public QGraphicsScene
 {
 
 public:
-
     PixelScene(QObject * parent = 0);
     ~PixelScene();
-    void destruct();
 
+    //lekérdezi a kijelző oszlopainak/sorainak számát
     int originalnumberofcolumns();
     int originalnumberofrows();
+    //lekérdezi a pixelek számát
     int numberofPixels();
 
+    //egérműveletek lekezelését szolgáló függvények
     void mousePressEvent(QGraphicsSceneMouseEvent *e);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *e);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *e);
 
+    //az adott indexű pixelt a kapott paraméterekkel frissíti
     void updatePixel(int index, bool clear, QColor color);
 
+    //lekérdezi, hogy az adott indexű pixel ablakához mely indexű pixelek tartoznak
     QList<int> windowIndexes(int index);
 
+    //lekérdezi az adott indexű pixel színét
     QColor getColorofPixel(int index);
+
+    //beállítja/lekérdezi, hogy a kijelző aktuálisan pixelenként, vagy ablakonként módosítható
     void setWindowToggled(bool checked);
     bool getWindowToggled();
 
+    //lekérdezi a pixelméretet
     int getPixelSize();
+    //lekérdezi a kijelző szélességét lyukakkal, vagy anélkül
     int getWidth();
     int getOnlyPixelsWidth();
+    //lekérdezi a kijelző magasságát lyukakkal, vagy anélkül
     int getHeight();
     int getOnlyPixelsHeight();
+
+    //beállítja az aktív rajzeszközt
     void setActivePaintTool(PaintTool* tool);
 
+    //megállapítja, hogy egy adott koordinátán (vagy az egér pozíciójában) van-e pixel
     int pixelUnderMouse();
     int containsPoint(float x, float y);
+    //megkeresi a legközelebbi pixelt a megadott koordinátához, és visszatér annak indexével, vagy az őt definiáló téglalappal
     int nearestPixel(float x, float y);
     QRect nearestPixelRect(float x, float y);
+    //lekérdezi a megadott indexű pixelt definiáló téglalapot
     QRect getPixelRect(int index);    
 
+    //beállítja a kijelző oszlopainak/sorainak számát
     void setoriginalnumberofcolumns();
     void setoriginalnumberofrows();
 

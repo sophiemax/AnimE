@@ -15,7 +15,6 @@ class VideoConverterTool;
 class ImportTool;
 class ExportTool;
 class PixelScene;
-
 class PlayTool;
 class PaintTool;
 

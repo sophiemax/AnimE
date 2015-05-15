@@ -9,17 +9,21 @@ class PlayTool : public QObject
     Q_OBJECT
 
 public:
+    //a playtool létrehozása a megfelelő controller pointerrel
     PlayTool(Controller *c);
-
     ~PlayTool();
 
+    //lejátszás elindítását szolgáló függvény
     void play();
 
 public slots:
+    //a kijelző frissítését szolgáló slot
     void updateScene();
+    //a slider frissítésére szolgáló slot
     void updateSlider();
 
 signals:
+    //a slider számára singal, ha a pozíció változott
     void positionChanged(int position);
 private:
     //módosítások lekommunikálásához

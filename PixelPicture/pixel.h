@@ -13,7 +13,9 @@ class Pixel : public QGraphicsItem
 public:
     Pixel();
 
+    //visszaadja a pixelt definiáló téglalapot
     QRectF boundingRect() const;
+    //kirajzolja a megfelelő helyre a pixelt
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     ~Pixel();
 

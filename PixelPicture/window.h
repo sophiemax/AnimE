@@ -11,6 +11,7 @@ class Pixel;
 class Window
 {
 public:
+    //ablak létrehozása
     Window();
     ~Window();
 
