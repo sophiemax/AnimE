@@ -27,7 +27,16 @@ void EllipseTool::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     endPoint = event->scenePos();
     if(startPoint!=endPoint)
+    {
+        if(!fillable)
+        {
         drawPixelEllipse();
+        }
+        else
+        {
+            drawFillableEllipse();
+        }
+    }
 }
 
 void EllipseTool::drawPixelEllipse()

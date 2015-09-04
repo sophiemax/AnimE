@@ -570,3 +570,10 @@ void MainWindow::on_actionPlay_triggered()
 {
     controller->playAnimation ();
 }
+
+void MainWindow::on_fillCheck_toggled(bool checked)
+{
+    ellipse->toggleFilled(checked);
+    line->toggleFilled(checked);
+    QTextStream(stdout)<< "asd"<< endl;
+}
