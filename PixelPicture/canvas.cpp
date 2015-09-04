@@ -190,13 +190,14 @@ void Canvas::removeActiveLayer()
         layers.removeAt(index);
         delete activeLayer;
         activeLayer = layers[index-1];
-    }
+    }    
     updateCombined();
 }
 
 void Canvas::addLayer(int index)
 {
     Layer *l = new Layer(originalnumberofcolumns, originalnumberofrows);
+    l->initialize();
     activeLayer = l;
     layers.insert(index,l);
 }
@@ -273,17 +274,23 @@ int Canvas::getLayerSize()
 void Canvas::updateCombined()
 {
     for(int index = 0; index < originalnumberofcolumns * originalnumberofrows; index++)
+    {
+        QTextStream(stdout) << index << endl;
         updateCombinedLayer(index);
+    }
 }
 
 void Canvas::updateCombinedLayer(int index)
 {
+    QTextStream(stdout) << "blu" << endl;
     if(!activeLayer->isPixelClear(index) && !activeLayer->getTransparency())
     {
+        QTextStream(stdout) << "itt" << endl;
         combinedLayer->setColorofPixel(index,activeLayer->getColorofPixel(index));
     }
     else
     {
+        QTextStream(stdout) << "ott" << endl;
         int i = 0;
         while(i<layers.size() && (layers[i]->isPixelClear(index) || layers[i]->getTransparency()))
             i++;
