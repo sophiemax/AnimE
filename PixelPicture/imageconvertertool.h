@@ -69,7 +69,7 @@ public:
     bool blackisclear = false;
 
 private:
-    //pixelméret, kijelző szélessége és magassága
+    //pixelméret, kijelző oszlopainak és sorainak száma
     int size, x, y;
     //módosítások kommunikálásához
     Controller *controller;
