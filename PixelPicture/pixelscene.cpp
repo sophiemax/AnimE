@@ -1,5 +1,4 @@
 #include "pixelscene.h"
-#include <QTextStream>
 
 PixelScene::PixelScene(QObject *parent) :
     QGraphicsScene(parent)
@@ -35,6 +34,12 @@ PixelScene::PixelScene(QObject *parent) :
     onlypixelsheight = pixelSize * windowHeight * windowYNumber;
     width = onlypixelswidth + gapWidth * (windowXNumber-1);
     height = onlypixelsheight + gapHeight * (windowYNumber-1);
+    QTextStream(stdout) << "Onlypixels:" << endl;
+    QTextStream(stdout) << onlypixelswidth << endl;
+    QTextStream(stdout) << onlypixelsheight << endl;
+    QTextStream(stdout) << "Whole image:" << endl;
+    QTextStream(stdout) << width << endl;
+    QTextStream(stdout) << height << endl;
 }
 
 PixelScene::~PixelScene()
@@ -77,9 +82,6 @@ void PixelScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *e)
 
 void PixelScene::updatePixel(int index, bool clear, QColor color)
 {
-    QTextStream(stdout) << index << endl;
-    QTextStream(stdout) << pixels[index]->rect.x() << endl;
-    QTextStream(stdout) << pixels[index]->rect.y() << endl;
     if(clear)
         pixels[index]->brush->setColor(Qt::black);
     else

@@ -159,6 +159,7 @@ void ImageConverterTool::centerConvert(QImage image)
 
 void ImageConverterTool::onlypixelscenterConvert(QImage image)
 {
+    QTextStream(stdout) << image.size().width() << ";" << image.size().height() << endl;
     for(int i = 0; i<x; i++)
     {
         int left = i*size;
@@ -171,6 +172,8 @@ void ImageConverterTool::onlypixelscenterConvert(QImage image)
             QColor color = image.pixel(rect.center().x(),rect.center().y());
 
             setColorofPixel(index, color);
+
+            //QTextStream(stdout) << "left: " << left << " top: " << top << endl;
         }
     }
 }
