@@ -475,6 +475,7 @@
    <addaction name="actionCopy_Frame"/>
    <addaction name="separator"/>
    <addaction name="actionPlay"/>
+   <addaction name="actionPause"/>
    <addaction name="separator"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -638,6 +639,18 @@
    </property>
    <property name="text">
     <string>Play</string>
+   </property>
+  </action>
+  <action name="actionPause">
+   <property name="icon">
+    <iconset resource="uiresources.qrc">
+     <normaloff>:/icon/icons/Pause-32.png</normaloff>:/icon/icons/Pause-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Pause</string>
+   </property>
+   <property name="toolTip">
+    <string>Pause</string>
    </property>
   </action>
  </widget>

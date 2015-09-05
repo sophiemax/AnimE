@@ -576,3 +576,8 @@ void MainWindow::on_fillCheck_toggled(bool checked)
     ellipse->toggleFilled(checked);
     line->toggleFilled(checked);
 }
+
+void MainWindow::on_actionPause_triggered()
+{
+    controller->pauseAnimation();
+}

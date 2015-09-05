@@ -617,3 +617,8 @@ void Controller::playAnimation()
     playTool->play();
 }
 
+void Controller::pauseAnimation()
+{
+    playTool->Pause();
+}
+

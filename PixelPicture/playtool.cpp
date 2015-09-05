@@ -21,6 +21,11 @@ void PlayTool::play()
     updateScene();
 }
 
+void PlayTool::Pause()
+{
+    timer.stop();
+}
+
 void PlayTool::updateScene()
 {
     if (i < controller->numberofFrames())

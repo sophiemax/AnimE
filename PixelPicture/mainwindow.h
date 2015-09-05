@@ -113,6 +113,8 @@ private slots:
 
     void on_fillCheck_toggled(bool checked);
 
+    void on_actionPause_triggered();
+
 private:
     Ui::MainWindow *ui;
     ImportSettings *settings;
