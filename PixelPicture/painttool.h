@@ -20,6 +20,7 @@ public:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) = 0;
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event) = 0;
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) = 0;
+    virtual void toggleFilled(bool state);
 
     void setController(Controller *c);
 
@@ -28,6 +29,8 @@ protected:
     QPointF startPoint, endPoint;
     //módosítások lekommunikálásához
     Controller *controller;
+    //be van-e nyomva a fillable RadioButton
+    bool fillable;
 };
 
 #endif // PAINTTOOL_H

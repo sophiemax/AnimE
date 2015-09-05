@@ -25,7 +25,16 @@ void LineTool::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     endPoint = event->scenePos();
     if(startPoint != endPoint)
+    {
+        if(!fillable)
+        {
         drawPixelLine();
+        }
+        else
+        {
+            drawFillablePixelLine();
+        }
+    }
 }
 
 void LineTool::drawPixelLine()

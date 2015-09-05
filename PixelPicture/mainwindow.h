@@ -111,6 +111,8 @@ private slots:
 
     void on_actionPlay_triggered();
 
+    void on_fillCheck_toggled(bool checked);
+
 private:
     Ui::MainWindow *ui;
     ImportSettings *settings;

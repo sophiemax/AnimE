@@ -190,13 +190,14 @@ void Canvas::removeActiveLayer()
         layers.removeAt(index);
         delete activeLayer;
         activeLayer = layers[index-1];
-    }
+    }    
     updateCombined();
 }
 
 void Canvas::addLayer(int index)
 {
     Layer *l = new Layer(originalnumberofcolumns, originalnumberofrows);
+    l->initialize();
     activeLayer = l;
     layers.insert(index,l);
 }
@@ -273,11 +274,14 @@ int Canvas::getLayerSize()
 void Canvas::updateCombined()
 {
     for(int index = 0; index < originalnumberofcolumns * originalnumberofrows; index++)
+    {
         updateCombinedLayer(index);
+    }
 }
 
 void Canvas::updateCombinedLayer(int index)
 {
+
     if(!activeLayer->isPixelClear(index) && !activeLayer->getTransparency())
     {
         combinedLayer->setColorofPixel(index,activeLayer->getColorofPixel(index));

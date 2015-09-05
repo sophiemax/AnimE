@@ -34,6 +34,12 @@ PixelScene::PixelScene(QObject *parent) :
     onlypixelsheight = pixelSize * windowHeight * windowYNumber;
     width = onlypixelswidth + gapWidth * (windowXNumber-1);
     height = onlypixelsheight + gapHeight * (windowYNumber-1);
+    QTextStream(stdout) << "Onlypixels:" << endl;
+    QTextStream(stdout) << onlypixelswidth << endl;
+    QTextStream(stdout) << onlypixelsheight << endl;
+    QTextStream(stdout) << "Whole image:" << endl;
+    QTextStream(stdout) << width << endl;
+    QTextStream(stdout) << height << endl;
 }
 
 PixelScene::~PixelScene()

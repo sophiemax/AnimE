@@ -6,6 +6,7 @@
 #include "pixel.h"
 #include "window.h"
 #include "painttool.h"
+#include <float.h>
 
 class PaintTool;
 

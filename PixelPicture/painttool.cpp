@@ -15,3 +15,8 @@ void PaintTool::setController(Controller *c)
     controller = c;
 }
 
+void PaintTool::toggleFilled(bool c)
+{
+    fillable = c;
+}
+
