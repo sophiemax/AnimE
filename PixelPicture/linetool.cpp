@@ -50,9 +50,6 @@ void LineTool::drawFillablePixelLine()
     int endX = endIndex % (controller->originalnumberofcolumns());
     int endY = endIndex / (controller->originalnumberofcolumns());
 
-
-    QTextStream(stdout) << "Batman: "<< startIndex<< " % "<< (controller->originalnumberofcolumns()) << " = " << startX << endl;
-
     //Számoláshoz szükséges részeredmények:
     int deltaX = (endX-startX);
     int deltaY = (endY-startY);
@@ -63,10 +60,6 @@ void LineTool::drawFillablePixelLine()
     }
     float length = sqrtf(deltaX*deltaX + deltaY*deltaY);
 
-
-    QTextStream(stdout) << "This \"wants\" to be interesting: "<< deltaX<< " , "<< deltaY << endl;
-    QTextStream(stdout) << "Start: "<< startIndex<< " ,end "<< endIndex << endl;
-
     //Az iterálás során egy iterációval megtett távolság:
     float precision = 1.0;
     float direction = (deltaX==0) ? (deltaY/abs(deltaY)) : (deltaX/abs(deltaX));
@@ -76,7 +69,6 @@ void LineTool::drawFillablePixelLine()
     while(fabs(distance) <= length)
     {
 
-        QTextStream(stdout) << "For the king: "<< distance<< " <= "<< length << endl;
         float x, y;
         //Ki kell szűrni a függőleges vonalat, mert nem tudunk 0-val osztani.
         if(deltaX == 0)
@@ -90,7 +82,6 @@ void LineTool::drawFillablePixelLine()
             x =startX + direction * sqrtf( distance*distance/(1 + m*m) );
             y =startY + (x - startX)*m;
         }
-        QTextStream(stdout) << "    -and also: "<< x<< " ... "<< y << endl;
 
         int xId = x;
         int yId = y;

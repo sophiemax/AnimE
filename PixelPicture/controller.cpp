@@ -17,6 +17,8 @@ Controller::Controller(PixelScene *s)
     exporter = new ExportTool(this);
     importer = new ImportTool(this);
 
+    playTool = new PlayTool(this);
+
     nameList << "originalnumberofrows" << "originalnumberofcolumns"; //0,1
     nameList << "animation" << "timesum" << "animationname"; //2,3,4
     nameList << "frame" << "timespan" << "framename"; //5,6,7

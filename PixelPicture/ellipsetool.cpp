@@ -91,8 +91,6 @@ void EllipseTool::drawFillableEllipse()
     float a = abs(endPixel.x()-startPixel.x())/2.0;
     float b = abs(endPixel.y()-startPixel.y())/2.0;
 
-    QTextStream(stdout) << "Alapadatok: Center- " << centerX << " , " << centerY << "Radius a: "<< a <<" b: "<< b << endl;
-
     //legközelebbi pixel keresése:
     QRect bottom = controller->nearestPixelRect(centerX, centerY + b);
     QRect top = controller->nearestPixelRect(centerX, centerY - b);
@@ -104,8 +102,6 @@ void EllipseTool::drawFillableEllipse()
     int topIndex = controller->containsPoint(top.x(),top.y());
     int leftIndex = controller->containsPoint(left.x(),left.y());
     int rightIndex = controller->containsPoint(right.x(),right.y());
-
-    QTextStream(stdout) << "A kiszámolt indexek: top-" << topIndex << " bottom-"<<bottomIndex << " left-"<<leftIndex << " right-"<<rightIndex  << endl;
 
     //Ezek után csak a pixelindexeket használva rajzolunk ki egy ellipszist (nem figyelve az ablakok közti résekre)
     int ellipseA = abs(rightIndex - leftIndex)/2;
@@ -125,9 +121,6 @@ void EllipseTool::drawFillableEllipse()
         //A pixelsceneben lévő index kiszámolása.
         int pixelIndex = startIndex + x + y*(controller->originalnumberofcolumns());
         //centerindex = startIndex + ellipseA + ellipseB*oszlopszám
-
-
-        QTextStream(stdout) << "Drawing at index: "<< pixelIndex << endl;
 
         int index = pixelIndex;//controller->containsPoint(x,y);
         if(index != -1)

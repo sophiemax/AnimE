@@ -1,5 +1,4 @@
 #include "pixelscene.h"
-#include <QTextStream>
 
 PixelScene::PixelScene(QObject *parent) :
     QGraphicsScene(parent)
@@ -77,9 +76,6 @@ void PixelScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *e)
 
 void PixelScene::updatePixel(int index, bool clear, QColor color)
 {
-    QTextStream(stdout) << index << endl;
-    QTextStream(stdout) << pixels[index]->rect.x() << endl;
-    QTextStream(stdout) << pixels[index]->rect.y() << endl;
     if(clear)
         pixels[index]->brush->setColor(Qt::black);
     else
