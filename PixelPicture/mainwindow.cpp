@@ -581,3 +581,8 @@ void MainWindow::on_actionPause_triggered()
 {
     controller->pauseAnimation();
 }
+
+void MainWindow::on_actionStop_triggered()
+{
+    controller->stopAnimation();
+}

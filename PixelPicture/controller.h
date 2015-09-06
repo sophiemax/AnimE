@@ -191,6 +191,9 @@ public:
     //animáció megállítása
     void pauseAnimation();
 
+    //animáció leállítása
+    void stopAnimation();
+
 private:
     //a kijelzőpixelek megjelenítéséhez, adatok lekéréséhez és módosításához
     PixelScene *scene;

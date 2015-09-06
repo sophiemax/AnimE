@@ -622,3 +622,8 @@ void Controller::pauseAnimation()
     playTool->Pause();
 }
 
+void Controller::stopAnimation()
+{
+    playTool->Stop();
+}
+

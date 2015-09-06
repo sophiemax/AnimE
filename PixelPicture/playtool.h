@@ -19,6 +19,9 @@ public:
     //lejátszás megállítását szolgáló függvény
     void Pause();
 
+    //lejátszás leállítását szolgáló függvény
+    void Stop();
+
 public slots:
     //a kijelző frissítését szolgáló slot
     void updateScene();
