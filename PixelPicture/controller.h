@@ -194,6 +194,8 @@ public:
     //animáció leállítása
     void stopAnimation();
 
+    PlayTool* getPlayTool();
+
 private:
     //a kijelzőpixelek megjelenítéséhez, adatok lekéréséhez és módosításához
     PixelScene *scene;

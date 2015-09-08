@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "playtool.h"
 #include <QIcon>
 #include <QFileDialog>
 #include <QMessageBox>
@@ -45,6 +46,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     scene->setActivePaintTool(pen);
 
+    PlayTool *playTool = controller->getPlayTool();
+
     renamelayer = new RenameLayer(this);
 
     createLayerDisplay();
@@ -52,7 +55,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(renamelayer, &RenameLayer::accepted, this, &MainWindow::changeName);
     connect(renamelayer, &RenameLayer::rejected, this, &MainWindow::leaveName);
 
-    //connect(animationtool, &AnimationPaintTool::positionChanged, this, &MainWindow::animationSliderUpdate);
+
+    connect(playTool, &PlayTool::positionChanged, this, &MainWindow::animationSliderUpdate);
 
 }
 
@@ -199,7 +203,9 @@ void MainWindow::on_secondaryColorButton_clicked()
 
 void MainWindow::animationSliderUpdate(int time)
 {
-    on_animationSlider_valueChanged(time/controller->getTimesum()*100);
+    //on_animationSlider_valueChanged(time/controller->getTimesum()*100);
+    int val = time/controller->getTimesum()*100-1;
+    ui->animationSlider->setValue(val);
 }
 
 void MainWindow::on_clearLayerButton_clicked()

@@ -627,3 +627,8 @@ void Controller::stopAnimation()
     playTool->Stop();
 }
 
+PlayTool* Controller::getPlayTool()
+{
+    return playTool;
+}
+

@@ -149,6 +149,8 @@ private:
     QList<QPushButton*> layerbuttons;
     QList<QPushButton*> transparencybuttons;
 
+    PlayTool *play;
+
     //a layerek megjelenítését létrehozó, illetve frissítő függvények
     void createLayerDisplay();
     void clearLayerDisplay();
