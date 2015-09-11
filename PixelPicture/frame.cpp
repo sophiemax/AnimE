@@ -248,3 +248,13 @@ int Frame::getLayerSize()
 {
     return canvas->getLayerSize();
 }
+
+float Frame::getFrametime()
+{
+    return timespan();
+}
+
+void Frame::setFrametime(float time)
+{
+    timespan = time;
+}

@@ -103,6 +103,10 @@ public:
     //lekérdezi a layer méretét
     int getLayerSize();
 
+    // Frame időtartamának beállítására és lekérésére szolgáló függvények
+    float getFrametime();
+    void setFrametime(float time);
+
 private:
 
     //a frame időtartama
