@@ -410,6 +410,16 @@ void MainWindow::on_animationSlider_valueChanged(int position)
             s.prepend("0");
     QString label(m + ":" + s + ":" + ms);
     ui->animationLabel->setText(label);
+
+    //Current frametime label frissítése
+    int frameIndex = controller->getActiveFrameIndex();
+
+    float f = controller->getTimespan(frameIndex);
+
+    QString base = QString("Current Frametime: ");
+    QString val = QString::number(f, 'f', 0);
+    base.append(val);
+    ui->curFrameTimeLabel->setText(base);
 }
 
 void MainWindow::on_moveUpButton_clicked()
@@ -601,4 +611,11 @@ void MainWindow::on_frameTimeTB_editingFinished()
     controller->setTimespan(activeAnimationIndex, frameIndex, ui->frameTimeTB->text().toInt());
 
     controller->recalculateTimesum();
+
+    float f = controller->getTimespan(frameIndex);
+
+    QString base = QString("Current Frametime: ");
+    QString s = QString::number(f, 'f', 0);
+    base.append(s);
+    ui->curFrameTimeLabel->setText(base);
 }
