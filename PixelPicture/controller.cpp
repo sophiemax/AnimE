@@ -246,6 +246,11 @@ QString Controller::getAnimationName(int index)
     return animations[index]->getName();
 }
 
+int Controller::getActiveAnimationIndex()
+{
+    return animations.indexOf(activeAnimation);
+}
+
 void Controller::setLayerTransparency(bool t)
 {
     activeAnimation->setLayerTransparency(t);
@@ -630,5 +635,13 @@ void Controller::stopAnimation()
 PlayTool* Controller::getPlayTool()
 {
     return playTool;
+}
+
+void Controller::recalculateTimesum()
+{
+    foreach(Animation *a, animations)
+    {
+        a->recalTimesum();
+    }
 }
 

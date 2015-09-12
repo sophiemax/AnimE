@@ -592,3 +592,13 @@ void MainWindow::on_actionStop_triggered()
 {
     controller->stopAnimation();
 }
+
+void MainWindow::on_frameTimeTB_editingFinished()
+{
+    //lekérjük az active animation indexét, ill active frame indexét, és az alapján beállítjuk az aktív frame timespanjét
+    int activeAnimationIndex = controller->getActiveAnimationIndex();
+    int frameIndex = controller->getActiveFrameIndex();
+    controller->setTimespan(activeAnimationIndex, frameIndex, ui->frameTimeTB->text().toInt());
+
+    controller->recalculateTimesum();
+}

@@ -82,6 +82,9 @@ public:
     void setAnimationName(int index, QString s);
     QString getAnimationName(int index);
 
+    int getActiveAnimationIndex();
+
+
     //beállítja egy layer láthatóságát
     void setLayerTransparency(bool t);
     void setLayerTransparency(int animationindex, int frameindex, int layerindex, bool t);
@@ -195,6 +198,8 @@ public:
     void stopAnimation();
 
     PlayTool* getPlayTool();
+
+    void recalculateTimesum();
 
 private:
     //a kijelzőpixelek megjelenítéséhez, adatok lekéréséhez és módosításához

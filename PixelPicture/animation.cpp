@@ -385,3 +385,11 @@ int Animation::getLayerSize()
     return activeFrame->getLayerSize();
 }
 
+void Animation::recalTimesum()
+{
+    timesum = 0;
+    foreach (Frame *f, frames) {
+        timesum += f->getTimespan();
+    }
+}
+

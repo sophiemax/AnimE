@@ -114,6 +114,11 @@ public:
     //for debugging
     int getLayerSize();
 
+    //animation timesum újraszámolása
+    //frame timespan állíthatósága miatt kell
+    void recalTimesum();
+
+
 private:
     //az animáció összhossza
     float timesum = 0;

@@ -117,6 +117,8 @@ private slots:
 
     void on_actionStop_triggered();
 
+    void on_frameTimeTB_editingFinished();
+
 private:
     Ui::MainWindow *ui;
     ImportSettings *settings;
