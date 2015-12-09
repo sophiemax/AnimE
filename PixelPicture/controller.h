@@ -4,6 +4,7 @@
 #include "pixelscene.h"
 #include "animation.h"
 #include "imageconvertertool.h"
+#include "colorconvertertool.h"
 #include "videoconvertertool.h"
 #include "importtool.h"
 #include "exporttool.h"
@@ -11,6 +12,7 @@
 #include "painttool.h"
 
 class ImageConverterTool;
+class ColorConverterTool;
 class VideoConverterTool;
 class ImportTool;
 class ExportTool;
@@ -217,6 +219,7 @@ private:
 
     //kép- és videókonvertáló eszköz
     ImageConverterTool *imageconverter;
+    ColorConverterTool *colorconverter;
     VideoConverterTool *videoconverter;
 
     //export és import eszköz

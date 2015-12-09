@@ -12,6 +12,7 @@ Controller::Controller(PixelScene *s)
     animations.append(activeAnimation);
 
     imageconverter = new ImageConverterTool(this,getPixelSize(), originalnumberofcolumns(), originalnumberofrows());
+    colorconverter = new ColorConverterTool(this, numberofPixels());
     videoconverter = new VideoConverterTool(this);
 
     exporter = new ExportTool(this);

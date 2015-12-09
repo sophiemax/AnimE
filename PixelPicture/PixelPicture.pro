@@ -37,7 +37,8 @@ SOURCES += main.cpp\
     exporttool.cpp \
     importtool.cpp \
     playtool.cpp \
-    painttool.cpp
+    painttool.cpp \
+    colorconvertertool.cpp
 
 HEADERS  += mainwindow.h \
     pixel.h \
@@ -63,7 +64,8 @@ HEADERS  += mainwindow.h \
     exporttool.h \
     importtool.h \
     playtool.h \
-    painttool.h
+    painttool.h \
+    colorconvertertool.h
 
 FORMS    += mainwindow.ui \
     importsettings.ui \
