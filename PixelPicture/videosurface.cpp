@@ -32,7 +32,8 @@ bool VideoSurface::present(const QVideoFrame &frame)
                      imageFormat);
 
         int timespan = player->position() - videosum;
-        controller->addFrame(timespan);
+        if(!trim || (trim && videosum > from && videosum < to))
+            controller->addFrame(timespan);
         videosum += timespan;
 
         controller->importImage(image);
@@ -45,4 +46,11 @@ bool VideoSurface::present(const QVideoFrame &frame)
 void VideoSurface::reset()
 {
     videosum = 0.0;
+}
+
+void VideoSurface::settings(bool tr, int f, int t)
+{
+    trim = tr;
+    from = f * 1000;
+    to = t * 1000;
 }

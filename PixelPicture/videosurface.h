@@ -20,6 +20,7 @@ public:
 
     //új videó esetén a szükséges változókat nullába állítja
     void reset();
+    void settings(bool tr, int f, int t);
 
 private:
     //módosítások lekommunikálásához
@@ -29,6 +30,8 @@ private:
 
     //a videó eddigi hossza
     float videosum = 0.0;
+    bool trim;
+    int from, to;
 };
 
 #endif // VIDEOSURFACE_H

@@ -16,6 +16,7 @@
 #include "pixel.h"
 #include "importsettings.h"
 #include "renamelayer.h"
+#include "videoconvertersettings.h"
 #include "controller.h"
 #include "pentool.h"
 #include "erasertool.h"
@@ -127,6 +128,7 @@ private:
     Ui::MainWindow *ui;
     ImportSettings *settings;
     RenameLayer *renamelayer;
+    VideoConverterSettings *videoSettings;
 
     //a kijelzőt megvalósító pixelscene
     PixelScene *scene;

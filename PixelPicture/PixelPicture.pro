@@ -38,7 +38,8 @@ SOURCES += main.cpp\
     importtool.cpp \
     playtool.cpp \
     painttool.cpp \
-    colorconvertertool.cpp
+    colorconvertertool.cpp \
+    videoconvertersettings.cpp
 
 HEADERS  += mainwindow.h \
     pixel.h \
@@ -65,11 +66,13 @@ HEADERS  += mainwindow.h \
     importtool.h \
     playtool.h \
     painttool.h \
-    colorconvertertool.h
+    colorconvertertool.h \
+    videoconvertersettings.h
 
 FORMS    += mainwindow.ui \
     importsettings.ui \
-    renamelayer.ui
+    renamelayer.ui \
+    videoconvertersettings.ui
 
 RESOURCES += \
     uiresources.qrc

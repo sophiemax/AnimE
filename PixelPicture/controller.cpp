@@ -490,9 +490,10 @@ void Controller::importImage(QImage image)
     imageconverter->convertImage(image);
 }
 
-void Controller::importVideo(QString fileName)
+void Controller::importVideo(QString fileName, bool trim, int from, int to)
 {
     videoconverter->reset();
+    videoconverter->settings(trim, from, to);
     videoconverter->setMedia(QUrl::fromLocalFile(fileName));
     videoconverter->start();
 }

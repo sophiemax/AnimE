@@ -22,6 +22,8 @@ public:
     //elindítja a player lejátszását
     void start();
 
+    void settings(bool trim, int from, int to);
+
 private:
     //módosítások lekommunikálásához
     Controller *controller;

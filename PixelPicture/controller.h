@@ -145,7 +145,7 @@ public:
 
     //kép illetve videó beimportálása
     void importImage(QImage image);
-    void importVideo(QString fileName);
+    void importVideo(QString fileName, bool trim, int from, int to);
 
     //megállapítja hogy egy adott koordinátán (vagy az egér pozíciójában) van e pixel.
     int pixelUnderMouse();

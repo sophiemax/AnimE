@@ -29,3 +29,10 @@ void VideoConverterTool::start()
     player->play();
 }
 
+void VideoConverterTool::settings(bool trim, int from, int to)
+{
+    trim = trim;
+    from = from;
+    to = to;
+}
+
