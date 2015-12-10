@@ -560,9 +560,12 @@ void MainWindow::on_actionImport_video_triggered()
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Image"), QString(),
                 tr("All (*.avi *.mkv *.mp4)"));
 
-    videoSettings = new VideoConverterSettings(this);
-    videoSettings->setModal(true);
-    videoSettings->exec();
+    if(!fileName.isEmpty())
+    {
+        videoSettings = new VideoConverterSettings(this);
+        videoSettings->setModal(true);
+        videoSettings->exec();
+    }
 
     if (!fileName.isEmpty() && videoSettings->import)
     {
