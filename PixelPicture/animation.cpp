@@ -402,5 +402,6 @@ void Animation::changeFrameSpeed(float speed)
         time = f->getTimespan();
         f->setTimespan(time * speed);
     }
+    timesum *= speed;
 }
 

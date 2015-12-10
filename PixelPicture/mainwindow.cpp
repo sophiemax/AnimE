@@ -645,5 +645,5 @@ void MainWindow::on_actionChange_Speed_triggered()
     speedchanger->exec();
 
     if(speedchanger->speed != 1.0)
-        controller->changeFrameSpeed(speed);
+        controller->changeFrameSpeed(speedchanger->speed);
 }

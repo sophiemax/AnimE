@@ -15,12 +15,12 @@ ChangeFrameSpeed::~ChangeFrameSpeed()
 
 void ChangeFrameSpeed::on_OKButton_clicked()
 {
-    speed = ui->speedLine->text.toFloat();
-    accept;
+    speed = ui->speedLine->text().toFloat();
+    accept();
 }
 
 void ChangeFrameSpeed::on_cancelButton_clicked()
 {
     speed = 1.0;
-    accept;
+    accept();
 }
