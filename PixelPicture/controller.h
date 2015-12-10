@@ -205,6 +205,8 @@ public:
 
     void recalculateTimesum();
 
+    void changeFrameSpeed(float speed);
+
 private:
     //a kijelzőpixelek megjelenítéséhez, adatok lekéréséhez és módosításához
     PixelScene *scene;

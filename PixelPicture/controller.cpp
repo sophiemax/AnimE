@@ -652,3 +652,8 @@ void Controller::recalculateTimesum()
     }
 }
 
+void Controller::changeFrameSpeed(float speed)
+{
+    activeAnimation->changeFrameSpeed(speed);
+}
+

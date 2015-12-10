@@ -120,6 +120,7 @@ public:
     //frame timespan állíthatósága miatt kell
     void recalTimesum();
 
+    void changeFrameSpeed(float speed);
 
 private:
     //az animáció összhossza

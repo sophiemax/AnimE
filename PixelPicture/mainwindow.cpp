@@ -637,3 +637,13 @@ void MainWindow::on_actionRewind_triggered()
 {
     controller->fastForward(-3.0);
 }
+
+void MainWindow::on_actionChange_Speed_triggered()
+{
+    speedchanger = new ChangeFrameSpeed(this);
+    speedchanger->setModal(true);
+    speedchanger->exec();
+
+    if(speedchanger->speed != 1.0)
+        controller->changeFrameSpeed(speed);
+}

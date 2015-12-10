@@ -50,7 +50,7 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset resource="uiresources.qrc">
+     <iconset>
       <normaloff>:/icon/icons/Window Pixel-32.png</normaloff>
       <normalon>:/icon/icons/Window Full-32.png</normalon>
       <disabledoff>:/icon/icons/Window Pixel-32.png</disabledoff>
@@ -90,7 +90,7 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset resource="uiresources.qrc">
+     <iconset>
       <normaloff>:/icon/icons/Clear-32.png</normaloff>:/icon/icons/Clear-32.png</iconset>
     </property>
     <property name="iconSize">
@@ -156,7 +156,7 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset resource="uiresources.qrc">
+     <iconset>
       <normaloff>:/icon/icons/Plus Math-32.png</normaloff>:/icon/icons/Plus Math-32.png</iconset>
     </property>
    </widget>
@@ -176,7 +176,7 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset resource="uiresources.qrc">
+     <iconset>
       <normaloff>:/icons/Delete Sign-32.png</normaloff>:/icons/Delete Sign-32.png</iconset>
     </property>
    </widget>
@@ -196,7 +196,7 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset resource="uiresources.qrc">
+     <iconset>
       <normaloff>:/icons/Rename-32.png</normaloff>:/icons/Rename-32.png</iconset>
     </property>
    </widget>
@@ -216,7 +216,7 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset resource="uiresources.qrc">
+     <iconset>
       <normaloff>:/icons/Move-Up-32.png</normaloff>:/icons/Move-Up-32.png</iconset>
     </property>
    </widget>
@@ -236,7 +236,7 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset resource="uiresources.qrc">
+     <iconset>
       <normaloff>:/icons/Move-Down-32.png</normaloff>:/icons/Move-Down-32.png</iconset>
     </property>
    </widget>
@@ -253,7 +253,7 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset resource="uiresources.qrc">
+     <iconset>
       <normaloff>:/icon/icons/Left Arrow-32.png</normaloff>:/icon/icons/Left Arrow-32.png</iconset>
     </property>
     <property name="shortcut">
@@ -273,7 +273,7 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset resource="uiresources.qrc">
+     <iconset>
       <normaloff>:/icon/icons/Up Arrow-32.png</normaloff>:/icon/icons/Up Arrow-32.png</iconset>
     </property>
     <property name="shortcut">
@@ -293,7 +293,7 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset resource="uiresources.qrc">
+     <iconset>
       <normaloff>:/icon/icons/Down Arrow-32.png</normaloff>:/icon/icons/Down Arrow-32.png</iconset>
     </property>
     <property name="shortcut">
@@ -313,7 +313,7 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset resource="uiresources.qrc">
+     <iconset>
       <normaloff>:/icon/icons/Right Arrow-32.png</normaloff>:/icon/icons/Right Arrow-32.png</iconset>
     </property>
     <property name="shortcut">
@@ -471,6 +471,7 @@
      <string>Animation</string>
     </property>
     <addaction name="actionPlay"/>
+    <addaction name="actionChange_speed"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuSelect_PaintTool"/>
@@ -515,12 +516,13 @@
    <addaction name="actionForward"/>
    <addaction name="actionPause"/>
    <addaction name="actionStop"/>
+   <addaction name="actionChange_Speed"/>
    <addaction name="separator"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOpen">
    <property name="icon">
-    <iconset resource="uiresources.qrc">
+    <iconset>
      <normaloff>:/icon/icons/Opened Folder-32.png</normaloff>:/icon/icons/Opened Folder-32.png</iconset>
    </property>
    <property name="text">
@@ -529,7 +531,7 @@
   </action>
   <action name="actionSave">
    <property name="icon">
-    <iconset resource="uiresources.qrc">
+    <iconset>
      <normaloff>:/icon/icons/Save-32.png</normaloff>:/icon/icons/Save-32.png</iconset>
    </property>
    <property name="text">
@@ -538,7 +540,7 @@
   </action>
   <action name="actionNew">
    <property name="icon">
-    <iconset resource="uiresources.qrc">
+    <iconset>
      <normaloff>:/icon/icons/File-32.png</normaloff>:/icon/icons/File-32.png</iconset>
    </property>
    <property name="text">
@@ -547,7 +549,7 @@
   </action>
   <action name="actionSaveAs">
    <property name="icon">
-    <iconset resource="uiresources.qrc">
+    <iconset>
      <normaloff>:/icon/icons/Save As-32.png</normaloff>:/icon/icons/Save As-32.png</iconset>
    </property>
    <property name="text">
@@ -559,7 +561,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="uiresources.qrc">
+    <iconset>
      <normaloff>:/icon/icons/Pencil-32.png</normaloff>:/icon/icons/Pencil-32.png</iconset>
    </property>
    <property name="text">
@@ -571,7 +573,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="uiresources.qrc">
+    <iconset>
      <normaloff>:/icon/icons/Eraser-32.png</normaloff>:/icon/icons/Eraser-32.png</iconset>
    </property>
    <property name="text">
@@ -583,7 +585,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="uiresources.qrc">
+    <iconset>
      <normaloff>:/icon/icons/Line-32.png</normaloff>:/icon/icons/Line-32.png</iconset>
    </property>
    <property name="text">
@@ -595,7 +597,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="uiresources.qrc">
+    <iconset>
      <normaloff>:/icon/icons/Rectangle Stroked-32.png</normaloff>:/icon/icons/Rectangle Stroked-32.png</iconset>
    </property>
    <property name="text">
@@ -607,7 +609,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="uiresources.qrc">
+    <iconset>
      <normaloff>:/icon/icons/Ellipse Stroked-32.png</normaloff>:/icon/icons/Ellipse Stroked-32.png</iconset>
    </property>
    <property name="text">
@@ -619,7 +621,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="uiresources.qrc">
+    <iconset>
      <normaloff>:/icon/icons/BG Color-32.png</normaloff>:/icon/icons/BG Color-32.png</iconset>
    </property>
    <property name="text">
@@ -628,7 +630,7 @@
   </action>
   <action name="actionImport_Picture">
    <property name="icon">
-    <iconset resource="uiresources.qrc">
+    <iconset>
      <normaloff>:/icons/Import-32.png</normaloff>:/icons/Import-32.png</iconset>
    </property>
    <property name="text">
@@ -637,7 +639,7 @@
   </action>
   <action name="actionImport_video">
    <property name="icon">
-    <iconset resource="uiresources.qrc">
+    <iconset>
      <normaloff>:/icon/icons/Film 2-32.png</normaloff>:/icon/icons/Film 2-32.png</iconset>
    </property>
    <property name="text">
@@ -646,7 +648,7 @@
   </action>
   <action name="actionImport_Settings">
    <property name="icon">
-    <iconset resource="uiresources.qrc">
+    <iconset>
      <normaloff>:/icons/View Details-32.png</normaloff>:/icons/View Details-32.png</iconset>
    </property>
    <property name="text">
@@ -655,7 +657,7 @@
   </action>
   <action name="actionNew_Frame">
    <property name="icon">
-    <iconset resource="uiresources.qrc">
+    <iconset>
      <normaloff>:/icon/icons/Add File-32.png</normaloff>:/icon/icons/Add File-32.png</iconset>
    </property>
    <property name="text">
@@ -664,7 +666,7 @@
   </action>
   <action name="actionCopy_Frame">
    <property name="icon">
-    <iconset resource="uiresources.qrc">
+    <iconset>
      <normaloff>:/icons/Copy-32.png</normaloff>:/icons/Copy-32.png</iconset>
    </property>
    <property name="text">
@@ -673,7 +675,7 @@
   </action>
   <action name="actionPlay">
    <property name="icon">
-    <iconset resource="uiresources.qrc">
+    <iconset>
      <normaloff>:/icon/icons/Play-32.png</normaloff>:/icon/icons/Play-32.png</iconset>
    </property>
    <property name="text">
@@ -682,7 +684,7 @@
   </action>
   <action name="actionPause">
    <property name="icon">
-    <iconset resource="uiresources.qrc">
+    <iconset>
      <normaloff>:/icon/icons/Pause-32.png</normaloff>:/icon/icons/Pause-32.png</iconset>
    </property>
    <property name="text">
@@ -716,10 +718,21 @@
     <string>Rewind</string>
    </property>
   </action>
+  <action name="actionChange_speed">
+   <property name="text">
+    <string>Change speed</string>
+   </property>
+  </action>
+  <action name="actionChange_Speed">
+   <property name="text">
+    <string>Change Speed</string>
+   </property>
+   <property name="toolTip">
+    <string>Change speed</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="uiresources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

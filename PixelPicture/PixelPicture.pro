@@ -39,7 +39,8 @@ SOURCES += main.cpp\
     playtool.cpp \
     painttool.cpp \
     colorconvertertool.cpp \
-    videoconvertersettings.cpp
+    videoconvertersettings.cpp \
+    changeframespeed.cpp
 
 HEADERS  += mainwindow.h \
     pixel.h \
@@ -67,12 +68,14 @@ HEADERS  += mainwindow.h \
     playtool.h \
     painttool.h \
     colorconvertertool.h \
-    videoconvertersettings.h
+    videoconvertersettings.h \
+    changeframespeed.h
 
 FORMS    += mainwindow.ui \
     importsettings.ui \
     renamelayer.ui \
-    videoconvertersettings.ui
+    videoconvertersettings.ui \
+    changeframespeed.ui
 
 RESOURCES += \
     uiresources.qrc

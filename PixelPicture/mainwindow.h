@@ -17,6 +17,7 @@
 #include "importsettings.h"
 #include "renamelayer.h"
 #include "videoconvertersettings.h"
+#include "changeframespeed.h"
 #include "controller.h"
 #include "pentool.h"
 #include "erasertool.h"
@@ -124,11 +125,14 @@ private slots:
 
     void on_actionRewind_triggered();
 
+    void on_actionChange_Speed_triggered();
+
 private:
     Ui::MainWindow *ui;
     ImportSettings *settings;
     RenameLayer *renamelayer;
     VideoConverterSettings *videoSettings;
+    ChangeFrameSpeed *speedchanger;
 
     //a kijelzőt megvalósító pixelscene
     PixelScene *scene;

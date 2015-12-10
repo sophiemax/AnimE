@@ -388,8 +388,19 @@ int Animation::getLayerSize()
 void Animation::recalTimesum()
 {
     timesum = 0;
-    foreach (Frame *f, frames) {
+    foreach (Frame *f, frames)
+    {
         timesum += f->getTimespan();
+    }
+}
+
+void Animation::changeFrameSpeed(float speed)
+{
+    float time;
+    foreach(Frame *f, frames)
+    {
+        time = f->getTimespan();
+        f->setTimespan(time * speed);
     }
 }
 
