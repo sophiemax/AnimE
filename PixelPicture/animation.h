@@ -43,6 +43,8 @@ public:
     void setTimesum(float t);
     void setTimespan(int index, float t);
     float getTimesum();
+
+    // asd
     float getTimespan(int index);
     float getCurrentTime();
     int getActiveFrameIndex();

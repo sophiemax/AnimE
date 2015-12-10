@@ -510,7 +510,9 @@
    <addaction name="actionNew_Frame"/>
    <addaction name="actionCopy_Frame"/>
    <addaction name="separator"/>
+   <addaction name="actionRewind"/>
    <addaction name="actionPlay"/>
+   <addaction name="actionForward"/>
    <addaction name="actionPause"/>
    <addaction name="actionStop"/>
    <addaction name="separator"/>
@@ -696,6 +698,22 @@
    </property>
    <property name="toolTip">
     <string>Stop</string>
+   </property>
+  </action>
+  <action name="actionForward">
+   <property name="text">
+    <string>Forward</string>
+   </property>
+   <property name="toolTip">
+    <string>Fast Forward</string>
+   </property>
+  </action>
+  <action name="actionRewind">
+   <property name="text">
+    <string>Rewind</string>
+   </property>
+   <property name="toolTip">
+    <string>Rewind</string>
    </property>
   </action>
  </widget>

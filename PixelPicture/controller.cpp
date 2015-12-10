@@ -633,6 +633,11 @@ void Controller::stopAnimation()
     playTool->Stop();
 }
 
+void Controller::fastForward(float f)
+{
+    playTool->playFastForward(f);
+}
+
 PlayTool* Controller::getPlayTool()
 {
     return playTool;

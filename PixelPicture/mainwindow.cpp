@@ -619,3 +619,13 @@ void MainWindow::on_frameTimeTB_editingFinished()
     base.append(s);
     ui->curFrameTimeLabel->setText(base);
 }
+
+void MainWindow::on_actionForward_triggered()
+{
+    controller->fastForward(3.0);
+}
+
+void MainWindow::on_actionRewind_triggered()
+{
+    controller->fastForward(-3.0);
+}

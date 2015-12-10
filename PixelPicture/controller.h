@@ -199,6 +199,8 @@ public:
     //animáció leállítása
     void stopAnimation();
 
+    void fastForward(float f);
+
     PlayTool* getPlayTool();
 
     void recalculateTimesum();

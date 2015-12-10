@@ -119,6 +119,10 @@ private slots:
 
     void on_frameTimeTB_editingFinished();
 
+    void on_actionForward_triggered();
+
+    void on_actionRewind_triggered();
+
 private:
     Ui::MainWindow *ui;
     ImportSettings *settings;

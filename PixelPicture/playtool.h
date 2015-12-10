@@ -22,6 +22,8 @@ public:
     //lejátszás leállítását szolgáló függvény
     void Stop();
 
+    //lejátszás sebességét beállítja
+    void playFastForward(float f);
 public slots:
     //a kijelző frissítését szolgáló slot
     void updateScene();
@@ -40,6 +42,8 @@ private:
     float timesum = 0.0;
     //időzítést megvalósító timer
     QTimer timer;
+    //a lejátszás sebességét állítja, ha negatív, akkor visszafelé játszuk le az animációt
+    float playSpeed = 1.0;
 };
 
 #endif // PLAYTOOL_H
