@@ -406,6 +406,12 @@ void Controller::setColorofPixelFill(int index)
     scene->updatePixel(index,false,primaryColor);
 }
 
+void Controller::setColorofPixelConverted(int index, QColor color)
+{
+    activeAnimation->setColorofPixel(index, color);
+    scene->updatePixel(index,false,color);
+}
+
 QColor Controller::getColorofPixel(int index)
 {
     return scene->getColorofPixel(index);
@@ -655,5 +661,10 @@ void Controller::recalculateTimesum()
 void Controller::changeFrameSpeed(float speed)
 {
     activeAnimation->changeFrameSpeed(speed);
+}
+
+void Controller::convertColor(ColorConverterOptions::Options option)
+{
+    colorconverter->convertColor(option);
 }
 

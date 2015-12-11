@@ -647,3 +647,13 @@ void MainWindow::on_actionChange_Speed_triggered()
     if(speedchanger->speed != 1.0)
         controller->changeFrameSpeed(speedchanger->speed);
 }
+
+void MainWindow::on_actionColorOptions_triggered()
+{
+    options = new ColorConverterOptions(this);
+    options->setModal(true);
+    options->exec();
+
+    if(!options->cancelled)
+        controller->convertColor(options->option);
+}

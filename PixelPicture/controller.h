@@ -10,6 +10,7 @@
 #include "exporttool.h"
 #include "playtool.h"
 #include "painttool.h"
+#include "colorconverteroptions.h"
 
 class ImageConverterTool;
 class ColorConverterTool;
@@ -19,6 +20,7 @@ class ExportTool;
 class PixelScene;
 class PlayTool;
 class PaintTool;
+class ColorConverterOptions;
 
 class Controller
 {
@@ -122,6 +124,7 @@ public:
     void setColorofPixel(int index);
     void setColorofPixel(int index, QColor color);
     void setColorofPixelFill(int index);
+    void setColorofPixelConverted(int index, QColor color);
     QColor getColorofPixel(int index);
     QColor getColorofPixel(int animationindex, int frameindex, int layerindex, int pixelindex);
     //festőszínek beállítása, lekérdezése
@@ -206,6 +209,8 @@ public:
     void recalculateTimesum();
 
     void changeFrameSpeed(float speed);
+
+    void convertColor(ColorConverterOptions::Options option);
 
 private:
     //a kijelzőpixelek megjelenítéséhez, adatok lekéréséhez és módosításához

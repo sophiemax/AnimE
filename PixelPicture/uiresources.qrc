@@ -31,6 +31,12 @@
         <file>icons/Picture-32.png</file>
         <file>icons/Settings-32.png</file>
         <file>icons/Anime_ikon.png</file>
+        <file>icons/Paint Palette-32.png</file>
+        <file>icons/Time-32.png</file>
+        <file>icons/Stop-32.png</file>
+        <file>icons/Rewind-32.png</file>
+        <file>icons/Fast Forward-32.png</file>
+        <file>icons/Eye Shadows-32.png</file>
     </qresource>
     <qresource prefix="/">
         <file>icons/Copy-32.png</file>
