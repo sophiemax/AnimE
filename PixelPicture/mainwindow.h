@@ -19,6 +19,7 @@
 #include "videoconvertersettings.h"
 #include "changeframespeed.h"
 #include "colorconverteroptions.h"
+#include "about.h"
 #include "controller.h"
 #include "pentool.h"
 #include "erasertool.h"
@@ -130,6 +131,8 @@ private slots:
 
     void on_actionColorOptions_triggered();
 
+    void on_actionAbout_triggered();
+
 private:
     Ui::MainWindow *ui;
     ImportSettings *settings;
@@ -137,6 +140,7 @@ private:
     VideoConverterSettings *videoSettings;
     ChangeFrameSpeed *speedchanger;
     ColorConverterOptions *options;
+    About *about;
 
     //a kijelzőt megvalósító pixelscene
     PixelScene *scene;

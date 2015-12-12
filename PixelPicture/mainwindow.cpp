@@ -24,6 +24,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     controller = new Controller(scene);
 
+    about = new About(this);
+
     activeAction = ui->actionPen;
     activeAction->setChecked(true);
 
@@ -656,4 +658,9 @@ void MainWindow::on_actionColorOptions_triggered()
 
     if(!options->cancelled)
         controller->convertColor(options->option);
+}
+
+void MainWindow::on_actionAbout_triggered()
+{
+    about->show();
 }

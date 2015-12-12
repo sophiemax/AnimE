@@ -37,6 +37,8 @@
         <file>icons/Rewind-32.png</file>
         <file>icons/Fast Forward-32.png</file>
         <file>icons/Eye Shadows-32.png</file>
+        <file>icons/Info-32.png</file>
+        <file>icons/Help-32.png</file>
     </qresource>
     <qresource prefix="/">
         <file>icons/Copy-32.png</file>

@@ -41,7 +41,8 @@ SOURCES += main.cpp\
     colorconvertertool.cpp \
     videoconvertersettings.cpp \
     changeframespeed.cpp \
-    colorconverteroptions.cpp
+    colorconverteroptions.cpp \
+    about.cpp
 
 HEADERS  += mainwindow.h \
     pixel.h \
@@ -71,14 +72,16 @@ HEADERS  += mainwindow.h \
     colorconvertertool.h \
     videoconvertersettings.h \
     changeframespeed.h \
-    colorconverteroptions.h
+    colorconverteroptions.h \
+    about.h
 
 FORMS    += mainwindow.ui \
     importsettings.ui \
     renamelayer.ui \
     videoconvertersettings.ui \
     changeframespeed.ui \
-    colorconverteroptions.ui
+    colorconverteroptions.ui \
+    about.ui
 
 RESOURCES += \
     uiresources.qrc
